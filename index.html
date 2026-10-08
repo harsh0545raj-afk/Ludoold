@@ -2641,6 +2641,28 @@
     }
   })();
 </script>
+  <style>
+  /* FIX HALF-HIDDEN 3D BOARD (Bring tilted board in front of background plane!) */
+  .hybrid-board-frame {
+    transform-style: flat !important;
+  }
+
+  body.trailer-3d-active .square-arena-box {
+    transform-origin: 50% 82% !important;
+    transform: perspective(850px) rotateX(26deg) translateZ(120px) scale(0.92) !important;
+    margin-top: -12px !important;
+    position: relative !important;
+    z-index: 50 !important;
+  }
+
+  /* Keep pawns standing straight up without stretching */
+  body.trailer-3d-active .board-live-token,
+  body.trailer-3d-active .ludo-live-token,
+  body.trailer-3d-active .yard-mini-pawn {
+    transform: translateY(-32%) scale(0.95) !important;
+  }
+  </style>
+  
   
   
 </body>
