@@ -2284,5 +2284,224 @@
       launchConfiguredMatch();
     }
   </script>
+  <!-- =========================================================
+     3D TRAILER GRAPHICS ENGINE: TILTED 3D TABLETOP, STANDING
+     GLOWING PAWNS, BREATHING VIPERS & CENTER FLYING 3D DICE
+     (Paste right above </body>)
+     ========================================================= -->
+<style>
+  /* 1. REMOVE BLACK SPACE & ENABLE 3D TABLETOP PERSPECTIVE */
+  .arena-stage {
+    perspective: 1100px !important;
+    padding: 4px !important;
+  }
+
+  .hybrid-board-frame {
+    height: auto !important;
+    max-height: 100% !important;
+    padding: 10px 8px !important;
+    background: radial-gradient(circle at 50% 30%, #0d1b38 0%, #03060e 90%) !important;
+    border: 3px solid #00f3ff !important;
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.95),
+      0 0 30px rgba(0, 243, 255, 0.45),
+      inset 0 0 25px rgba(0, 243, 255, 0.25) !important;
+  }
+
+  .wing-header,
+  .square-arena-box {
+    width: min(90vw, 53dvh, 460px) !important;
+  }
+
+  .square-arena-box {
+    height: min(90vw, 53dvh, 460px) !important;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s ease !important;
+    transform-style: preserve-3d !important;
+  }
+
+  /* 3D Tabletop Tilt Mode (Just like the Video Trailer!) */
+  body.trailer-3d-active .square-arena-box {
+    transform: rotateX(28deg) scale(0.96) !important;
+    border-bottom: 10px solid #0099aa !important;
+    border-right: 4px solid #00b8d4 !important;
+    border-left: 4px solid #00b8d4 !important;
+    box-shadow:
+      0 26px 35px rgba(0, 0, 0, 0.95),
+      0 10px 28px rgba(0, 243, 255, 0.55),
+      inset 0 0 28px rgba(0, 243, 255, 0.35) !important;
+  }
+
+  /* 2. STANDING 3D TRANSLUCENT CAPSULE PAWNS (LIKE VIDEO 1 & 2) */
+  .board-live-token, .ludo-live-token {
+    width: 22px !important;
+    height: 32px !important;
+    max-width: 24px !important;
+    max-height: 34px !important;
+    border-radius: 12px 12px 6px 6px !important;
+    border: 2px solid rgba(255, 255, 255, 0.95) !important;
+    transform: translateY(-28%) !important;
+    box-shadow:
+      0 8px 10px rgba(0, 0, 0, 0.85),
+      0 0 16px currentColor,
+      inset 0 4px 8px rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.45rem !important;
+    letter-spacing: -0.5px;
+    z-index: 35 !important;
+  }
+
+  /* Glowing Pawn Head Sphere */
+  .board-live-token::before, .ludo-live-token::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: inherit;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 10px #ffffff;
+  }
+
+  /* Glowing Neon Base Ring under Pawn */
+  .board-live-token::after, .ludo-live-token::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 26px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 12px #00f3ff;
+    opacity: 0.85;
+  }
+
+  .token-p1 { background: linear-gradient(180deg, rgba(185,246,202,0.95), rgba(0,230,118,0.88), rgba(0,100,40,0.95)) !important; color: #00220b !important; }
+  .token-p2 { background: linear-gradient(180deg, rgba(255,138,128,0.95), rgba(255,23,68,0.88), rgba(120,0,20,0.95)) !important; color: #ffffff !important; }
+  .token-p3 { background: linear-gradient(180deg, rgba(255,255,141,0.95), rgba(255,214,0,0.88), rgba(130,90,0,0.95)) !important; color: #261900 !important; }
+  .token-p4 { background: linear-gradient(180deg, rgba(180,255,255,0.95), rgba(0,229,255,0.88), rgba(0,80,110,0.95)) !important; color: #001f29 !important; }
+
+  @keyframes tokenHop {
+    0%   { transform: translateY(-28%) scale(1); }
+    50%  { transform: translateY(-85%) scale(1.35); filter: brightness(1.5); }
+    100% { transform: translateY(-28%) scale(1); }
+  }
+
+  /* 3. LIVING, BREATHING RADIOACTIVE 3D VIPERS */
+  @keyframes viperSlitherPulse {
+    0%   { filter: drop-shadow(0 8px 6px rgba(0,0,0,0.95)) drop-shadow(0 0 8px rgba(0,255,102,0.55)); transform: translateY(0px); }
+    100% { filter: drop-shadow(0 14px 10px rgba(0,0,0,0.95)) drop-shadow(0 0 18px rgba(0,255,102,0.95)); transform: translateY(-3px); }
+  }
+
+  .trailer-snake-3d {
+    animation: viperSlitherPulse 1.6s infinite alternate ease-in-out;
+  }
+
+  /* 4. CENTER BOARD 3D FLYING DICE + SHOCKWAVE RING (LIKE VIDEO 2) */
+  .center-flying-dice {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 64px;
+    height: 64px;
+    margin-left: -32px;
+    margin-top: -32px;
+    background: linear-gradient(135deg, #ffffff 0%, #b2ebf2 50%, #00e5ff 100%);
+    border: 3px solid #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.9), 0 0 35px #00f3ff, inset 0 0 14px #ffffff;
+    z-index: 95;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #021024;
+    pointer-events: none;
+  }
+
+  .center-flying-dice.fly-active {
+    display: flex;
+    animation: centerDiceThrow 0.42s cubic-bezier(0.17, 0.89, 0.32, 1.28) forwards;
+  }
+
+  @keyframes centerDiceThrow {
+    0%   { transform: translateY(120px) scale(0.4) rotate(0deg); opacity: 0; }
+    50%  { transform: translateY(-45px) scale(1.35) rotate(220deg); opacity: 1; }
+    100% { transform: translateY(0px) scale(1) rotate(360deg); opacity: 1; }
+  }
+</style>
+
+<script>
+  (function initTrailer3DEngine() {
+    // Turn ON 3D Tabletop Tilt by default!
+    document.body.classList.add('trailer-3d-active');
+
+    // Add a "🎥 3D View" Toggle Button in Top HUD so user can compare 3D vs 2D anytime
+    const hudGroups = document.querySelectorAll('.hud-group');
+    if (hudGroups[1]) {
+      const btn3d = document.createElement('button');
+      btn3d.className = 'cyber-btn';
+      btn3d.style.borderColor = '#00ff66';
+      btn3d.style.color = '#00ff66';
+      btn3d.innerHTML = '🎥 3D Tilt: ON';
+      btn3d.onclick = function() {
+        const is3D = document.body.classList.toggle('trailer-3d-active');
+        btn3d.innerHTML = is3D ? '🎥 3D Tilt: ON' : '🎥 3D Tilt: OFF';
+      };
+      hudGroups[1].insertBefore(btn3d, hudGroups[1].firstChild);
+    }
+
+    // Upgrade Snakes to 5 Clean, Ultra-Thick Translucent Radioactive Trailer Vipers (No Messy Overlap!)
+    if (typeof SNAKE_GEO_LIST !== 'undefined') {
+      SNAKE_GEO_LIST.length = 0;
+      SNAKE_GEO_LIST.push(
+        { head: 97, tail: 12, theme: 'emerald',   coils: 2.6, amp: 65, flip: 1,  scale: 1.22 },
+        { head: 88, tail: 36, theme: 'crimson',   coils: 2.2, amp: 58, flip: -1, scale: 1.15 },
+        { head: 67, tail: 24, theme: 'NeonGreen', coils: 2.0, amp: 54, flip: 1,  scale: 1.12 },
+        { head: 48, tail: 15, theme: 'purple',    coils: 1.8, amp: 48, flip: -1, scale: 1.05 },
+        { head: 32, tail: 6,  theme: 'gold',      coils: 1.5, amp: 42, flip: 1,  scale: 1.00 }
+      );
+      // Sync snakeMap with clean 5 Boss Vipers
+      Object.keys(snakeMap).forEach(k => delete snakeMap[k]);
+      SNAKE_GEO_LIST.forEach(s => { snakeMap[s.head] = s.tail; });
+      if (typeof render3DSnakesAndLadders === 'function') render3DSnakesAndLadders();
+    }
+
+    // Add Center-Board Flying 3D Dice Effect on every roll (Like Video 2!)
+    ['ludoBoardSquare', 'snakeBoardSquare'].forEach(id => {
+      const box = document.getElementById(id);
+      if (box && !box.querySelector('.center-flying-dice')) {
+        const d = document.createElement('div');
+        d.className = 'center-flying-dice';
+        d.innerHTML = '🎲';
+        box.appendChild(d);
+      }
+    });
+
+    const _origRoll = window.triggerCyberDiceRoll;
+    window.triggerCyberDiceRoll = async function(forcedRoll = null) {
+      const activeBox = isSnakesMode() ? document.getElementById('snakeBoardSquare') : document.getElementById('ludoBoardSquare');
+      const flyDice = activeBox ? activeBox.querySelector('.center-flying-dice') : null;
+      if (flyDice && !isTurnLocked) {
+        flyDice.classList.remove('fly-active');
+        void flyDice.offsetWidth;
+        flyDice.textContent = '🎲';
+        flyDice.classList.add('fly-active');
+        setTimeout(() => {
+          flyDice.textContent = document.getElementById('lastRollBadge').textContent || '6';
+        }, 360);
+        setTimeout(() => {
+          flyDice.classList.remove('fly-active');
+        }, 900);
+      }
+      await _origRoll(forcedRoll);
+    };
+  })();
+</script>
+  
 </body>
 </html>
