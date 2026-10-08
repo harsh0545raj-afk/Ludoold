@@ -2502,6 +2502,146 @@
     };
   })();
 </script>
+  <!-- =========================================================
+     TRUE 3D PERSPECTIVE FIX + ALL 4 PAWNS 3D CAPSULE MATCH +
+     TILE OVERLAP FAN-OUT FIX (Paste right above </body>)
+     ========================================================= -->
+<style>
+  /* 1. UNLOCK TRUE 3D CAMERA PERSPECTIVE (Remove 3D-killing overflow:hidden) */
+  .arena-stage {
+    perspective: 750px !important;
+    overflow: visible !important;
+  }
+
+  .hybrid-board-frame {
+    overflow: visible !important;
+    transform-style: preserve-3d !important;
+    background: radial-gradient(circle at 50% 25%, #0e2246 0%, #030710 92%) !important;
+    padding: 8px 6px 14px !important;
+  }
+
+  .wing-panel {
+    overflow: visible !important;
+    transform-style: preserve-3d !important;
+  }
+
+  /* True 3D Tabletop Tilt with Thick Glowing Cyber Slab Edge */
+  body.trailer-3d-active .square-arena-box {
+    overflow: visible !important;
+    transform-style: preserve-3d !important;
+    transform: perspective(680px) rotateX(34deg) scale(0.94) translateY(-4px) !important;
+    border: 2.5px solid #00f3ff !important;
+    border-bottom: 14px solid #007c91 !important;
+    border-right: 5px solid #00acc1 !important;
+    border-left: 5px solid #00acc1 !important;
+    border-radius: 14px !important;
+    box-shadow:
+      0 28px 38px rgba(0, 0, 0, 0.96),
+      0 14px 30px rgba(0, 243, 255, 0.65),
+      inset 0 0 25px rgba(0, 243, 255, 0.35) !important;
+  }
+
+  /* Counter-tilt standing pawns & snakes in 3D mode so they stand upright off the board! */
+  body.trailer-3d-active .board-live-token,
+  body.trailer-3d-active .ludo-live-token,
+  body.trailer-3d-active .yard-mini-pawn {
+    transform: translateY(-38%) scaleY(1.18) !important;
+    box-shadow:
+      0 12px 12px rgba(0, 0, 0, 0.92),
+      0 0 18px currentColor,
+      inset 0 4px 8px rgba(255, 255, 255, 0.85) !important;
+  }
+
+  /* 2. MAKE ALL 4 BASE PAWNS (.yard-mini-pawn) IDENTICAL 3D STANDING CAPSULES! */
+  .yard-mini-pawn,
+  .board-live-token,
+  .ludo-live-token {
+    width: 22px !important;
+    height: 32px !important;
+    max-width: 24px !important;
+    max-height: 34px !important;
+    border-radius: 12px 12px 6px 6px !important;
+    border: 2px solid rgba(255, 255, 255, 0.95) !important;
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-size: 0.45rem !important;
+    font-weight: 900 !important;
+    z-index: 35 !important;
+  }
+
+  .board-live-token, .ludo-live-token {
+    position: absolute !important;
+  }
+
+  /* Matching 3D Glowing Sphere Head on ALL 4 Pawns */
+  .yard-mini-pawn::before,
+  .board-live-token::before,
+  .ludo-live-token::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: inherit;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 10px #ffffff;
+  }
+
+  /* Matching Glowing Neon Ring Base under ALL 4 Pawns */
+  .yard-mini-pawn::after,
+  .board-live-token::after,
+  .ludo-live-token::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 26px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 12px #00f3ff;
+    opacity: 0.85;
+  }
+
+  /* 3. FAN-OUT TOKENS WHEN MULTIPLE PLAYERS SHARE THE SAME TILE (e.g., Tile 1) */
+  .matrix-tile > .board-live-token:nth-of-type(1) { margin-left: -7px; margin-top: -4px; z-index: 36 !important; }
+  .matrix-tile > .board-live-token:nth-of-type(2) { margin-left:  7px; margin-top: -4px; z-index: 37 !important; }
+  .matrix-tile > .board-live-token:nth-of-type(3) { margin-left: -7px; margin-top:  6px; z-index: 38 !important; }
+  .matrix-tile > .board-live-token:nth-of-type(4) { margin-left:  7px; margin-top:  6px; z-index: 39 !important; }
+</style>
+
+<script>
+  // Add Player Initials to the other 3 Base Pawns so all 4 Pawns in each Ludo Base look 100% identical!
+  (function syncAllFourBasePawns() {
+    function updateBasePawnLabels() {
+      if (typeof players === 'undefined') return;
+      players.forEach(p => {
+        const base = document.querySelector(`.ludo-base-p${p.id}`);
+        if (base) {
+          base.querySelectorAll('.yard-mini-pawn').forEach(mp => {
+            mp.className = `yard-mini-pawn ${p.cls}`;
+            mp.textContent = p.short.substring(0, 2);
+          });
+        }
+      });
+    }
+    updateBasePawnLabels();
+    const _origSpawn = window.spawnAllTokens;
+    if (_origSpawn) {
+      window.spawnAllTokens = function() {
+        _origSpawn();
+        updateBasePawnLabels();
+      };
+    }
+  })();
+</script>
+  
   
 </body>
 </html>
