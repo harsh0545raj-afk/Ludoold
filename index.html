@@ -2284,5 +2284,79 @@
       launchConfiguredMatch();
     }
   </script>
+  <!-- =========================================================
+     1. NEON OCEAN BACKGROUND (SAMUNDRA) 
+     2. NATIVE APP FEEL LOCK 
+     3. 3D BOARD CLIPPING FIX
+     (Paste exactly above </body> in your 2200 line code)
+     ========================================================= -->
+<style>
+  /* 1. NATIVE APP LOCK (Website jaisa scroll aur hilna band) */
+  html, body {
+    width: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+    position: fixed !important;
+    background-color: #02050b !important; /* Deep Dark Sea Blue/Black */
+  }
+
+  .arena-stage {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+  }
+
+  /* 2. THE CYBER OCEAN (Glowing Bioluminescent Waves in Background) */
+  body::before, body::after {
+    content: '';
+    position: fixed;
+    bottom: 0; 
+    left: -50vw;
+    width: 200vw;
+    height: 55vh; /* Samundra board ke piche niche wale hisse mein rahega */
+    z-index: -10;
+    pointer-events: none;
+    /* Cyan color ka glowing paani */
+    background: radial-gradient(ellipse at 50% 100%, rgba(0, 243, 255, 0.25) 0%, transparent 70%);
+    border-radius: 50% 50% 0 0;
+    animation: oceanBreathe 12s infinite alternate ease-in-out;
+  }
+  body::after {
+    height: 40vh;
+    left: -30vw;
+    /* Green color ki doosri wave layer */
+    background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 102, 0.15) 0%, transparent 70%);
+    animation: oceanBreathe2 15s infinite alternate-reverse ease-in-out;
+  }
+
+  /* Samundra ki lehron ka slow-motion movement */
+  @keyframes oceanBreathe {
+    0% { transform: translateX(0) scaleY(0.9); opacity: 0.6; }
+    100% { transform: translateX(8vw) scaleY(1.1); opacity: 1; }
+  }
+  @keyframes oceanBreathe2 {
+    0% { transform: translateX(12vw) scaleY(1.1); opacity: 0.5; }
+    100% { transform: translateX(-4vw) scaleY(0.85); opacity: 1; }
+  }
+
+  /* 3. FIX 3D BOARD CLIPPING (Board ko utha kar background se aage lana) */
+  .hybrid-board-frame {
+    transform-style: flat !important; 
+    overflow: visible !important;
+  }
+
+  body.trailer-3d-active .square-arena-box {
+    transform-origin: 50% 85% !important; 
+    transform: perspective(850px) rotateX(28deg) translateZ(100px) scale(0.92) !important; 
+    z-index: 50 !important;
+  }
+
+  /* Pawns aur Snakes ko seedha khada rakhna */
+  body.trailer-3d-active .board-live-token,
+  body.trailer-3d-active .ludo-live-token,
+  body.trailer-3d-active .yard-mini-pawn {
+    transform: translateY(-32%) scale(0.95) !important;
+  }
+</style>
 </body>
 </html>
