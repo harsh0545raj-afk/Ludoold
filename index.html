@@ -15,48 +15,21 @@
       --accent-gold: #ffd700;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      font-family: 'Segoe UI', Orbitron, Roboto, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; font-family: 'Segoe UI', Orbitron, Roboto, sans-serif; }
 
-    /* NATIVE APP LOCK (Scrolling rokne ke liye fix kiya) */
+    /* NATIVE APP LOCK & OCEAN THEME */
     html, body {
-      width: 100% !important;
-      height: 100dvh !important;
-      max-height: 100dvh !important;
-      overflow: hidden !important;
-      position: fixed !important;
-      background-color: var(--bg-obsidian);
-      background-image:
-        linear-gradient(var(--bg-grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
-        radial-gradient(circle at 50% 35%, rgba(0, 243, 255, 0.14), transparent 70%);
+      width: 100% !important; height: 100dvh !important; max-height: 100dvh !important;
+      overflow: hidden !important; position: fixed !important;
+      background-color: var(--bg-obsidian); color: #ffffff;
+      display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+      background-image: linear-gradient(var(--bg-grid) 1px, transparent 1px), linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px), radial-gradient(circle at 50% 35%, rgba(0, 243, 255, 0.14), transparent 70%);
       background-size: 28px 28px, 28px 28px, 100% 100%;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
     }
 
-    /* =========================================================
-       VIP OCEAN THEME & FISH ANIMATIONS (CLEANED & MERGED)
-       ========================================================= */
     body.ocean-unlocked { background-color: #020914 !important; background-image: none !important; }
-    body.ocean-unlocked::before, body.ocean-unlocked::after {
-      content: ''; position: fixed; bottom: 0; left: -50vw; width: 200vw; height: 50vh; z-index: -10; pointer-events: none;
-      background: radial-gradient(ellipse at 50% 100%, rgba(0, 243, 255, 0.25) 0%, transparent 70%);
-      border-radius: 50% 50% 0 0; animation: oceanWave 10s infinite alternate ease-in-out;
-    }
-    body.ocean-unlocked::after {
-      height: 35vh; background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 102, 0.15) 0%, transparent 70%);
-      animation: oceanWave2 14s infinite alternate-reverse ease-in-out;
-    }
+    body.ocean-unlocked::before, body.ocean-unlocked::after { content: ''; position: fixed; bottom: 0; left: -50vw; width: 200vw; height: 50vh; z-index: -10; pointer-events: none; background: radial-gradient(ellipse at 50% 100%, rgba(0, 243, 255, 0.25) 0%, transparent 70%); border-radius: 50% 50% 0 0; animation: oceanWave 10s infinite alternate ease-in-out; }
+    body.ocean-unlocked::after { height: 35vh; background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 102, 0.15) 0%, transparent 70%); animation: oceanWave2 14s infinite alternate-reverse ease-in-out; }
     @keyframes oceanWave { 0% { transform: translateY(10px) scaleY(0.9); opacity: 0.6; } 100% { transform: translateY(0px) scaleY(1.1); opacity: 1; } }
     @keyframes oceanWave2 { 0% { transform: translateX(5vw); opacity: 0.5; } 100% { transform: translateX(-5vw); opacity: 1; } }
 
@@ -67,146 +40,82 @@
     @keyframes swimFish { 0% { left: -10%; opacity: 0; transform: translateY(0); } 20% { opacity: 0.9; transform: translateY(-20px); } 80% { opacity: 0.9; transform: translateY(15px); } 100% { left: 110%; opacity: 0; transform: translateY(0); } }
     @keyframes swimFishRev { 0% { left: 110%; opacity: 0; transform: scaleX(-1) translateY(0); } 20% { opacity: 0.8; transform: scaleX(-1) translateY(-10px); } 80% { opacity: 0.8; transform: scaleX(-1) translateY(20px); } 100% { left: -10%; opacity: 0; transform: scaleX(-1) translateY(0); } }
 
-    /* =========================================================
-       1. STARTUP SPLASH SCREENS & PRE-MATCH LOBBY OVERLAYS
-       ========================================================= */
+    /* MODALS & OVERLAYS */
     .overlay-screen { position: fixed; inset: 0; background: radial-gradient(circle at center, #0c1b3a 0%, #02040a 95%); z-index: 9900; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 14px; text-align: center; transition: opacity 0.45s ease, visibility 0.45s ease; }
     .overlay-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-
-    .studio-logo-box { padding: 28px 38px; border: 2.5px solid var(--neon-cyan); border-radius: 20px; background: rgba(5, 12, 28, 0.92); box-shadow: 0 0 45px rgba(0, 243, 255, 0.65), inset 0 0 22px rgba(0, 243, 255, 0.3); animation: pulseGlow 1.8s infinite alternate; }
-    .studio-title { font-size: clamp(1.6rem, 5vw, 2.8rem); font-weight: 900; letter-spacing: 4px; background: linear-gradient(90deg, #00f3ff, #ffffff, #ff007f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .studio-sub { margin-top: 8px; font-size: 0.82rem; letter-spacing: 6px; color: var(--neon-green); text-transform: uppercase; }
-
     .modal-card { width: 100%; max-width: 510px; max-height: 92dvh; overflow-y: auto; background: linear-gradient(165deg, rgba(10, 22, 46, 0.98), rgba(4, 8, 18, 0.99)); border: 2px solid var(--neon-cyan); border-radius: 20px; padding: 16px; box-shadow: 0 0 45px rgba(0, 243, 255, 0.5); color: #fff; }
-    .alien-svg-stage { width: 100%; height: 205px; background: radial-gradient(circle at 50% 50%, #10254c 0%, #03060e 100%); border-radius: 14px; border: 1.5px solid rgba(0, 243, 255, 0.45); margin-bottom: 12px; overflow: hidden; position: relative; }
-    .alien-svg-stage::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0, 243, 255, 0.05) 0px, rgba(0, 243, 255, 0.05) 2px, transparent 2px, transparent 6px); pointer-events: none; }
-
-    .primary-neon-btn { background: linear-gradient(90deg, #00e676, #00b0ff); color: #001824; font-weight: 900; font-size: 0.92rem; padding: 11px 24px; border: 2px solid #ffffff; border-radius: 30px; cursor: pointer; letter-spacing: 1.5px; text-transform: uppercase; box-shadow: 0 0 22px rgba(0, 255, 102, 0.75); transition: transform 0.15s ease; margin-bottom: 8px; }
+    
+    .primary-neon-btn { background: linear-gradient(90deg, #00e676, #00b0ff); color: #001824; font-weight: 900; font-size: 0.92rem; padding: 11px 24px; border: 2px solid #ffffff; border-radius: 12px; cursor: pointer; letter-spacing: 1.5px; text-transform: uppercase; box-shadow: 0 0 22px rgba(0, 255, 102, 0.5); transition: transform 0.15s ease; margin-bottom: 8px; width: 100%; }
     .primary-neon-btn:active { transform: scale(0.95); }
+    .cyber-btn { background: rgba(0, 24, 48, 0.92); color: #00f3ff; border: 1px solid var(--neon-cyan); padding: 10px; border-radius: 8px; font-size: 0.85rem; font-weight: 800; cursor: pointer; width: 100%; margin-bottom: 8px; }
+    
+    /* TOP APP BAR (Polished) */
+    .top-app-bar { width: 100%; max-width: 660px; display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(5, 12, 28, 0.98); border-bottom: 2px solid var(--neon-cyan); box-shadow: 0 4px 15px rgba(0, 243, 255, 0.2); z-index: 50; }
+    .menu-icon-btn { background: transparent; border: none; color: #fff; font-size: 1.6rem; cursor: pointer; text-shadow: 0 0 10px var(--neon-cyan); }
+    .sign-main-title { font-size: 1.1rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: 0 0 8px var(--neon-cyan); display: flex; align-items: center; gap: 8px; }
+    .coin-badge { background: rgba(255, 204, 0, 0.16); border: 1.5px solid var(--neon-gold); color: var(--neon-gold); padding: 5px 12px; border-radius: 14px; font-weight: 900; font-size: 0.85rem; box-shadow: 0 0 8px rgba(255,215,0,0.4); }
 
-    /* PRE-MATCH LOBBY */
-    .lobby-label { font-size: 0.68rem; font-weight: 900; color: #84ffff; text-transform: uppercase; letter-spacing: 1px; margin: 8px 0 4px; display: block; text-align: left; }
+    /* LOBBY & PLAYERS BAR */
+    .live-players-bar { width: 100%; max-width: 660px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 4px 8px; flex: 0 0 auto; z-index: 20; }
+    .player-hud-card { background: rgba(8, 18, 36, 0.92); border: 1.5px solid rgba(0, 243, 255, 0.3); border-radius: 8px; padding: 4px 6px; display: flex; justify-content: space-between; align-items: center; font-size: 0.6rem; font-weight: bold; }
+    .player-hud-card.active-turn { border-color: #00ff66; background: rgba(0, 42, 22, 0.96); box-shadow: 0 0 10px rgba(0, 255, 102, 0.6); }
+    .p-badge-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+    .lobby-label { font-size: 0.68rem; font-weight: 900; color: #84ffff; text-transform: uppercase; margin: 8px 0 4px; display: block; text-align: left; }
     .lobby-pill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 6px; margin-bottom: 6px; }
-    .lobby-pill { background: rgba(6, 18, 38, 0.92); border: 1.5px solid rgba(0, 243, 255, 0.35); color: #bfefff; padding: 8px 6px; border-radius: 10px; font-size: 0.72rem; font-weight: 800; cursor: pointer; transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .lobby-pill:active { transform: scale(0.92); }
-    .lobby-pill.selected { background: linear-gradient(135deg, #00ff66, #00b0ff) !important; color: #001824 !important; border: 2px solid #ffffff !important; font-weight: 900 !important; box-shadow: 0 0 16px rgba(0, 255, 102, 0.8) !important; transform: translateY(-2px) scale(1.03); }
-    .lobby-pill.selected::after { content: ' ✓'; font-weight: 900; }
+    .lobby-pill { background: rgba(6, 18, 38, 0.92); border: 1.5px solid rgba(0, 243, 255, 0.35); color: #bfefff; padding: 8px 6px; border-radius: 10px; font-size: 0.72rem; font-weight: 800; cursor: pointer; }
+    .lobby-pill.selected { background: linear-gradient(135deg, #00ff66, #00b0ff) !important; color: #001824 !important; border: 2px solid #ffffff !important; box-shadow: 0 0 16px rgba(0, 255, 102, 0.8) !important; transform: translateY(-2px) scale(1.03); }
     .lobby-player-row { display: grid; grid-template-columns: 1fr auto auto; gap: 6px; align-items: center; background: rgba(4, 14, 30, 0.92); border: 1px solid rgba(0, 243, 255, 0.3); border-radius: 10px; padding: 5px 8px; margin-bottom: 5px; }
-    .lobby-input { background: rgba(0, 0, 0, 0.55); border: 1px solid rgba(0, 243, 255, 0.4); border-radius: 6px; color: #fff; padding: 5px 8px; font-size: 0.76rem; font-weight: 700; width: 100%; outline: none; }
-    .color-dot-pick { width: 21px; height: 21px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; opacity: 0.4; display: inline-block; margin: 0 2px; transition: all 0.15s ease; }
+    .lobby-input { background: rgba(0, 0, 0, 0.55); border: 1px solid rgba(0, 243, 255, 0.4); border-radius: 6px; color: #fff; padding: 5px 8px; font-size: 0.76rem; width: 100%; outline: none; }
+    .color-dot-pick { width: 21px; height: 21px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; opacity: 0.4; display: inline-block; margin: 0 2px; }
     .color-dot-pick.active-color { opacity: 1; border-color: #fff; transform: scale(1.18); box-shadow: 0 0 10px currentColor; }
     .role-btn { background: rgba(0, 243, 255, 0.15); border: 1px solid #00f3ff; color: #00f3ff; padding: 5px 7px; border-radius: 6px; font-size: 0.65rem; font-weight: 900; cursor: pointer; min-width: 68px; }
     .role-btn.is-ai { background: rgba(255, 0, 127, 0.22); border-color: #ff007f; color: #ff80ab; }
 
-    /* =========================================================
-       2. TOP MOBILE APP HUD & PLAYER STATUS BAR
-       ========================================================= */
-    .top-hud-wrapper { width: 100%; max-width: 660px; padding: 4px 8px 2px; display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 0 0 auto; z-index: 20; }
-    .top-title-row { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 6px; }
-    .ludo-wars-sign { display: flex; align-items: center; gap: 8px; padding: 3px 12px; background: rgba(10, 22, 44, 0.95); border: 1.5px solid var(--neon-cyan); border-radius: 16px; box-shadow: 0 0 12px rgba(0, 243, 255, 0.35); }
-    .mini-ludo-icon { display: grid; grid-template-columns: repeat(2, 10px); grid-template-rows: repeat(2, 10px); gap: 2px; }
-    .mini-q { border-radius: 2px; } .mini-q.green { background: #00e676; } .mini-q.yellow { background: #ffea00; } .mini-q.blue { background: #00b0ff; } .mini-q.red { background: #ff1744; }
-    .sign-main-title { font-size: 0.95rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: 0 0 8px var(--neon-cyan); }
-
-    .hud-control-strip { width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px; background: rgba(8, 18, 36, 0.94); border: 1px solid rgba(0, 243, 255, 0.4); border-radius: 12px; padding: 4px 6px; }
-    .hud-group { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-    .cyber-select, .cyber-btn { background: rgba(0, 24, 48, 0.92); color: #fff; border: 1px solid var(--neon-cyan); padding: 4px 7px; border-radius: 6px; font-size: 0.66rem; font-weight: 800; cursor: pointer; }
-    .coin-badge { background: rgba(255, 204, 0, 0.16); border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 3px 8px; border-radius: 14px; font-weight: 900; font-size: 0.68rem; }
-
-    .live-players-bar { width: 100%; max-width: 660px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 2px 8px; flex: 0 0 auto; z-index: 20; }
-    .player-hud-card { background: rgba(8, 18, 36, 0.92); border: 1.5px solid rgba(0, 243, 255, 0.3); border-radius: 8px; padding: 3px 6px; display: flex; justify-content: space-between; align-items: center; font-size: 0.6rem; }
-    .player-hud-card.active-turn { border-color: #00ff66; background: rgba(0, 42, 22, 0.96); box-shadow: 0 0 10px rgba(0, 255, 102, 0.6); }
-    .p-badge-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
-
-    /* =========================================================
-       3. 4 MONETIZED BOARD SKINS & FULL-SCREEN 1:1 ARENA STAGE
-       ========================================================= */
+    /* 3D ARENA ENGINE & FIXES */
     .arena-stage { flex: 1 1 auto; width: 100%; max-width: 660px; min-height: 0 !important; padding: 4px 8px; display: flex; justify-content: center; align-items: center; overflow: visible; position: relative; }
+    .hybrid-board-frame { width: 100%; height: 100%; border-radius: 18px; padding: 6px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; background: linear-gradient(145deg, #070b16 0%, #020409 100%); border: 2.5px solid #00f3ff; box-shadow: 0 0 28px rgba(0, 243, 255, 0.35); transform-style: flat !important; overflow: visible !important; }
     
-    /* FIX FOR BLACK CLIPPING IN 3D MODE & OCEAN TRANSPARENCY */
-    .hybrid-board-frame {
-      width: 100%; height: 100%; border-radius: 18px; padding: 6px; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      position: relative; background: linear-gradient(145deg, #070b16 0%, #020409 100%); border: 2.5px solid #00f3ff;
-      box-shadow: 0 0 28px rgba(0, 243, 255, 0.35), inset 0 0 16px rgba(0, 243, 255, 0.2);
-      transform-style: flat !important; overflow: visible !important;
-    }
+    body.ocean-unlocked .hybrid-board-frame, body.ocean-unlocked .square-arena-box { background: rgba(3, 10, 24, 0.3) !important; box-shadow: 0 15px 35px rgba(0, 243, 255, 0.2) !important; }
+    body.trailer-3d-active .square-arena-box { transform-origin: 50% 85% !important; transform: perspective(850px) rotateX(28deg) translateZ(100px) scale(0.92) !important; z-index: 50 !important; }
+    body.trailer-3d-active .board-live-token, body.trailer-3d-active .ludo-live-token, body.trailer-3d-active .yard-mini-pawn { transform: translateY(-32%) scale(0.95) !important; }
 
-    body.ocean-unlocked .hybrid-board-frame, body.ocean-unlocked .square-arena-box {
-      background: rgba(3, 10, 24, 0.3) !important; box-shadow: 0 15px 35px rgba(0, 243, 255, 0.2) !important;
-    }
-
-    /* True 3D Lift */
-    body.trailer-3d-active .square-arena-box {
-      transform-origin: 50% 85% !important;
-      transform: perspective(850px) rotateX(28deg) translateZ(100px) scale(0.92) !important;
-      z-index: 50 !important;
-    }
-
-    /* Pawns straight in 3D */
-    body.trailer-3d-active .board-live-token, body.trailer-3d-active .ludo-live-token, body.trailer-3d-active .yard-mini-pawn {
-      transform: translateY(-32%) scale(0.95) !important;
-    }
-
-    body.board-glass .hybrid-board-frame { background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(0,243,255,0.1)); backdrop-filter: blur(5px); border-color: #b4faff; box-shadow: 0 0 35px rgba(0, 243, 255, 0.65), inset 0 0 25px rgba(255, 255, 255, 0.25); }
-    body.board-glass .ludo-cell-15, body.board-glass .matrix-tile { background: rgba(255, 255, 255, 0.06) !important; border-color: rgba(0, 243, 255, 0.5) !important; }
-    body.board-gold .hybrid-board-frame { background: radial-gradient(circle, #2b1d03 0%, #090600 90%); border-color: #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.65), inset 0 0 20px rgba(255, 180, 0, 0.35); }
-    body.board-gold .ludo-cell-15, body.board-gold .matrix-tile { background: rgba(255, 200, 0, 0.09) !important; border-color: rgba(255, 215, 0, 0.45) !important; color: #ffe57f !important; }
-    body.board-matrix .hybrid-board-frame { background: linear-gradient(180deg, #011405 0%, #000601 100%); border-color: #00ff41; box-shadow: 0 0 35px rgba(0, 255, 65, 0.65); }
-    body.board-matrix .ludo-cell-15, body.board-matrix .matrix-tile { background: rgba(0, 255, 65, 0.08) !important; border-color: rgba(0, 255, 65, 0.45) !important; color: #39ff14 !important; }
+    body.board-glass .hybrid-board-frame { background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(0,243,255,0.1)); backdrop-filter: blur(5px); border-color: #b4faff; }
+    body.board-gold .hybrid-board-frame { background: radial-gradient(circle, #2b1d03 0%, #090600 90%); border-color: #ffd700; }
+    body.board-matrix .hybrid-board-frame { background: linear-gradient(180deg, #011405 0%, #000601 100%); border-color: #00ff41; }
 
     .wing-panel { width: 100%; height: 100%; min-height: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
-    .wing-header { font-size: 0.68rem; color: #00f3ff; font-weight: 900; display: flex; justify-content: space-between; width: min(88vw, 56dvh); padding: 0 4px; letter-spacing: 0.5px; }
-
+    .wing-header { font-size: 0.68rem; color: #00f3ff; font-weight: 900; display: flex; justify-content: space-between; width: min(88vw, 56dvh); padding: 0 4px; }
     .square-arena-box { position: relative; width: min(88vw, 56dvh); height: min(88vw, 56dvh); aspect-ratio: 1 / 1; border: 2px solid var(--neon-cyan); border-radius: 12px; background: rgba(3, 10, 24, 0.94); box-shadow: inset 0 0 18px rgba(0, 243, 255, 0.25); overflow: visible; flex-shrink: 0; }
 
-    /* 15x15 CLASSIC LUDO GRID */
+    /* LUDO & SNAKE GRIDS */
     .real-ludo-15x15 { position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); gap: 1.5px; }
     .ludo-corner-base { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); place-items: center; padding: 6px; border-radius: 8px; position: relative; }
-    .ludo-base-p0 { grid-area: 1/1/7/7; background: rgba(0, 255, 102, 0.14); border: 2px solid #00ff66; box-shadow: inset 0 0 12px rgba(0,255,102,0.3); }
-    .ludo-base-p2 { grid-area: 1/10/7/16; background: rgba(255, 230, 0, 0.14); border: 2px solid #ffe600; box-shadow: inset 0 0 12px rgba(255,230,0,0.3); }
-    .ludo-base-p1 { grid-area: 10/1/16/7; background: rgba(255, 23, 68, 0.14); border: 2px solid #ff1744; box-shadow: inset 0 0 12px rgba(255,23,68,0.3); }
-    .ludo-base-p3 { grid-area: 10/10/16/16; background: rgba(0, 243, 255, 0.14); border: 2px solid #00f3ff; box-shadow: inset 0 0 12px rgba(0,243,255,0.3); }
-
+    .ludo-base-p0 { grid-area: 1/1/7/7; background: rgba(0, 255, 102, 0.14); border: 2px solid #00ff66; } .ludo-base-p2 { grid-area: 1/10/7/16; background: rgba(255, 230, 0, 0.14); border: 2px solid #ffe600; } .ludo-base-p1 { grid-area: 10/1/16/7; background: rgba(255, 23, 68, 0.14); border: 2px solid #ff1744; } .ludo-base-p3 { grid-area: 10/10/16/16; background: rgba(0, 243, 255, 0.14); border: 2px solid #00f3ff; }
     .base-yard-slot { width: 68%; height: 68%; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.55); background: rgba(0, 0, 0, 0.48); display: flex; justify-content: center; align-items: center; position: relative; }
-    .yard-mini-pawn { width: 56%; height: 56%; border-radius: 50%; border: 1.5px solid #fff; }
-    .base-lock-tag { position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); font-size: 0.5rem; font-weight: 900; background: rgba(0,0,0,0.85); padding: 1px 5px; border-radius: 4px; white-space: nowrap; letter-spacing: 0.4px; }
-    .ludo-center-crown { grid-area: 7/7/10/10; background: conic-gradient(from 45deg, rgba(255,230,0,0.5) 0deg 90deg, rgba(0,243,255,0.5) 90deg 180deg, rgba(255,23,68,0.5) 180deg 270deg, rgba(0,255,102,0.5) 270deg 360deg); border: 2px solid #ffd700; border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 1.25rem; box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); position: relative; }
+    .base-lock-tag { position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); font-size: 0.5rem; font-weight: 900; background: rgba(0,0,0,0.85); padding: 1px 5px; border-radius: 4px; }
+    .ludo-center-crown { grid-area: 7/7/10/10; border: 2px solid #ffd700; border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 1.25rem; }
     .ludo-cell-15 { background: rgba(12, 28, 54, 0.88); border: 1px solid rgba(0, 243, 255, 0.25); border-radius: 2px; display: flex; justify-content: center; align-items: center; font-size: clamp(0.5rem, 1.5vw, 0.68rem); font-weight: 900; color: rgba(255,255,255,0.85); position: relative; }
-    .ludo-cell-15.home-p0, .ludo-cell-15.start-p0 { background: rgba(0, 255, 102, 0.3) !important; border-color: #00ff66 !important; }
-    .ludo-cell-15.home-p1, .ludo-cell-15.start-p1 { background: rgba(255, 23, 68, 0.32) !important; border-color: #ff1744 !important; }
-    .ludo-cell-15.home-p2, .ludo-cell-15.start-p2 { background: rgba(255, 230, 0, 0.3) !important; border-color: #ffe600 !important; }
-    .ludo-cell-15.home-p3, .ludo-cell-15.start-p3 { background: rgba(0, 243, 255, 0.3) !important; border-color: #00f3ff !important; }
     .ludo-cell-15.ludo-star-tile { border-color: #ff007f !important; box-shadow: inset 0 0 6px rgba(255,0,127,0.55); color: #ffeb3b; }
-
-    /* 1-100 SNAKE MATRIX */
     .numbered-matrix { position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); gap: 2px; z-index: 1; }
-    .snakes-ladders-svg { position: absolute; inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); pointer-events: none; z-index: 3; overflow: hidden; }
-    .matrix-tile { background: rgba(10, 24, 48, 0.88); border: 1px solid rgba(0, 243, 255, 0.28); border-radius: 3px; display: flex; justify-content: center; align-items: center; font-size: clamp(0.55rem, 1.8vw, 0.76rem); font-weight: 800; color: rgba(215, 248, 255, 0.92); position: relative; }
-    .matrix-tile.tile-start { border: 1.5px solid #00ff66 !important; color: #00ff66 !important; }
-    .matrix-tile.hatchery-tile { border-color: #ffe600 !important; color: #ffe600 !important; background: rgba(255,230,0,0.1); }
-    .matrix-tile.tile-100 { z-index: 12 !important; background: linear-gradient(135deg, #ffd700, #ff9100) !important; color: #000 !important; font-weight: 900 !important; border: 2px solid #ffffff !important; box-shadow: 0 0 15px #ffd700 !important; }
-    .trailer-snake-3d { filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.92)); }
-
-    /* SNAKE BITE JAWS, SLIDING VICTIM TOKEN & DODGE SHIELD FX */
+    .matrix-tile { background: rgba(10, 24, 48, 0.88); border: 1px solid rgba(0, 243, 255, 0.28); border-radius: 3px; display: flex; justify-content: center; align-items: center; font-size: clamp(0.55rem, 1.8vw, 0.76rem); font-weight: 800; color: rgba(215, 248, 255, 0.92); }
+    .snakes-ladders-svg { position: absolute; inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); pointer-events: none; z-index: 3; }
+    
+    /* TOKENS & ANIMATIONS */
     .sliding-victim-token { position: absolute; width: 28px; height: 28px; border-radius: 50%; border: 2.5px solid #ffffff; z-index: 60; display: flex; justify-content: center; align-items: center; font-size: 0.72rem; font-weight: 900; pointer-events: none; transform: translate(-50%, -50%); box-shadow: 0 0 22px #ff1744, 0 0 35px #00ff66; transition: left 0.045s linear, top 0.045s linear; }
     .venom-bite-fx { position: absolute; inset: -12px; border: 3px solid #ff1744; border-radius: 50%; background: radial-gradient(circle, rgba(255, 23, 68, 0.85) 0%, transparent 70%); z-index: 55; display: flex; justify-content: center; align-items: center; font-size: 1.3rem; animation: jawSnapAnim 0.45s ease-out forwards; pointer-events: none; }
     .dodge-shield-fx { position: absolute; inset: -10px; border: 2.5px solid #00ff66; border-radius: 50%; background: radial-gradient(circle, rgba(0, 255, 102, 0.55) 0%, transparent 75%); box-shadow: 0 0 22px #00ff66; z-index: 55; display: flex; justify-content: center; align-items: center; font-size: 0.62rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 6px #000; animation: shieldPopAnim 0.95s ease-out forwards; pointer-events: none; }
     @keyframes jawSnapAnim { 0% { transform: scale(2.2); opacity: 0; } 45% { transform: scale(0.85); opacity: 1; } 100% { transform: scale(1.1); opacity: 0; } }
     @keyframes shieldPopAnim { 0% { transform: scale(0.4); opacity: 0; } 35% { transform: scale(1.25); opacity: 1; } 100% { transform: scale(1.4); opacity: 0; } }
 
-    /* LIVE WALKING TOKENS */
+    .yard-mini-pawn { width: 56%; height: 56%; border-radius: 50%; border: 1.5px solid #fff; }
     .board-live-token, .ludo-live-token { width: 74%; height: 74%; max-width: 24px; max-height: 24px; border-radius: 50%; border: 2px solid #ffffff; position: absolute; z-index: 20; display: flex; justify-content: center; align-items: center; font-size: 0.5rem; font-weight: 900; color: #000; pointer-events: none; }
     .token-p1 { background: #00ff66; box-shadow: 0 0 10px #00ff66; } .token-p2 { background: #ff1744; box-shadow: 0 0 10px #ff1744; color: #fff; } .token-p3 { background: #ffe600; box-shadow: 0 0 10px #ffe600; } .token-p4 { background: #00f3ff; box-shadow: 0 0 10px #00f3ff; }
     .hop-anim { animation: tokenHop 0.22s ease; }
 
-    /* =========================================================
-       4. BOTTOM MOBILE THUMB DOCK
-       ========================================================= */
-    .bottom-mobile-dock { flex: 0 0 auto; width: 96%; max-width: 660px; height: 74px; margin: 2px auto 6px; padding: 6px 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; background: linear-gradient(180deg, rgba(10, 24, 50, 0.98), rgba(4, 10, 24, 0.99)); border: 2px solid var(--neon-cyan); border-radius: 20px; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.85), 0 0 18px rgba(0, 243, 255, 0.4); z-index: 8000; }
+    /* BOTTOM DOCK */
+    .bottom-mobile-dock { flex: 0 0 auto; width: 96%; max-width: 660px; height: 74px; margin: 2px auto 6px; padding: 6px 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; background: linear-gradient(180deg, rgba(10, 24, 50, 0.98), rgba(4, 10, 24, 0.99)); border: 2px solid var(--neon-cyan); border-radius: 20px; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.85); z-index: 8000; }
     .dock-col { display: flex; flex-direction: column; justify-content: center; gap: 4px; }
     .rage-meter-wrap { width: 118px; background: rgba(20, 0, 8, 0.9); border: 1.5px solid #ff1744; border-radius: 8px; padding: 2px 6px; }
-    .rage-meter-wrap.rage-exhausted { border-color: #555 !important; opacity: 0.65; }
-    .rage-header { display: flex; justify-content: space-between; font-size: 0.56rem; font-weight: 900; color: #ff8a80; }
     .rage-bar-bg { width: 100%; height: 5px; background: rgba(255, 255, 255, 0.15); border-radius: 3px; margin-top: 2px; overflow: hidden; }
     .rage-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff9100, #ff1744); transition: width 0.3s ease; }
     .stampede-btn { background: linear-gradient(90deg, #ff1744, #ff9100); color: #fff; font-size: 0.62rem; font-weight: 900; padding: 5px 8px; border: 1.5px solid #ffff00; border-radius: 8px; cursor: pointer; display: none; animation: pulseGlow 0.7s infinite alternate; }
@@ -215,24 +124,13 @@
     .dice-cube-btn.rolling { animation: rollSpin 0.4s infinite linear; }
     .pip { width: 7px; height: 7px; background: #050a14; border-radius: 50%; place-self: center; opacity: 0; } .pip.show { opacity: 1; }
     .digital-score-box { background: rgba(30, 0, 10, 0.9); border: 2px solid #ff1744; color: #ff5252; font-weight: 900; font-size: 1rem; padding: 2px 10px; border-radius: 6px; text-align: center; }
-    .reroll-neon-btn { background: linear-gradient(180deg, #00e676, #00b248); color: #001a08; font-weight: 900; font-size: 0.7rem; padding: 8px 10px; border: 1.5px solid #b9f6ca; border-radius: 10px; cursor: pointer; }
 
-    /* =========================================================
-       5. POPUPS, TOASTS, PUSH & FIREWORKS
-       ========================================================= */
+    /* TOASTS & BANNERS */
     .cyber-event-banner { position: fixed; top: 15%; left: 50%; transform: translate(-50%, -15px) scale(0.9); background: rgba(6, 16, 36, 0.96); border: 2px solid var(--neon-cyan); border-radius: 14px; padding: 10px 20px; z-index: 9300; text-align: center; box-shadow: 0 0 30px rgba(0, 243, 255, 0.65); opacity: 0; pointer-events: none; transition: all 0.28s ease; }
     .cyber-event-banner.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
     .bollywood-toast { position: fixed; bottom: 84px; left: 50%; transform: translate(-50%, 30px) scale(0.85); background: linear-gradient(135deg, rgba(255, 0, 127, 0.96), rgba(110, 0, 255, 0.96)); border: 2px solid #ffe600; border-radius: 24px; padding: 8px 18px; color: #fff; font-weight: 900; font-size: 0.8rem; z-index: 9400; opacity: 0; pointer-events: none; transition: all 0.3s ease; text-align: center; width: max-content; max-width: 92vw; }
     .bollywood-toast.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
-    .loaded-dice-popover { position: fixed; bottom: 86px; left: 50%; transform: translateX(-50%); background: rgba(8, 20, 44, 0.98); border: 2px solid #ffd700; border-radius: 14px; padding: 10px; z-index: 9450; display: none; flex-direction: column; gap: 6px; width: 90%; max-width: 340px; }
-    .loaded-dice-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; }
-    .loaded-num-btn { background: rgba(255, 215, 0, 0.15); border: 1.5px solid #ffd700; color: #fff; font-weight: 900; padding: 7px 0; border-radius: 8px; cursor: pointer; }
-    .mobile-push-banner { position: fixed; top: -120px; left: 50%; transform: translateX(-50%); width: 94%; max-width: 420px; background: linear-gradient(135deg, #0e1c38, #060c1a); border: 2px solid #00ff66; border-radius: 14px; padding: 9px 12px; display: flex; align-items: center; gap: 10px; z-index: 9995; box-shadow: 0 10px 30px rgba(0,0,0,0.9); transition: top 0.4s ease; cursor: pointer; }
-    .mobile-push-banner.show-push { top: 10px; }
     #fireworksCanvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9850; display: none; }
-
-    /* AD MODAL STYLES (Cleaned) */
-    .premium-btn { width: 100%; margin-bottom: 8px; padding: 12px; font-weight: 900; border-radius: 8px; border: none; cursor: pointer; text-transform: uppercase; font-size: 0.85rem;}
 
     @keyframes pulseGlow { 0% { transform: scale(0.98); } 100% { transform: scale(1.02); } }
     @keyframes rollSpin { 0% { transform: rotate(0deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1.1); } }
@@ -245,110 +143,17 @@
   <div class="cyber-fish fish1">🐟</div>
   <div class="cyber-fish fish2">🐠</div>
 
-  <!-- 1. SPLASH SCREEN 1: AETHERBYTE STUDIOS -->
-  <div id="splashStudio" class="overlay-screen">
-    <div class="studio-logo-box">
-      <div class="studio-title">AETHERBYTE STUDIOS</div>
-      <div class="studio-sub">Next-Gen Cyber Gaming Division</div>
+  <!-- CLEAN NATIVE APP HEADER -->
+  <header class="top-app-bar">
+    <button class="menu-icon-btn" onclick="openModal('appMenuModal')">☰</button>
+    <div class="sign-main-title">
+      <div class="mini-ludo-icon"><div class="mini-q green"></div><div class="mini-q yellow"></div><div class="mini-q blue"></div><div class="mini-q red"></div></div>
+      LUDO WARS
     </div>
-  </div>
-
-  <!-- 2. SPLASH SCREEN 2: DEEP SPACE ALIENS INTRO -->
-  <div id="splashAliens" class="overlay-screen overlay-hidden">
-    <div class="modal-card">
-      <div class="alien-svg-stage">
-        <svg viewBox="0 0 400 180" width="100%" height="100%">
-          <circle cx="40" cy="30" r="1.5" fill="#fff"/><circle cx="350" cy="25" r="2" fill="#00f3ff"/>
-          <ellipse cx="75" cy="95" rx="22" ry="30" fill="#002b36" stroke="#00f3ff" stroke-width="2"/>
-          <ellipse cx="70" cy="90" rx="6" ry="3" fill="#00ff66" transform="rotate(-15 70 90)"/>
-          <ellipse cx="84" cy="90" rx="6" ry="3" fill="#00ff66" transform="rotate(15 84 90)"/>
-          <ellipse cx="325" cy="95" rx="22" ry="30" fill="#240036" stroke="#ff007f" stroke-width="2"/>
-          <ellipse cx="316" cy="90" rx="6" ry="3" fill="#00f3ff" transform="rotate(-15 316 90)"/>
-          <ellipse cx="330" cy="90" rx="6" ry="3" fill="#00f3ff" transform="rotate(15 330 90)"/>
-          <polygon points="130,115 270,115 295,155 105,155" fill="rgba(0, 243, 255, 0.18)" stroke="#00f3ff" stroke-width="2"/>
-          <path d="M 215,135 Q 230,95 210,80 T 235,50" fill="none" stroke="#00ff66" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="235" cy="50" r="4" fill="#ff1744"/>
-          <text x="200" y="34" fill="#00f3ff" font-size="12" font-weight="bold" text-anchor="middle" letter-spacing="2">DEEP SPACE ARENA: SECTOR 7</text>
-        </svg>
-      </div>
-      <p style="font-size:0.88rem; color:#bfefff; margin-bottom:12px;">🌌 Even Across the Galaxy, Aliens Play <strong>LUDO WARS</strong>!</p>
-      <button class="primary-neon-btn" onclick="openPreMatchLobby()">⚡ Configure Battle Lobby</button>
-    </div>
-  </div>
-
-  <!-- 3. PRE-MATCH LOBBY -->
-  <div id="preMatchLobby" class="overlay-screen overlay-hidden">
-    <div class="modal-card">
-      <div style="font-size:1.15rem; font-weight:900; color:#00f3ff; margin-bottom:8px;">⚙️ LUDO WARS: MATCH LOBBY</div>
-      <span class="lobby-label">1. Select Game Mode</span>
-      <div class="lobby-pill-grid" id="lobbyModeRow">
-        <button class="lobby-pill selected" onclick="selectLobbyMode('classic', this)">🎲 Classic Ludo</button>
-        <button class="lobby-pill" onclick="selectLobbyMode('snakes', this)">🐍 Snakes & Ladders</button>
-        <button class="lobby-pill" onclick="selectLobbyMode('blitz-ludo', this)">⏱️ Blitz Ludo (3:00)</button>
-        <button class="lobby-pill" onclick="selectLobbyMode('blitz-snakes', this)">⏱️ Blitz Snakes (3:00)</button>
-      </div>
-      <span class="lobby-label">2. Opponent Type</span>
-      <div class="lobby-pill-grid" id="lobbyVsGroup">
-        <button class="lobby-pill selected" onclick="selectLobbyVs('ai', this)">🤖 Vs Cyber AI</button>
-        <button class="lobby-pill" onclick="selectLobbyVs('local', this)">👥 Pass & Play</button>
-      </div>
-      <span class="lobby-label">3. Number of Players</span>
-      <div class="lobby-pill-grid" id="lobbyCountGroup">
-        <button class="lobby-pill" onclick="selectLobbyCount(2, this)">2 Players (1v1)</button>
-        <button class="lobby-pill" onclick="selectLobbyCount(3, this)">3 Players</button>
-        <button class="lobby-pill selected" onclick="selectLobbyCount(4, this)">4 Players</button>
-      </div>
-      <span class="lobby-label">4. Customize Names, Colors & AI Roles</span>
-      <div id="lobbyPlayersList" style="margin-bottom:12px;"></div>
-      <button class="primary-neon-btn" style="width:100%;" onclick="launchConfiguredMatch()">🚀 LAUNCH BATTLE ARENA</button>
-    </div>
-  </div>
-
-  <!-- 4. TOP MOBILE APP HUD -->
-  <header class="top-hud-wrapper">
-    <div class="top-title-row">
-      <div class="ludo-wars-sign">
-        <div class="mini-ludo-icon">
-          <div class="mini-q green"></div><div class="mini-q yellow"></div>
-          <div class="mini-q blue"></div><div class="mini-q red"></div>
-        </div>
-        <span class="sign-main-title">LUDO WARS</span>
-      </div>
-      <div class="hud-group">
-        <span id="blitzTimerBadge" class="coin-badge" style="display:none; border-color:#ff1744; color:#ff5252;">⏱️ 03:00</span>
-        <span class="coin-badge">🪙 <span id="coinCount">1200</span></span>
-        <button class="cyber-btn" style="border-color:#ffd700; color:#ffd700;" onclick="addCoins(100)">📺 +100🪙</button>
-        <!-- NEW VIP OCEAN BUTTON -->
-        <button class="cyber-btn" id="btnOceanUnlock" style="border-color:#00f3ff; color:#00f3ff;" onclick="openOceanModal()">🌊 VIP</button>
-        <button class="cyber-btn" id="vipTopBtn" style="background:linear-gradient(90deg,#ffd700,#ff9100); color:#000;" onclick="openModal('vipModal')">👑 Pass</button>
-      </div>
-    </div>
-    <div class="hud-control-strip">
-      <div class="hud-group">
-        <button class="cyber-btn" style="border-color:#ffd700; color:#ffd700;" onclick="openPreMatchLobby()">⚙️ Lobby</button>
-        <select id="modeSelect" class="cyber-select" onchange="switchGameMode(this.value)">
-          <option value="classic">🎲 Classic Cyber Ludo</option>
-          <option value="snakes">🐍 Cyber Snakes & Ladders</option>
-          <option value="blitz-ludo">⏱️ Blitz Ludo (3:00)</option>
-          <option value="blitz-snakes">⏱️ Blitz Snakes (3:00)</option>
-        </select>
-        <select id="themeSelect" class="cyber-select" onchange="switchBoardTheme(this.value)">
-          <option value="board-solid">🌑 Obsidian (Free)</option>
-          <option value="board-glass">💎 Glass (300🪙)</option>
-          <option value="board-gold">👑 24K Gold (500🪙)</option>
-          <option value="board-matrix">☣️ Matrix (400🪙)</option>
-        </select>
-      </div>
-      <div class="hud-group">
-        <button class="cyber-btn" id="demoBiteBtn" style="border-color:#ff1744; color:#ff8a80; display:none;" onclick="triggerDemoSnake('bite')">🐍 Demo Bite</button>
-        <button class="cyber-btn" id="demoEscBtn" style="border-color:#ffe600; color:#ffe600; display:none;" onclick="triggerDemoSnake('escape')">🛡️ Demo Dodge</button>
-        <button class="cyber-btn" style="border-color:#00ff66; color:#00ff66;" onclick="triggerSmartRetentionPush()">🔔 Alert</button>
-        <button class="cyber-btn" style="border-color:#00f3ff; color:#00f3ff;" onclick="openModal('rulesModal')">📖 Rules</button>
-      </div>
-    </div>
+    <div class="coin-badge">🪙 <span id="coinCount">1200</span></div>
   </header>
 
-  <!-- 5. LIVE 4-PLAYER STATUS BAR -->
+  <!-- LIVE 4-PLAYER STATUS BAR -->
   <section class="live-players-bar">
     <div class="player-hud-card active-turn" id="hudCard-0"></div>
     <div class="player-hud-card" id="hudCard-1"></div>
@@ -356,25 +161,15 @@
     <div class="player-hud-card" id="hudCard-3"></div>
   </section>
 
-  <!-- 6. MAIN FULL-SCREEN GAME ARENA -->
+  <!-- MAIN FULL-SCREEN GAME ARENA -->
   <main class="arena-stage">
     <div class="hybrid-board-frame">
-      <!-- MODE A: FULL-SCREEN 15x15 CYBER LUDO -->
       <section class="wing-panel" id="ludoWingSection">
-        <div class="wing-header">
-          <span>🎲 15x15 CYBER LUDO ARENA</span>
-          <span style="color:#00ff66;">Roll 6 to Unlock • ★ = Safe Star</span>
-        </div>
-        <div class="square-arena-box" id="ludoBoardSquare">
-          <div class="real-ludo-15x15" id="realLudoGrid"></div>
-        </div>
+        <div class="wing-header"><span>🎲 15x15 CYBER LUDO</span><span style="color:#00ff66;">Roll 6 to Unlock</span></div>
+        <div class="square-arena-box" id="ludoBoardSquare"><div class="real-ludo-15x15" id="realLudoGrid"></div></div>
       </section>
-      <!-- MODE B: FULL-SCREEN 1-100 SNAKE MATRIX + VIPERS -->
       <section class="wing-panel" id="snakeWingSection" style="display:none;">
-        <div class="wing-header">
-          <span>🐍 1–100 CYBER SNAKES & LADDERS</span>
-          <span style="color:#ffd700;">🪜 = +25🪙 & Bonus Turn • 🥚 = Mystery</span>
-        </div>
+        <div class="wing-header"><span>🐍 CYBER SNAKES & LADDERS</span><span style="color:#ffd700;">🪜 = +25🪙</span></div>
         <div class="square-arena-box" id="snakeBoardSquare">
           <div class="numbered-matrix" id="snakeMatrixGrid"></div>
           <svg class="snakes-ladders-svg" viewBox="0 0 1000 1000" preserveAspectRatio="none"></svg>
@@ -383,15 +178,14 @@
     </div>
   </main>
 
-  <!-- 7. BOTTOM MOBILE THUMB DOCK -->
+  <!-- BOTTOM MOBILE THUMB DOCK -->
   <footer class="bottom-mobile-dock">
     <div class="dock-col">
       <div class="rage-meter-wrap" id="rageBarBox">
-        <div class="rage-header"><span>🔥 RAGE</span><span id="ragePctText">0%</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:0.56rem; font-weight:900; color:#ff8a80;"><span>🔥 RAGE</span><span id="ragePctText">0%</span></div>
         <div class="rage-bar-bg"><div class="rage-bar-fill" id="rageMeterFill"></div></div>
       </div>
       <button class="stampede-btn" id="stampedeBtn" onclick="unleashBullStampede()">🐂 STAMPEDE (+12)</button>
-      <button class="cyber-btn" style="border-color:#ffd700; color:#ffd700;" onclick="toggleLoadedDice()">🎯 Loaded Dice</button>
     </div>
     <div class="home-vortex-hub" onclick="triggerCyberDiceRoll()">
       <div class="dice-cube-btn" id="diceBtn">
@@ -404,129 +198,108 @@
       <div class="digital-score-box" id="lastRollBadge">6</div>
       <div id="turnIndicator" style="font-size:0.62rem; font-weight:900; color:#00ff66;">P1 TURN</div>
     </div>
-    <div class="dock-col">
-      <button class="reroll-neon-btn" onclick="triggerCyberDiceRoll()">🔄 RE-ROLL</button>
-      <button class="cyber-btn" id="ghostStrikeBtn" style="display:none; background:#d500f9; border-color:#fff;" onclick="executeGhostStrike()">👻 GHOST WARP</button>
-    </div>
   </footer>
 
-  <!-- 8. POPUPS, CUTSCENES & MODALS -->
-  <div id="cyberEventBanner" class="cyber-event-banner">
-    <div id="eventBannerTitle" style="font-size:0.95rem; font-weight:900; color:#00f3ff;">⚡ EVENT</div>
-    <div id="eventBannerSub" style="font-size:0.76rem; color:#d8f8ff; margin-top:3px;">Details</div>
+  <!-- NEW POLISHED HAMBURGER APP MENU MODAL -->
+  <div id="appMenuModal" class="overlay-screen overlay-hidden">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #00f3ff; padding-bottom:10px;">
+        <h2 style="color:#00f3ff;">☰ MENU</h2>
+        <button class="cyber-btn" style="width:auto; margin:0;" onclick="closeModal('appMenuModal')">✖</button>
+      </div>
+      <button class="primary-neon-btn" onclick="closeModal('appMenuModal'); openModal('preMatchLobby');">⚙️ Match Lobby</button>
+      <button class="primary-neon-btn" style="background:linear-gradient(90deg, #ff007f, #7000ff);" onclick="document.body.classList.toggle('trailer-3d-active'); closeModal('appMenuModal');">🎥 Toggle 3D View</button>
+      <button class="primary-neon-btn" style="background:linear-gradient(90deg, #ffd700, #ff9100); color:#000;" onclick="closeModal('appMenuModal'); openModal('premiumOceanModal');">🌊 VIP Ocean Theme</button>
+      <button class="cyber-btn" onclick="closeModal('appMenuModal'); openModal('vaultModal');">🎨 Board Skins</button>
+      <button class="cyber-btn" onclick="closeModal('appMenuModal'); openModal('rulesModal');">📖 How to Play</button>
+    </div>
   </div>
 
-  <div id="bollywoodToast" class="bollywood-toast">
-    <div id="bollywoodSpeaker" style="font-size:0.64rem; color:#ffe600;">🎬 CYBER COMMS</div>
-    <div id="bollywoodText">"O Stree kal aana!"</div>
-  </div>
-
-  <!-- NEW VIP OCEAN MODAL (Integrated perfectly) -->
-  <div id="premiumOceanModal" class="overlay-screen hidden-modal">
+  <!-- VIP OCEAN AD MODAL -->
+  <div id="premiumOceanModal" class="overlay-screen overlay-hidden">
     <div class="modal-card">
       <div style="font-size: 1.25rem; font-weight: 900; color: #00f3ff; margin-bottom: 8px;" id="adModalTitle">🌊 VIP OCEAN THEME</div>
-      <p id="adModalDesc" style="font-size:0.8rem; color:#bfefff; margin-bottom:15px; line-height: 1.4;">Hatao black screen aur unlock karo chamakta hua 3D samundra aur machliyan!</p>
+      <p id="adModalDesc" style="font-size:0.8rem; color:#bfefff; margin-bottom:15px;">Unlock glowing 3D ocean & swimming fishes!</p>
       <div id="adBtnGroup">
-        <button class="premium-btn btn-ad" onclick="watchOceanAd()">📺 Watch Ad (1 Match)</button>
-        <button class="premium-btn btn-coins" onclick="buyOceanCoins()">🪙 Pay 30 Coins</button>
-        <button style="background:transparent; border:1px solid #ff1744; color:#ff1744; padding:8px 20px; border-radius:6px; margin-top:10px; cursor:pointer;" onclick="closeOceanModal()">Cancel</button>
+        <button class="primary-neon-btn" onclick="watchOceanAd()">📺 Watch Ad (1 Match)</button>
+        <button class="primary-neon-btn" style="background:#ffd700; color:#000;" onclick="buyOceanCoins()">🪙 Pay 30 Coins</button>
+        <button class="cyber-btn" onclick="closeModal('premiumOceanModal')">Cancel</button>
       </div>
     </div>
   </div>
 
-  <div id="loadedDicePopover" class="loaded-dice-popover">
-    <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#ffd700; font-weight:900;">
-      <span>🎯 PICK EXACT DICE (80🪙 / VIP FREE)</span>
-      <span style="cursor:pointer; color:#ff5252;" onclick="toggleLoadedDice()">✖</span>
-    </div>
-    <div class="loaded-dice-grid">
-      <button class="loaded-num-btn" onclick="useLoadedDice(1)">1</button>
-      <button class="loaded-num-btn" onclick="useLoadedDice(2)">2</button>
-      <button class="loaded-num-btn" onclick="useLoadedDice(3)">3</button>
-      <button class="loaded-num-btn" onclick="useLoadedDice(4)">4</button>
-      <button class="loaded-num-btn" onclick="useLoadedDice(5)">5</button>
-      <button class="loaded-num-btn" onclick="useLoadedDice(6)">6🔥</button>
+  <!-- PRE-MATCH LOBBY -->
+  <div id="preMatchLobby" class="overlay-screen">
+    <div class="modal-card">
+      <div style="font-size:1.15rem; font-weight:900; color:#00f3ff; margin-bottom:8px;">⚙️ LUDO WARS: MATCH LOBBY</div>
+      <span class="lobby-label">1. Select Game Mode</span>
+      <div class="lobby-pill-grid" id="lobbyModeRow">
+        <button class="lobby-pill selected" onclick="selectLobbyMode('classic', this)">🎲 Classic Ludo</button>
+        <button class="lobby-pill" onclick="selectLobbyMode('snakes', this)">🐍 Snakes & Ladders</button>
+      </div>
+      <span class="lobby-label">2. Opponent Type</span>
+      <div class="lobby-pill-grid" id="lobbyVsGroup">
+        <button class="lobby-pill selected" onclick="selectLobbyVs('ai', this)">🤖 Vs Cyber AI</button>
+        <button class="lobby-pill" onclick="selectLobbyVs('local', this)">👥 Pass & Play</button>
+      </div>
+      <span class="lobby-label">3. Number of Players</span>
+      <div class="lobby-pill-grid" id="lobbyCountGroup">
+        <button class="lobby-pill" onclick="selectLobbyCount(2, this)">2 Players</button>
+        <button class="lobby-pill selected" onclick="selectLobbyCount(4, this)">4 Players</button>
+      </div>
+      <span class="lobby-label">4. Customize Names & AI Roles</span>
+      <div id="lobbyPlayersList" style="margin-bottom:12px;"></div>
+      <button class="primary-neon-btn" onclick="launchConfiguredMatch()">🚀 LAUNCH BATTLE ARENA</button>
     </div>
   </div>
 
-  <!-- ALIEN HOLOGRAM CUTSCENE MODAL -->
+  <!-- ALL OTHER POPUPS -->
+  <div id="cyberEventBanner" class="cyber-event-banner"><div id="eventBannerTitle" style="font-size:0.95rem; font-weight:900; color:#00f3ff;"></div><div id="eventBannerSub" style="font-size:0.76rem; color:#d8f8ff; margin-top:3px;"></div></div>
+  <div id="bollywoodToast" class="bollywood-toast"><div id="bollywoodSpeaker" style="font-size:0.64rem; color:#ffe600;"></div><div id="bollywoodText"></div></div>
+  
   <div id="aiHoloModal" class="overlay-screen overlay-hidden" style="background:rgba(2,8,22,0.92);">
     <div class="modal-card" id="aiHoloCard">
       <div class="alien-svg-stage" id="aiHoloStage"></div>
-      <div id="aiHoloTitle" style="font-size:1.05rem; font-weight:900; color:#00ff66;">🛸 ALIEN HOLOGRAM</div>
+      <div id="aiHoloTitle" style="font-size:1.05rem; font-weight:900; color:#00ff66;"></div>
       <p id="aiHoloSub" style="font-size:0.8rem; color:#bfefff; margin:6px 0 12px;"></p>
-      <button class="primary-neon-btn" style="padding:7px 20px; font-size:0.78rem;" onclick="closeModal('aiHoloModal')">⚡ Continue</button>
+      <button class="primary-neon-btn" onclick="closeModal('aiHoloModal')">⚡ Continue</button>
     </div>
   </div>
 
-  <!-- ANGRY CYBER-BULL REVENGE OVERLAY -->
-  <div id="bullModal" class="overlay-screen overlay-hidden" style="background:rgba(90,0,15,0.88);">
-    <div class="modal-card" style="border-color:#ff1744; background:#1a0005;">
-      <svg viewBox="0 0 200 150" width="130" height="105" style="margin:0 auto;">
-        <path d="M 35,55 C 5,25 12,5 45,18 C 30,30 35,42 55,48 Z" fill="#cfd8dc" stroke="#ff1744" stroke-width="2"/>
-        <path d="M 165,55 C 195,25 188,5 155,18 C 170,30 165,42 145,48 Z" fill="#cfd8dc" stroke="#ff1744" stroke-width="2"/>
-        <polygon points="55,42 145,42 160,85 130,135 70,135 40,85" fill="#2a0008" stroke="#ff1744" stroke-width="3"/>
-        <polygon points="55,72 88,82 62,90" fill="#ff1744"/><polygon points="145,72 112,82 138,90" fill="#ff1744"/>
-        <circle cx="100" cy="130" r="14" fill="none" stroke="#ffd700" stroke-width="4"/>
-      </svg>
-      <div id="bullTitle" style="font-size:1.25rem; font-weight:900; color:#ff1744;">🐂 REVENGE MODE!</div>
-      <div id="bullSub" style="font-size:0.84rem; color:#fff; margin:5px 0;">Goti Cut!</div>
-      <div id="bullQuote" style="font-size:0.82rem; color:#ffe600; font-style:italic;">"Maine sabko bata diya, mai Kolhapur nahi jaa raha hoon!"</div>
-    </div>
-  </div>
-
-  <!-- BOARD SKIN UNLOCK MODAL -->
   <div id="vaultModal" class="overlay-screen overlay-hidden" style="background:rgba(2,6,18,0.9);">
     <div class="modal-card">
-      <div id="vaultTitle" style="font-size:1.15rem; font-weight:900; color:#ffd700; margin-bottom:8px;">🔒 PREMIUM BOARD</div>
-      <p style="font-size:0.82rem; color:#bfefff; margin-bottom:14px;">Watch a quick Sponsor Ad for a Free Trial or unlock permanently with Coins!</p>
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <button class="primary-neon-btn" onclick="unlockBoard('ad')">📺 Watch Ad (Free Trial)</button>
-        <button class="primary-neon-btn" style="background:#ffd700;" id="vaultCoinBtn" onclick="unlockBoard('coins')">🪙 Unlock with Coins</button>
-        <button class="cyber-btn" onclick="closeModal('vaultModal')">Cancel</button>
-      </div>
+      <div style="font-size:1.15rem; font-weight:900; color:#ffd700; margin-bottom:8px;">🔒 PREMIUM BOARD</div>
+      <p style="font-size:0.82rem; color:#bfefff; margin-bottom:14px;">Select theme to unlock.</p>
+      <select id="themeSelect" class="cyber-btn" style="margin-bottom:15px; text-align:center;">
+        <option value="board-solid">🌑 Obsidian (Free)</option>
+        <option value="board-glass">💎 Glass (300🪙)</option>
+        <option value="board-gold">👑 24K Gold (500🪙)</option>
+        <option value="board-matrix">☣️ Matrix (400🪙)</option>
+      </select>
+      <button class="primary-neon-btn" style="background:#ffd700; color:#000;" onclick="unlockBoard('coins')">🪙 Unlock with Coins</button>
+      <button class="cyber-btn" onclick="closeModal('vaultModal')">Cancel</button>
     </div>
   </div>
 
-  <!-- VIP PASS MODAL -->
-  <div id="vipModal" class="overlay-screen overlay-hidden" style="background:rgba(2,6,18,0.9);">
-    <div class="modal-card" style="border-color:#ffd700;">
-      <div style="font-size:1.25rem; font-weight:900; color:#ffd700;">👑 AETHERBYTE VIP CYBER PASS</div>
-      <ul style="text-align:left; font-size:0.8rem; color:#fff8e1; line-height:1.7; margin:12px 0; padding-left:18px;">
-        <li>All 4 Boards Unlocked (Crystal Glass, 24K Gold & Matrix)</li>
-        <li>Unlimited Free Loaded Strategic Dice (Pick 1–6 anytime)</li>
-        <li>1.25x Faster Rage Charge + 500 Bonus Cyber Coins</li>
-      </ul>
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <button class="primary-neon-btn" style="background:#ffd700;" onclick="activateVip('coins')">👑 Activate VIP (600 Coins)</button>
-        <button class="primary-neon-btn" onclick="activateVip('ad')">📺 Watch Ad (Free 1-Match VIP)</button>
-        <button class="cyber-btn" onclick="closeModal('vipModal')">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- INTERNATIONAL ENGLISH HOW-TO-PLAY MODAL -->
   <div id="rulesModal" class="overlay-screen overlay-hidden" style="background:rgba(2,6,18,0.92);">
     <div class="modal-card" style="text-align:left;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <strong style="color:#00f3ff; font-size:1.05rem;">📖 LUDO WARS: OFFICIAL GLOBAL RULES</strong>
-        <button class="cyber-btn" onclick="closeModal('rulesModal')">✖ Close</button>
+        <strong style="color:#00f3ff; font-size:1.05rem;">📖 LUDO WARS RULES</strong>
+        <button class="cyber-btn" style="width:auto; margin:0;" onclick="closeModal('rulesModal')">✖</button>
       </div>
       <div style="font-size:0.8rem; color:#d8f4ff; line-height:1.6; display:flex; flex-direction:column; gap:10px;">
-        <div><strong style="color:#00ff66;">🎲 1. Classic Cyber Ludo (15x15 Arena):</strong> Roll a <strong>6</strong> (or use Loaded Dice) to deploy your token from the Locked Base onto your colored Start Star (★). Tokens on Safe Stars (★) cannot be captured. Capturing an opponent sends them back to their Locked Base, triggers <strong>🐂 Angry Bull Revenge</strong>, and awards you a Bonus Roll! First player to complete all <strong>56 Steps</strong> into the Center Crown (👑) wins!</div>
-        <div><strong style="color:#ffd700;">🐍 2. Cyber Snakes & Ladders (1–100 Matrix):</strong> Race from Tile 1 to Tile 100👑! Climbing any Golden/Cyan Laser Ladder grants <strong>+25 Cyber Coins & an Immediate Extra Turn</strong>. Landing on a 3D Viper Head slides your token down its coils to its tail, while landing 1 tile away triggers a <strong>🛡️ Close-Call Dodge (+10 Coins)</strong>! Mystery Eggs (🥚) grant surprise +5 Rockets or -3 Traps.</div>
-        <div><strong style="color:#ff80ab;">🔥 3. Cyber Rage Stampede (1/1 Match Limit):</strong> Every player builds Rage on non-6 rolls (+6%), Snake Bites (+20%), or getting captured (+25%). At 100%, unleash a <strong>1-Time Match Bull Stampede (+12 Steps/Tiles)</strong>!</div>
+        <div><strong style="color:#00ff66;">🎲 1. Ludo:</strong> Roll a 6 to deploy. ★ is Safe. Capturing an opponent grants +1 Roll. 56 steps to 👑 wins.</div>
+        <div><strong style="color:#ffd700;">🐍 2. Snakes:</strong> Climb ladders for +25🪙 & Extra Turn. Snake bites slide you down. Dodge 1 tile away for +10🪙.</div>
+        <div><strong style="color:#ff80ab;">🔥 3. Rage:</strong> Fills on non-6 rolls or getting captured. At 100%, use Bull Stampede (+12 steps).</div>
       </div>
     </div>
   </div>
 
-  <!-- PUSH NOTIFICATION BANNER & VICTORY FIREWORKS -->
-  <div id="mobilePushBanner" class="mobile-push-banner" onclick="claimPushReward()">
-    <div style="font-size:1.5rem;">🎲</div>
-    <div style="text-align:left;">
-      <div style="font-size:0.62rem; color:#00ff66; font-weight:900;">LUDO WARS • NOW (+50🪙)</div>
-      <div id="pushTitle" style="font-size:0.8rem; font-weight:900; color:#fff;">🐂 Cyber-Bull Revenge Alert!</div>
-      <div id="pushBody" style="font-size:0.7rem; color:#bfefff;">Tap to claim +50 Free Cyber Coins!</div>
+  <div id="bullModal" class="overlay-screen overlay-hidden" style="background:rgba(90,0,15,0.88);">
+    <div class="modal-card" style="border-color:#ff1744; background:#1a0005;">
+      <div id="bullTitle" style="font-size:1.25rem; font-weight:900; color:#ff1744;">🐂 REVENGE MODE!</div>
+      <div id="bullSub" style="font-size:0.84rem; color:#fff; margin:5px 0;">Goti Cut!</div>
+      <div id="bullQuote" style="font-size:0.82rem; color:#ffe600; font-style:italic;"></div>
     </div>
   </div>
 
@@ -534,14 +307,11 @@
   <div id="victoryModal" class="overlay-screen overlay-hidden" style="background:rgba(2,6,18,0.85);">
     <div class="modal-card" style="border-color:#ffd700;">
       <div style="font-size:3rem;">👑🎆</div>
-      <div style="font-size:1.4rem; font-weight:900; color:#ffd700;">LUDO WARS CHAMPION!</div>
-      <div id="victoryWinnerText" style="font-size:1.05rem; color:#00ff66; font-weight:800; margin:8px 0 14px;">PLAYER 1 WINS!</div>
+      <div style="font-size:1.4rem; font-weight:900; color:#ffd700;">CHAMPION!</div>
+      <div id="victoryWinnerText" style="font-size:1.05rem; color:#00ff66; font-weight:800; margin:8px 0 14px;">PLAYER WINS!</div>
       <button class="primary-neon-btn" onclick="resetMatchAfterVictory()">🔄 Play Next Match</button>
     </div>
   </div>
-  <!-- =========================================================
-       MASTER UNIFIED JAVASCRIPT ENGINE
-       ========================================================= -->
   <script>
     // 1. WEB AUDIO SYNTHESIZER
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -570,229 +340,64 @@
       } catch (e) {}
     }
 
-    // 2. GAME DATA & MAPS
-    const COLOR_PRESETS = [
-      { key: 'green',  hex: '#00ff66', cls: 'token-p1', label: 'GREEN' },
-      { key: 'red',    hex: '#ff1744', cls: 'token-p2', label: 'RED' },
-      { key: 'yellow', hex: '#ffe600', cls: 'token-p3', label: 'GOLD' },
-      { key: 'cyan',   hex: '#00f3ff', cls: 'token-p4', label: 'CYAN' }
-    ];
-
+    // 2. DATA MAPS
+    const COLOR_PRESETS = [ { key: 'green', hex: '#00ff66', cls: 'token-p1', label: 'GREEN' }, { key: 'red', hex: '#ff1744', cls: 'token-p2', label: 'RED' }, { key: 'yellow', hex: '#ffe600', cls: 'token-p3', label: 'GOLD' }, { key: 'cyan', hex: '#00f3ff', cls: 'token-p4', label: 'CYAN' } ];
     const ladderMap = { 4: 25, 8: 30, 13: 46, 33: 74, 42: 63, 71: 92 };
     const snakeMap  = { 97: 12, 94: 54, 88: 36, 67: 24, 48: 15, 32: 6, 27: 9, 17: 4 };
     const hatcheryTiles = [14, 37, 52, 76, 89];
-
-    const SNAKE_GEO_LIST = [
-      { head: 97, tail: 12, theme: 'emerald',   coils: 3.2, amp: 68, flip: 1,  scale: 1.05 },
-      { head: 94, tail: 54, theme: 'NeonGreen', coils: 2.0, amp: 55, flip: -1, scale: 0.95 },
-      { head: 88, tail: 36, theme: 'crimson',   coils: 2.5, amp: 64, flip: 1,  scale: 1.00 },
-      { head: 67, tail: 24, theme: 'emerald',   coils: 2.5, amp: 64, flip: -1, scale: 0.95 },
-      { head: 48, tail: 15, theme: 'purple',    coils: 2.0, amp: 54, flip: 1,  scale: 0.90 },
-      { head: 32, tail: 6,  theme: 'gold',      coils: 1.5, amp: 45, flip: -1, scale: 0.85 },
-      { head: 27, tail: 9,  theme: 'NeonGreen', coils: 1.6, amp: 42, flip: 1,  scale: 0.82 },
-      { head: 17, tail: 4,  theme: 'crimson',   coils: 1.4, amp: 38, flip: -1, scale: 0.80 }
-    ];
-
-    const LUDO_OUTER_52 = [
-      [6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],
-      [0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],
-      [8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],
-      [14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0]
-    ];
-    const LUDO_HOME_PATHS = {
-      0: [[7,1],[7,2],[7,3],[7,4],[7,5]],
-      2: [[1,7],[2,7],[3,7],[4,7],[5,7]],
-      3: [[7,13],[7,12],[7,11],[7,10],[7,9]],
-      1: [[13,7],[12,7],[11,7],[10,7],[9,7]]
-    };
+    const SNAKE_GEO_LIST = [ { head: 97, tail: 12, theme: 'emerald', coils: 3.2, amp: 68, flip: 1, scale: 1.05 }, { head: 94, tail: 54, theme: 'NeonGreen', coils: 2.0, amp: 55, flip: -1, scale: 0.95 }, { head: 88, tail: 36, theme: 'crimson', coils: 2.5, amp: 64, flip: 1, scale: 1.00 }, { head: 67, tail: 24, theme: 'emerald', coils: 2.5, amp: 64, flip: -1, scale: 0.95 }, { head: 48, tail: 15, theme: 'purple', coils: 2.0, amp: 54, flip: 1, scale: 0.90 }, { head: 32, tail: 6, theme: 'gold', coils: 1.5, amp: 45, flip: -1, scale: 0.85 }, { head: 27, tail: 9, theme: 'NeonGreen', coils: 1.6, amp: 42, flip: 1, scale: 0.82 }, { head: 17, tail: 4, theme: 'crimson', coils: 1.4, amp: 38, flip: -1, scale: 0.80 } ];
+    const LUDO_OUTER_52 = [ [6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7], [0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14], [8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7], [14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0] ];
+    const LUDO_HOME_PATHS = { 0: [[7,1],[7,2],[7,3],[7,4],[7,5]], 2: [[1,7],[2,7],[3,7],[4,7],[5,7]], 3: [[7,13],[7,12],[7,11],[7,10],[7,9]], 1: [[13,7],[12,7],[11,7],[10,7],[9,7]] };
     const LUDO_START_INDEX = { 0: 1, 2: 14, 3: 27, 1: 40 };
     const LUDO_SAFE_STARS  = [1, 9, 14, 22, 27, 35, 40, 48];
-
-    const DIALOGUES = {
-      noSix: [
-        "O Stree kal aana... par 6 aaj hi laana! 👻🎲",
-        "Chabhi kahan hai?! 🔑😤",
-        "Jaldi goti nikal, kal subah Panvel nikalna hai! 🚌💨",
-        "Why so serious?! Roll a Six! 🃏🔥",
-        "Kisi ka 6 nahi aa raha! 😭🎲"
-      ],
-      sixRolled: [
-        "Mogambo khush hua! Six aaya! 👑🔥",
-        "Avengers... Assemble! Roll 6 Unleashed! ⚡",
-        "Pushpa naam sunke flower samjhe kya? Fire hai 6! 🔥",
-        "Jalwa hai hamara yahan! 6 pe 6! 😎✨"
-      ],
-      chase: [
-        "Vicky pleeease... piche mat aao, choti mat kaato! 👻🏃‍♂️",
-        "Ae gaadi start kar! 🏎️💨",
-        "Run, Forrest, Run! He's right behind you! 🏃‍♂️💨",
-        "Mere ko pakad re, ye jaanta nahi hai re mere ko! 😎🔥"
-      ],
-      safeStar: [
-        "O Stree Raksha Karna! Safe Star pe baith gaya! 🛡️👻",
-        "Wakanda Forever! Safe Zone Locked! 🛡️⚡",
-        "You shall not pass! Safe Star Active! 🧙‍♂️★"
-      ],
-      cutRevenge: [
-        "Maine sabko bata diya, mai Kolhapur nahi jaa raha hoon! 🐂🔥",
-        "I'll be back! Badla zaroor lunga! 🤖🔥",
-        "Say hello to my little friend! Goti Cut! 💥🔫",
-        "Parampara, Pratishtha, Anushasan... aur Goti Katna! ⚔️"
-      ]
-    };
+    const DIALOGUES = { noSix: ["O Stree kal aana... par 6 aaj hi laana! 👻🎲", "Chabhi kahan hai?! 🔑😤"], sixRolled: ["Mogambo khush hua! Six aaya! 👑🔥", "Avengers... Assemble! ⚡"], chase: ["Vicky pleeease... piche mat aao! 👻🏃‍♂️", "Run, Forrest, Run! 🏃‍♂️💨"], safeStar: ["O Stree Raksha Karna! 🛡️👻", "Wakanda Forever! 🛡️⚡"], cutRevenge: ["Maine sabko bata diya, mai Kolhapur nahi jaa raha hoon! 🐂🔥", "Say hello to my little friend! 💥🔫"] };
 
     const players = [
       { id: 0, short: 'HARSH', name: 'HARSH (GREEN)', color: '#00ff66', cls: 'token-p1', pos: 1, ludoStep: 0, ludoLocked: true, isAI: false, active: true, rage: 0, rageUsed: false },
-      { id: 1, short: 'BOT-1', name: 'BOT-1 (RED)',   color: '#ff1744', cls: 'token-p2', pos: 1, ludoStep: 0, ludoLocked: true, isAI: true,  active: true, rage: 0, rageUsed: false },
-      { id: 2, short: 'BOT-2', name: 'BOT-2 (GOLD)',  color: '#ffe600', cls: 'token-p3', pos: 1, ludoStep: 0, ludoLocked: true, isAI: true,  active: true, rage: 0, rageUsed: false },
-      { id: 3, short: 'BOT-3', name: 'BOT-3 (CYAN)',  color: '#00f3ff', cls: 'token-p4', pos: 1, ludoStep: 0, ludoLocked: true, isAI: true,  active: true, rage: 0, rageUsed: false }
+      { id: 1, short: 'BOT-1', name: 'BOT-1 (RED)', color: '#ff1744', cls: 'token-p2', pos: 1, ludoStep: 0, ludoLocked: true, isAI: true, active: true, rage: 0, rageUsed: false },
+      { id: 2, short: 'BOT-2', name: 'BOT-2 (GOLD)', color: '#ffe600', cls: 'token-p3', pos: 1, ludoStep: 0, ludoLocked: true, isAI: true, active: true, rage: 0, rageUsed: false },
+      { id: 3, short: 'BOT-3', name: 'BOT-3 (CYAN)', color: '#00f3ff', cls: 'token-p4', pos: 1, ludoStep: 0, ludoLocked: true, isAI: true, active: true, rage: 0, rageUsed: false }
     ];
 
-    let lobbyConfig = {
-      mode: 'classic', vsType: 'ai', count: 4,
-      slots: [
-        { name: 'Harsh', colorIdx: 0, isAI: false },
-        { name: 'CyberBot-1', colorIdx: 1, isAI: true },
-        { name: 'Viper-AI', colorIdx: 2, isAI: true },
-        { name: 'Nova-AI', colorIdx: 3, isAI: true }
-      ]
-    };
-
+    let lobbyConfig = { mode: 'classic', vsType: 'ai', count: 4, slots: [ { name: 'Harsh', colorIdx: 0, isAI: false }, { name: 'CyberBot-1', colorIdx: 1, isAI: true }, { name: 'Viper-AI', colorIdx: 2, isAI: true }, { name: 'Nova-AI', colorIdx: 3, isAI: true } ] };
     let activeMode = 'classic';
     let activePlayerIds = [0, 1, 2, 3];
     let currentTurnIdx = 0;
     let isTurnLocked = false;
-    let isVipActive = false;
     let dialogueCooldown = 0;
     const noSixStreak = { 0:0, 1:0, 2:0, 3:0 };
     const revengeState = { 0:{ready:false}, 1:{ready:false}, 2:{ready:false}, 3:{ready:false} };
     const unlockedBoards = { 'board-solid': true, 'board-glass': false, 'board-gold': false, 'board-matrix': false };
-    let pendingBoard = null;
     let currentBoard = 'board-solid';
     let aiTurnTimeout = null;
-    let blitzInterval = null;
-    let blitzSeconds = 180;
+    let coins = 1200;
 
     const sleep = ms => new Promise(r => setTimeout(r, ms));
-    const isSnakesMode = () => (activeMode === 'snakes' || activeMode === 'blitz-snakes');
-    const isBlitzMode  = () => (activeMode === 'blitz-ludo' || activeMode === 'blitz-snakes');
+    const isSnakesMode = () => (activeMode === 'snakes');
 
-    // 3. INITIALIZE BOARDS & SPLASH
+    // 3. INIT & MODALS
     window.addEventListener('DOMContentLoaded', () => {
       build15x15LudoDOM();
       buildTrue100Grid();
       render3DSnakesAndLadders();
       renderLobbyRows();
-      setTimeout(() => {
-        document.getElementById('splashStudio').classList.add('overlay-hidden');
-        document.getElementById('splashAliens').classList.remove('overlay-hidden');
-      }, 1700);
     });
 
     function openModal(id) { document.getElementById(id).classList.remove('overlay-hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('overlay-hidden'); }
 
-    // 4. PRE-MATCH LOBBY FUNCTIONS
-    function openPreMatchLobby() {
-      closeModal('splashAliens');
-      renderLobbyRows();
-      openModal('preMatchLobby');
-    }
-
-    function selectLobbyMode(m, btn) {
-      playCyberSfx('hop');
-      lobbyConfig.mode = m;
-      document.querySelectorAll('#lobbyModeRow .lobby-pill').forEach(b => b.classList.remove('selected'));
-      if (btn) btn.classList.add('selected');
-    }
-
-    function selectLobbyVs(vs, btn) {
-      playCyberSfx('hop');
-      lobbyConfig.vsType = vs;
-      document.querySelectorAll('#lobbyVsGroup .lobby-pill').forEach(b => b.classList.remove('selected'));
-      if (btn) btn.classList.add('selected');
-      lobbyConfig.slots.forEach((s, i) => {
-        s.isAI = (i === 0) ? false : (vs === 'ai');
-        s.name = s.isAI ? `CyberBot-${i}` : (i === 0 ? 'Harsh' : `Player ${i+1}`);
-      });
-      renderLobbyRows();
-    }
-
-    function selectLobbyCount(cnt, btn) {
-      playCyberSfx('hop');
-      lobbyConfig.count = cnt;
-      document.querySelectorAll('#lobbyCountGroup .lobby-pill').forEach(b => b.classList.remove('selected'));
-      if (btn) btn.classList.add('selected');
-      renderLobbyRows();
-    }
-
-    function renderLobbyRows() {
-      const box = document.getElementById('lobbyPlayersList');
-      box.innerHTML = '';
-      for (let i = 0; i < lobbyConfig.count; i++) {
-        const s = lobbyConfig.slots[i];
-        let dots = '';
-        COLOR_PRESETS.forEach((c, cIdx) => {
-          dots += `<span class="color-dot-pick ${s.colorIdx===cIdx?'active-color':''}" style="background:${c.hex};color:${c.hex};" onclick="pickColor(${i},${cIdx})"></span>`;
-        });
-        box.innerHTML += `
-          <div class="lobby-player-row">
-            <input class="lobby-input" value="${s.name}" maxlength="10" oninput="lobbyConfig.slots[${i}].name=this.value"/>
-            <div>${dots}</div>
-            <button class="role-btn ${s.isAI?'is-ai':''}" onclick="lobbyConfig.slots[${i}].isAI=!lobbyConfig.slots[${i}].isAI;renderLobbyRows();">
-              ${s.isAI ? '🤖 AI BOT' : '👤 HUMAN'}
-            </button>
-          </div>`;
-      }
-    }
-
-    function pickColor(slotIdx, cIdx) {
-      playCyberSfx('hop');
-      const other = lobbyConfig.slots.find((s, i) => i !== slotIdx && s.colorIdx === cIdx);
-      if (other) other.colorIdx = lobbyConfig.slots[slotIdx].colorIdx;
-      lobbyConfig.slots[slotIdx].colorIdx = cIdx;
-      renderLobbyRows();
-    }
-
-    function launchConfiguredMatch() {
-      closeModal('preMatchLobby');
-      activePlayerIds = [];
-      for (let i = 0; i < 4; i++) {
-        const s = lobbyConfig.slots[i], col = COLOR_PRESETS[s.colorIdx], p = players[i];
-        p.short = (s.name || `P${i+1}`).substring(0, 7).toUpperCase();
-        p.name = `${p.short} (${col.label})`;
-        p.color = col.hex; p.cls = col.cls; p.isAI = s.isAI;
-        p.active = (i < lobbyConfig.count);
-        p.pos = 1;
-        p.ludoStep = 0;
-        p.ludoLocked = true;
-        p.rage = 0; p.rageUsed = false;
-        noSixStreak[i] = 0;
-        if (p.active) activePlayerIds.push(i);
-      }
-      spawnAllTokens();
-      currentTurnIdx = activePlayerIds[0];
-      isTurnLocked = false;
-      document.getElementById('modeSelect').value = lobbyConfig.mode;
-      switchGameMode(lobbyConfig.mode);
-      updateTurnHUD();
-    }
-
-    // NEW VIP OCEAN LOGIC
-    function closeOceanModal() { document.getElementById('premiumOceanModal').classList.add('hidden-modal'); }
+    // VIP OCEAN AD LOGIC
     function unlockOceanTheme() {
-      closeOceanModal();
+      closeModal('premiumOceanModal');
       document.body.classList.add('ocean-unlocked');
       if(!document.body.classList.contains('trailer-3d-active')) { document.body.classList.add('trailer-3d-active'); }
-      if(typeof showBanner === 'function') { showBanner('🌊 VIP UNLOCKED!', 'Ocean Theme Active', '#00f3ff'); }
+      showBanner('🌊 VIP UNLOCKED!', 'Ocean Theme & Fishes Active', '#00f3ff');
     }
     function watchOceanAd() {
       document.getElementById('adModalTitle').innerHTML = "📺 AD PLAYING...";
-      document.getElementById('adModalDesc').innerHTML = "Please wait 3 seconds for reward...";
       document.getElementById('adBtnGroup').style.display = "none";
       setTimeout(() => {
         document.getElementById('adModalTitle').innerHTML = "🌊 VIP OCEAN THEME";
-        document.getElementById('adModalDesc').innerHTML = "Hatao black screen...";
         document.getElementById('adBtnGroup').style.display = "block";
         unlockOceanTheme();
       }, 3000);
@@ -800,407 +405,170 @@
     function buyOceanCoins() {
       const coinEl = document.getElementById('coinCount');
       if(coinEl) {
-        let currentCoins = parseInt(coinEl.textContent);
-        if(currentCoins >= 30) {
-          coinEl.textContent = currentCoins - 30;
-          unlockOceanTheme();
-        } else {
-          alert("Not enough coins! Watch Ad instead.");
-        }
-      } else { unlockOceanTheme(); }
+        let currentCoins = parseInt(coinEl.textContent || "0");
+        if(currentCoins >= 30) { coinEl.textContent = currentCoins - 30; unlockOceanTheme(); } 
+        else { alert("Not enough coins! Watch Ad."); }
+      }
     }
-    function openOceanModal() { document.getElementById('premiumOceanModal').classList.remove('hidden-modal'); }
 
+    // 4. LOBBY
+    function openPreMatchLobby() { renderLobbyRows(); openModal('preMatchLobby'); }
+    function selectLobbyMode(m, btn) { playCyberSfx('hop'); lobbyConfig.mode = m; document.querySelectorAll('#lobbyModeRow .lobby-pill').forEach(b => b.classList.remove('selected')); if (btn) btn.classList.add('selected'); }
+    function selectLobbyVs(vs, btn) { playCyberSfx('hop'); lobbyConfig.vsType = vs; document.querySelectorAll('#lobbyVsGroup .lobby-pill').forEach(b => b.classList.remove('selected')); if (btn) btn.classList.add('selected'); lobbyConfig.slots.forEach((s, i) => { s.isAI = (i === 0) ? false : (vs === 'ai'); s.name = s.isAI ? `Bot-${i}` : (i === 0 ? 'Harsh' : `P${i+1}`); }); renderLobbyRows(); }
+    function selectLobbyCount(cnt, btn) { playCyberSfx('hop'); lobbyConfig.count = cnt; document.querySelectorAll('#lobbyCountGroup .lobby-pill').forEach(b => b.classList.remove('selected')); if (btn) btn.classList.add('selected'); renderLobbyRows(); }
+    function renderLobbyRows() {
+      const box = document.getElementById('lobbyPlayersList'); box.innerHTML = '';
+      for (let i = 0; i < lobbyConfig.count; i++) {
+        const s = lobbyConfig.slots[i]; let dots = '';
+        COLOR_PRESETS.forEach((c, cIdx) => { dots += `<span class="color-dot-pick ${s.colorIdx===cIdx?'active-color':''}" style="background:${c.hex};color:${c.hex};" onclick="pickColor(${i},${cIdx})"></span>`; });
+        box.innerHTML += `<div class="lobby-player-row"><input class="lobby-input" value="${s.name}" maxlength="10" oninput="lobbyConfig.slots[${i}].name=this.value"/><div>${dots}</div><button class="role-btn ${s.isAI?'is-ai':''}" onclick="lobbyConfig.slots[${i}].isAI=!lobbyConfig.slots[${i}].isAI;renderLobbyRows();">${s.isAI ? '🤖 AI BOT' : '👤 HUMAN'}</button></div>`;
+      }
+    }
+    function pickColor(slotIdx, cIdx) { playCyberSfx('hop'); const other = lobbyConfig.slots.find((s, i) => i !== slotIdx && s.colorIdx === cIdx); if (other) other.colorIdx = lobbyConfig.slots[slotIdx].colorIdx; lobbyConfig.slots[slotIdx].colorIdx = cIdx; renderLobbyRows(); }
+    function launchConfiguredMatch() {
+      closeModal('preMatchLobby'); activePlayerIds = [];
+      for (let i = 0; i < 4; i++) {
+        const s = lobbyConfig.slots[i], col = COLOR_PRESETS[s.colorIdx], p = players[i];
+        p.short = (s.name || `P${i+1}`).substring(0, 7).toUpperCase(); p.name = `${p.short}`; p.color = col.hex; p.cls = col.cls; p.isAI = s.isAI; p.active = (i < lobbyConfig.count); p.pos = 1; p.ludoStep = 0; p.ludoLocked = true; p.rage = 0; p.rageUsed = false; noSixStreak[i] = 0;
+        if (p.active) activePlayerIds.push(i);
+      }
+      spawnAllTokens(); currentTurnIdx = activePlayerIds[0]; isTurnLocked = false; switchGameMode(lobbyConfig.mode); updateTurnHUD();
+    }
 
-    // 5. BUILD 15x15 LUDO & 1-100 SNAKE GRIDS
+    // 5. BOARDS
     function build15x15LudoDOM() {
-      const grid = document.getElementById('realLudoGrid');
-      grid.innerHTML = '';
+      const grid = document.getElementById('realLudoGrid'); grid.innerHTML = '';
       [0, 2, 1, 3].forEach(id => {
-        const b = document.createElement('div');
-        b.className = `ludo-corner-base ludo-base-p${id}`;
-        b.innerHTML = `
-          <div class="base-yard-slot"><div class="yard-mini-pawn token-p${id+1}"></div></div>
-          <div class="base-yard-slot"><div class="yard-mini-pawn token-p${id+1}"></div></div>
-          <div class="base-yard-slot"><div class="yard-mini-pawn token-p${id+1}"></div></div>
-          <div class="base-yard-slot" id="yardLockSlot-${id}"></div>
-          <span class="base-lock-tag" id="baseStatusTag-${id}">🔒 ROLL 6</span>`;
+        const b = document.createElement('div'); b.className = `ludo-corner-base ludo-base-p${id}`;
+        b.innerHTML = `<div class="base-yard-slot"><div class="yard-mini-pawn token-p${id+1}"></div></div><div class="base-yard-slot"><div class="yard-mini-pawn token-p${id+1}"></div></div><div class="base-yard-slot"><div class="yard-mini-pawn token-p${id+1}"></div></div><div class="base-yard-slot" id="yardLockSlot-${id}"></div><span class="base-lock-tag" id="baseStatusTag-${id}">🔒 ROLL 6</span>`;
         grid.appendChild(b);
       });
-      const crown = document.createElement('div');
-      crown.className = 'ludo-center-crown'; crown.id = 'ludoCenterCrown'; crown.innerHTML = '👑';
-      grid.appendChild(crown);
-
+      const crown = document.createElement('div'); crown.className = 'ludo-center-crown'; crown.id = 'ludoCenterCrown'; crown.innerHTML = '👑'; grid.appendChild(crown);
       LUDO_OUTER_52.forEach(([r, c], idx) => {
-        const cell = document.createElement('div');
-        cell.className = 'ludo-cell-15';
-        cell.style.gridRow = r + 1; cell.style.gridColumn = c + 1;
-        cell.id = `ludo-outer-${idx}`;
-        if (idx === 1) { cell.classList.add('start-p0'); cell.innerHTML = '★'; }
-        else if (idx === 14) { cell.classList.add('start-p2'); cell.innerHTML = '★'; }
-        else if (idx === 27) { cell.classList.add('start-p3'); cell.innerHTML = '★'; }
-        else if (idx === 40) { cell.classList.add('start-p1'); cell.innerHTML = '★'; }
-        else if (LUDO_SAFE_STARS.includes(idx)) { cell.classList.add('ludo-star-tile'); cell.innerHTML = '★'; }
+        const cell = document.createElement('div'); cell.className = 'ludo-cell-15'; cell.style.gridRow = r + 1; cell.style.gridColumn = c + 1; cell.id = `ludo-outer-${idx}`;
+        if (idx === 1) { cell.classList.add('start-p0'); cell.innerHTML = '★'; } else if (idx === 14) { cell.classList.add('start-p2'); cell.innerHTML = '★'; } else if (idx === 27) { cell.classList.add('start-p3'); cell.innerHTML = '★'; } else if (idx === 40) { cell.classList.add('start-p1'); cell.innerHTML = '★'; } else if (LUDO_SAFE_STARS.includes(idx)) { cell.classList.add('ludo-star-tile'); cell.innerHTML = '★'; }
         grid.appendChild(cell);
       });
-
       Object.keys(LUDO_HOME_PATHS).forEach(pid => {
-        LUDO_HOME_PATHS[pid].forEach(([r, c], sIdx) => {
-          const cell = document.createElement('div');
-          cell.className = `ludo-cell-15 home-p${pid}`;
-          cell.style.gridRow = r + 1; cell.style.gridColumn = c + 1;
-          cell.id = `ludo-home-${pid}-${sIdx}`;
-          cell.innerHTML = '•';
-          grid.appendChild(cell);
-        });
+        LUDO_HOME_PATHS[pid].forEach(([r, c], sIdx) => { const cell = document.createElement('div'); cell.className = `ludo-cell-15 home-p${pid}`; cell.style.gridRow = r + 1; cell.style.gridColumn = c + 1; cell.id = `ludo-home-${pid}-${sIdx}`; cell.innerHTML = '•'; grid.appendChild(cell); });
       });
     }
 
     function buildTrue100Grid() {
-      const matrix = document.getElementById('snakeMatrixGrid');
-      matrix.innerHTML = '';
+      const matrix = document.getElementById('snakeMatrixGrid'); matrix.innerHTML = '';
       for (let r = 9; r >= 0; r--) {
         for (let c = 0; c < 10; c++) {
           const num = r * 10 + (r % 2 === 0 ? (c + 1) : (10 - c));
-          const cell = document.createElement('div');
-          cell.className = 'matrix-tile' + (num===100?' tile-100':(num===1?' tile-start':(hatcheryTiles.includes(num)?' hatchery-tile':'')));
-          cell.id = 'hybrid-tile-' + num;
-          cell.innerHTML = num === 100 ? '100👑' : (hatcheryTiles.includes(num) ? `${num}🥚` : num);
+          const cell = document.createElement('div'); cell.className = 'matrix-tile' + (num===100?' tile-100':(num===1?' tile-start':(hatcheryTiles.includes(num)?' hatchery-tile':''))); cell.id = 'hybrid-tile-' + num; cell.innerHTML = num === 100 ? '100👑' : (hatcheryTiles.includes(num) ? `${num}🥚` : num);
           matrix.appendChild(cell);
         }
       }
     }
+    function getTileXY(tileNum) { const z = tileNum - 1, rFromBot = Math.floor(z / 10), rFromTop = 9 - rFromBot; const col = (rFromBot % 2 === 0) ? (z % 10) : (9 - (z % 10)); return { x: col * 100 + 50, y: rFromTop * 100 + 50 }; }
 
-    function getTileXY(tileNum) {
-      const z = tileNum - 1, rFromBot = Math.floor(z / 10), rFromTop = 9 - rFromBot;
-      const col = (rFromBot % 2 === 0) ? (z % 10) : (9 - (z % 10));
-      return { x: col * 100 + 50, y: rFromTop * 100 + 50 };
-    }
-
-    // 6. FULL 4-LAYER 3D COILED TRAILER VIPERS & MULTI-RUNG LASER LADDERS
     function render3DSnakesAndLadders() {
       const svg = document.querySelector('.snakes-ladders-svg');
-      const defsHTML = `
-        <defs>
-          <linearGradient id="rail_gold" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#ff9100"/><stop offset="50%" stop-color="#ffff00"/><stop offset="100%" stop-color="#ff9100"/>
-          </linearGradient>
-          <linearGradient id="rail_cyan" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#00b0ff"/><stop offset="50%" stop-color="#e0ffff"/><stop offset="100%" stop-color="#00b0ff"/>
-          </linearGradient>
-          <linearGradient id="body_emerald" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#00ff66"/><stop offset="50%" stop-color="#00b248"/><stop offset="100%" stop-color="#003314"/>
-          </linearGradient>
-          <linearGradient id="body_NeonGreen" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#76ff03"/><stop offset="50%" stop-color="#00e676"/><stop offset="100%" stop-color="#1b5e20"/>
-          </linearGradient>
-          <linearGradient id="body_crimson" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ff1744"/><stop offset="50%" stop-color="#d50000"/><stop offset="100%" stop-color="#3a0007"/>
-          </linearGradient>
-          <linearGradient id="body_purple" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#e040fb"/><stop offset="50%" stop-color="#aa00ff"/><stop offset="100%" stop-color="#310047"/>
-          </linearGradient>
-          <linearGradient id="body_gold" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ffee58"/><stop offset="50%" stop-color="#ffab00"/><stop offset="100%" stop-color="#4e2600"/>
-          </linearGradient>
-        </defs>
-      `;
-
-      const ladders = [
-        { from: 4,  to: 25, color: 'gold' },
-        { from: 13, to: 46, color: 'cyan' },
-        { from: 8,  to: 30, color: 'gold' },
-        { from: 33, to: 74, color: 'gold' },
-        { from: 42, to: 63, color: 'cyan' },
-        { from: 71, to: 92, color: 'gold' }
-      ];
-
+      const defsHTML = `<defs><linearGradient id="rail_gold" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ff9100"/><stop offset="50%" stop-color="#ffff00"/><stop offset="100%" stop-color="#ff9100"/></linearGradient><linearGradient id="rail_cyan" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00b0ff"/><stop offset="50%" stop-color="#e0ffff"/><stop offset="100%" stop-color="#00b0ff"/></linearGradient><linearGradient id="body_emerald" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00ff66"/><stop offset="50%" stop-color="#00b248"/><stop offset="100%" stop-color="#003314"/></linearGradient><linearGradient id="body_NeonGreen" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#76ff03"/><stop offset="50%" stop-color="#00e676"/><stop offset="100%" stop-color="#1b5e20"/></linearGradient><linearGradient id="body_crimson" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff1744"/><stop offset="50%" stop-color="#d50000"/><stop offset="100%" stop-color="#3a0007"/></linearGradient><linearGradient id="body_purple" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e040fb"/><stop offset="50%" stop-color="#aa00ff"/><stop offset="100%" stop-color="#310047"/></linearGradient><linearGradient id="body_gold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffee58"/><stop offset="50%" stop-color="#ffab00"/><stop offset="100%" stop-color="#4e2600"/></linearGradient></defs>`;
+      const ladders = [ { from: 4, to: 25, color: 'gold' }, { from: 13, to: 46, color: 'cyan' }, { from: 8, to: 30, color: 'gold' }, { from: 33, to: 74, color: 'gold' }, { from: 42, to: 63, color: 'cyan' }, { from: 71, to: 92, color: 'gold' } ];
       let laddersHTML = '';
       ladders.forEach(l => {
-        const p1 = getTileXY(l.from), p2 = getTileXY(l.to);
-        const dx = p2.x - p1.x, dy = p2.y - p1.y, len = Math.hypot(dx, dy);
-        const nx = -dy / len, ny = dx / len, halfW = 18;
-        const r1x1 = p1.x + nx * halfW, r1y1 = p1.y + ny * halfW;
-        const r1x2 = p2.x + nx * halfW, r1y2 = p2.y + ny * halfW;
-        const r2x1 = p1.x - nx * halfW, r2y1 = p1.y - ny * halfW;
-        const r2x2 = p2.x - nx * halfW, r2y2 = p2.y - ny * halfW;
-        const railGrad = l.color === 'gold' ? 'url(#rail_gold)' : 'url(#rail_cyan)';
-        const rungColor = l.color === 'gold' ? '#ffe57f' : '#84ffff';
-        const steps = Math.max(4, Math.floor(len / 42));
-        let rungs = '';
-        for (let i = 1; i < steps; i++) {
-          const t = i / steps;
-          rungs += `<line x1="${r1x1 + (r1x2 - r1x1)*t}" y1="${r1y1 + (r1y2 - r1y1)*t}" x2="${r2x1 + (r2x2 - r2x1)*t}" y2="${r2y1 + (r2y2 - r2y1)*t}" stroke="${rungColor}" stroke-width="5.5" stroke-linecap="round"/>`;
-        }
+        const p1 = getTileXY(l.from), p2 = getTileXY(l.to); const dx = p2.x - p1.x, dy = p2.y - p1.y, len = Math.hypot(dx, dy); const nx = -dy / len, ny = dx / len, halfW = 18; const r1x1 = p1.x + nx * halfW, r1y1 = p1.y + ny * halfW; const r1x2 = p2.x + nx * halfW, r1y2 = p2.y + ny * halfW; const r2x1 = p1.x - nx * halfW, r2y1 = p1.y - ny * halfW; const r2x2 = p2.x - nx * halfW, r2y2 = p2.y - ny * halfW; const railGrad = l.color === 'gold' ? 'url(#rail_gold)' : 'url(#rail_cyan)'; const rungColor = l.color === 'gold' ? '#ffe57f' : '#84ffff'; const steps = Math.max(4, Math.floor(len / 42)); let rungs = '';
+        for (let i = 1; i < steps; i++) { const t = i / steps; rungs += `<line x1="${r1x1 + (r1x2 - r1x1)*t}" y1="${r1y1 + (r1y2 - r1y1)*t}" x2="${r2x1 + (r2x2 - r2x1)*t}" y2="${r2y1 + (r2y2 - r2y1)*t}" stroke="${rungColor}" stroke-width="5.5" stroke-linecap="round"/>`; }
         laddersHTML += `<g filter="drop-shadow(0 5px 5px rgba(0,0,0,0.85))">${rungs}<line x1="${r1x1}" y1="${r1y1}" x2="${r1x2}" y2="${r1y2}" stroke="${railGrad}" stroke-width="9" stroke-linecap="round"/><line x1="${r2x1}" y1="${r2y1}" x2="${r2x2}" y2="${r2y2}" stroke="${railGrad}" stroke-width="9" stroke-linecap="round"/></g>`;
       });
-
       let snakesHTML = '';
       SNAKE_GEO_LIST.forEach(s => {
-        const H = getTileXY(s.head), T = getTileXY(s.tail);
-        const dx = T.x - H.x, dy = T.y - H.y, len = Math.hypot(dx, dy);
-        const ux = dx / len, uy = dy / len;
-        const nx = -uy * s.flip, ny = ux * s.flip;
-        let pts = [];
-        for (let i = 0; i <= 48; i++) {
-          const t = i / 48;
-          const wave = Math.sin(t * Math.PI * 2 * s.coils) * s.amp * Math.sin(Math.PI * t);
-          pts.push(`${(H.x + dx * t + nx * wave).toFixed(1)},${(H.y + dy * t + ny * wave).toFixed(1)}`);
-        }
-        const path = 'M ' + pts.join(' L ');
-        const neck = pts[3].split(',').map(Number);
-        const angle = Math.atan2(H.y - neck[1], H.x - neck[0]) * (180 / Math.PI);
-
-        snakesHTML += `
-          <g class="trailer-snake-3d">
-            <path d="${path}" fill="none" stroke="#021206" stroke-width="${30*s.scale}" stroke-linecap="round"/>
-            <path d="${path}" fill="none" stroke="url(#body_${s.theme})" stroke-width="${24*s.scale}" stroke-linecap="round"/>
-            <path d="${path}" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="${17*s.scale}" stroke-dasharray="8 10" stroke-linecap="round"/>
-            <path d="${path}" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="${6*s.scale}" stroke-dasharray="14 8" stroke-linecap="round"/>
-            <circle cx="${T.x}" cy="${T.y}" r="${7*s.scale}" fill="#00e676"/>
-            <g transform="translate(${H.x}, ${H.y}) rotate(${angle}) scale(${s.scale})">
-              <ellipse cx="-6" cy="0" rx="18" ry="20" fill="#002b11" stroke="#00ff66" stroke-width="2"/>
-              <path d="M -16,-14 C 4,-18 22,-10 28,0 C 22,10 4,18 -16,14 Z" fill="url(#body_${s.theme})" stroke="#ffffff" stroke-width="1.5"/>
-              <ellipse cx="5" cy="-7" rx="5" ry="3" fill="#ff1744" stroke="#ffff00" stroke-width="1"/>
-              <ellipse cx="5" cy="7" rx="5" ry="3" fill="#ff1744" stroke="#ffff00" stroke-width="1"/>
-              <path d="M 26,0 L 40,0 L 46,-6 M 40,0 L 46,6" fill="none" stroke="#ff1744" stroke-width="2.5" stroke-linecap="round"/>
-            </g>
-          </g>
-        `;
+        const H = getTileXY(s.head), T = getTileXY(s.tail); const dx = T.x - H.x, dy = T.y - H.y, len = Math.hypot(dx, dy); const ux = dx / len, uy = dy / len; const nx = -uy * s.flip, ny = ux * s.flip; let pts = [];
+        for (let i = 0; i <= 48; i++) { const t = i / 48; const wave = Math.sin(t * Math.PI * 2 * s.coils) * s.amp * Math.sin(Math.PI * t); pts.push(`${(H.x + dx * t + nx * wave).toFixed(1)},${(H.y + dy * t + ny * wave).toFixed(1)}`); }
+        const path = 'M ' + pts.join(' L '); const neck = pts[3].split(',').map(Number); const angle = Math.atan2(H.y - neck[1], H.x - neck[0]) * (180 / Math.PI);
+        snakesHTML += `<g class="trailer-snake-3d"><path d="${path}" fill="none" stroke="#021206" stroke-width="${30*s.scale}" stroke-linecap="round"/><path d="${path}" fill="none" stroke="url(#body_${s.theme})" stroke-width="${24*s.scale}" stroke-linecap="round"/><path d="${path}" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="${17*s.scale}" stroke-dasharray="8 10" stroke-linecap="round"/><path d="${path}" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="${6*s.scale}" stroke-dasharray="14 8" stroke-linecap="round"/><circle cx="${T.x}" cy="${T.y}" r="${7*s.scale}" fill="#00e676"/><g transform="translate(${H.x}, ${H.y}) rotate(${angle}) scale(${s.scale})"><ellipse cx="-6" cy="0" rx="18" ry="20" fill="#002b11" stroke="#00ff66" stroke-width="2"/><path d="M -16,-14 C 4,-18 22,-10 28,0 C 22,10 4,18 -16,14 Z" fill="url(#body_${s.theme})" stroke="#ffffff" stroke-width="1.5"/><ellipse cx="5" cy="-7" rx="5" ry="3" fill="#ff1744" stroke="#ffff00" stroke-width="1"/><ellipse cx="5" cy="7" rx="5" ry="3" fill="#ff1744" stroke="#ffff00" stroke-width="1"/><path d="M 26,0 L 40,0 L 46,-6 M 40,0 L 46,6" fill="none" stroke="#ff1744" stroke-width="2.5" stroke-linecap="round"/></g></g>`;
       });
-
       svg.innerHTML = defsHTML + laddersHTML + snakesHTML;
     }
 
-    // 7. REAL SNAKE COILED SLIDE ANIMATION + CLOSE-CALL DODGE FX
     async function animateRealSnakeSlide(player, headTile, tailTile) {
-      const squareBox = document.getElementById('snakeBoardSquare');
-      const headEl = document.getElementById('hybrid-tile-' + headTile);
-      const liveTok = document.getElementById('liveToken-' + player.id);
-
-      playCyberSfx('snake');
-      showAlienHoloScene('bite', player, headTile, tailTile);
-      showBollywoodToast(player.short, "Vicky pleeease... Saanp ne kaat liya re! 🐍😭");
-
-      if (headEl) {
-        const jaws = document.createElement('div');
-        jaws.className = 'venom-bite-fx';
-        jaws.innerHTML = '🐍💥';
-        headEl.appendChild(jaws);
-        setTimeout(() => jaws.remove(), 480);
-      }
-
+      const squareBox = document.getElementById('snakeBoardSquare'), headEl = document.getElementById('hybrid-tile-' + headTile), liveTok = document.getElementById('liveToken-' + player.id);
+      playCyberSfx('snake'); showAlienHoloScene('bite', player, headTile, tailTile); showBollywoodToast(player.short, "Vicky pleeease... Saanp ne kaat liya re! 🐍😭");
+      if (headEl) { const jaws = document.createElement('div'); jaws.className = 'venom-bite-fx'; jaws.innerHTML = '🐍💥'; headEl.appendChild(jaws); setTimeout(() => jaws.remove(), 480); }
       if (squareBox) {
         const sData = SNAKE_GEO_LIST.find(s => s.head === headTile) || { head: headTile, tail: tailTile, coils: 2.2, amp: 55, flip: 1 };
-        const H = getTileXY(headTile), T = getTileXY(tailTile);
-        const dx = T.x - H.x, dy = T.y - H.y, len = Math.hypot(dx, dy);
-        const nx = (-dy / len) * sData.flip, ny = (dx / len) * sData.flip;
-
+        const H = getTileXY(headTile), T = getTileXY(tailTile); const dx = T.x - H.x, dy = T.y - H.y, len = Math.hypot(dx, dy); const nx = (-dy / len) * sData.flip, ny = (dx / len) * sData.flip;
         if (liveTok) liveTok.style.opacity = '0';
-        const slider = document.createElement('div');
-        slider.className = `sliding-victim-token ${player.cls}`;
-        slider.textContent = '😱';
-        squareBox.appendChild(slider);
-
+        const slider = document.createElement('div'); slider.className = `sliding-victim-token ${player.cls}`; slider.textContent = '😱'; squareBox.appendChild(slider);
         const steps = 22;
-        for (let i = 0; i <= steps; i++) {
-          const t = i / steps;
-          const wave = Math.sin(t * Math.PI * 2 * sData.coils) * sData.amp * Math.sin(Math.PI * t);
-          const px = H.x + dx * t + nx * wave;
-          const py = H.y + dy * t + ny * wave;
-          slider.style.left = (px / 10) + '%';
-          slider.style.top  = (py / 10) + '%';
-          await sleep(45);
-        }
-
-        slider.remove();
-        if (liveTok) liveTok.style.opacity = '1';
+        for (let i = 0; i <= steps; i++) { const t = i / steps; const wave = Math.sin(t * Math.PI * 2 * sData.coils) * sData.amp * Math.sin(Math.PI * t); slider.style.left = ((H.x + dx * t + nx * wave) / 10) + '%'; slider.style.top = ((H.y + dy * t + ny * wave) / 10) + '%'; await sleep(45); }
+        slider.remove(); if (liveTok) liveTok.style.opacity = '1';
       }
-
-      player.pos = tailTile;
-      placeTokenOnTile(player.id, player.pos);
+      player.pos = tailTile; placeTokenOnTile(player.id, player.pos);
     }
 
     async function animateCloseCallDodge(player, currentTile, nearHead) {
       const tileEl = document.getElementById('hybrid-tile-' + currentTile);
-      if (tileEl) {
-        const fx = document.createElement('div');
-        fx.className = 'dodge-shield-fx';
-        fx.innerHTML = '🛡️ DODGED!';
-        tileEl.appendChild(fx);
-        setTimeout(() => fx.remove(), 950);
-      }
-      playCyberSfx('ladder');
-      addCoins(10);
-      showAlienHoloScene('escape', player, nearHead, currentTile);
-      showBollywoodToast(player.short, "O Stree Raksha Karna! Baal-baal bach gaya! 🛡️😎");
-      await sleep(1100);
+      if (tileEl) { const fx = document.createElement('div'); fx.className = 'dodge-shield-fx'; fx.innerHTML = '🛡️ DODGED!'; tileEl.appendChild(fx); setTimeout(() => fx.remove(), 950); }
+      playCyberSfx('ladder'); addCoins(10); showAlienHoloScene('escape', player, nearHead, currentTile); showBollywoodToast(player.short, "Baal-baal bach gaya! 🛡️😎"); await sleep(1100);
     }
 
     function spawnAllTokens() {
       players.forEach(p => {
-        ['liveToken-', 'ludoTok-'].forEach(prefix => {
-          let old = document.getElementById(prefix + p.id);
-          if (old) old.remove();
-        });
-        const sTok = document.createElement('div');
-        sTok.id = 'liveToken-' + p.id; sTok.className = `board-live-token ${p.cls}`;
-        sTok.textContent = p.short.substring(0, 2); sTok.style.display = p.active ? 'flex' : 'none';
-        document.getElementById('hybrid-tile-1').appendChild(sTok);
-
-        const lTok = document.createElement('div');
-        lTok.id = 'ludoTok-' + p.id; lTok.className = `ludo-live-token ${p.cls}`;
-        lTok.textContent = p.short.substring(0, 2); lTok.style.display = p.active ? 'flex' : 'none';
-        document.body.appendChild(lTok);
-        placeLudoToken(p.id, false);
+        ['liveToken-', 'ludoTok-'].forEach(prefix => { let old = document.getElementById(prefix + p.id); if (old) old.remove(); });
+        const sTok = document.createElement('div'); sTok.id = 'liveToken-' + p.id; sTok.className = `board-live-token ${p.cls}`; sTok.textContent = p.short.substring(0, 2); sTok.style.display = p.active ? 'flex' : 'none'; document.getElementById('hybrid-tile-1').appendChild(sTok);
+        const lTok = document.createElement('div'); lTok.id = 'ludoTok-' + p.id; lTok.className = `ludo-live-token ${p.cls}`; lTok.textContent = p.short.substring(0, 2); lTok.style.display = p.active ? 'flex' : 'none'; document.body.appendChild(lTok); placeLudoToken(p.id, false);
       });
     }
 
     function placeTokenOnTile(pid, tileNum) {
-      const tok = document.getElementById('liveToken-' + pid);
-      const cell = document.getElementById('hybrid-tile-' + tileNum);
-      if (tok && cell) {
-        cell.appendChild(tok);
-        tok.classList.remove('hop-anim'); void tok.offsetWidth; tok.classList.add('hop-anim');
-      }
+      const tok = document.getElementById('liveToken-' + pid), cell = document.getElementById('hybrid-tile-' + tileNum);
+      if (tok && cell) { cell.appendChild(tok); tok.classList.remove('hop-anim'); void tok.offsetWidth; tok.classList.add('hop-anim'); }
     }
 
     function placeLudoToken(pid, anim = true) {
-      const p = players[pid], tok = document.getElementById('ludoTok-' + pid);
-      let cell = null;
+      const p = players[pid], tok = document.getElementById('ludoTok-' + pid); let cell = null;
       if (p.ludoLocked) cell = document.getElementById(`yardLockSlot-${pid}`);
       else if (p.ludoStep >= 56) cell = document.getElementById('ludoCenterCrown');
       else if (p.ludoStep >= 51) cell = document.getElementById(`ludo-home-${pid}-${p.ludoStep - 51}`);
       else cell = document.getElementById(`ludo-outer-${(LUDO_START_INDEX[pid] + p.ludoStep) % 52}`);
-      if (tok && cell) {
-        cell.appendChild(tok);
-        if (anim) { tok.classList.remove('hop-anim'); void tok.offsetWidth; tok.classList.add('hop-anim'); }
-      }
+      if (tok && cell) { cell.appendChild(tok); if (anim) { tok.classList.remove('hop-anim'); void tok.offsetWidth; tok.classList.add('hop-anim'); } }
       const tag = document.getElementById(`baseStatusTag-${pid}`);
-      if (tag) {
-        tag.textContent = p.ludoLocked ? '🔒 ROLL 6' : `STEP ${p.ludoStep}/56`;
-        tag.style.color = p.ludoLocked ? '#ff8a80' : '#00ff66';
-      }
+      if (tag) { tag.textContent = p.ludoLocked ? '🔒 ROLL 6' : `STEP ${p.ludoStep}/56`; tag.style.color = p.ludoLocked ? '#ff8a80' : '#00ff66'; }
     }
 
-    // 8. CLEAN SINGLE-BOARD MODE & SKIN SWITCHERS
     function switchGameMode(mode) {
       activeMode = mode;
-      const lWing = document.getElementById('ludoWingSection');
-      const sWing = document.getElementById('snakeWingSection');
-      const biteBtn = document.getElementById('demoBiteBtn'), escBtn = document.getElementById('demoEscBtn');
-
-      if (isSnakesMode()) {
-        lWing.style.display = 'none';
-        sWing.style.display = 'flex';
-        biteBtn.style.display = 'inline-block';
-        escBtn.style.display = 'inline-block';
-        showAlienHoloScene('jungle');
-      } else {
-        lWing.style.display = 'flex';
-        sWing.style.display = 'none';
-        biteBtn.style.display = 'none';
-        escBtn.style.display = 'none';
-      }
-
-      const bBadge = document.getElementById('blitzTimerBadge');
-      clearInterval(blitzInterval);
-      if (isBlitzMode()) {
-        bBadge.style.display = 'inline-block';
-        blitzSeconds = 180;
-        blitzInterval = setInterval(() => {
-          blitzSeconds--;
-          if (blitzSeconds <= 0) {
-            clearInterval(blitzInterval);
-            const leader = [...players].filter(p => p.active).sort((a, b) => isSnakesMode() ? (b.pos - a.pos) : (b.ludoStep - a.ludoStep))[0];
-            triggerVictory(leader || players[0]);
-            return;
-          }
-          bBadge.textContent = `⏱️ 0${Math.floor(blitzSeconds/60)}:${String(blitzSeconds%60).padStart(2,'0')}`;
-        }, 1000);
-      } else {
-        bBadge.style.display = 'none';
-      }
-
+      document.getElementById('ludoWingSection').style.display = isSnakesMode() ? 'none' : 'flex';
+      document.getElementById('snakeWingSection').style.display = isSnakesMode() ? 'flex' : 'none';
+      if(isSnakesMode()) showAlienHoloScene('jungle');
       updateTurnHUD();
-    }
-
-    function switchBoardTheme(skin) {
-      if (unlockedBoards[skin] || isVipActive) {
-        currentBoard = skin; document.body.className = skin;
-      } else {
-        pendingBoard = skin;
-        const costs = { 'board-glass': 300, 'board-gold': 500, 'board-matrix': 400 };
-        document.getElementById('vaultCoinBtn').textContent = `🪙 Unlock Permanently (${costs[skin]} Coins)`;
-        openModal('vaultModal');
-        document.getElementById('themeSelect').value = currentBoard;
-      }
     }
 
     function unlockBoard(method) {
+      const skin = document.getElementById('themeSelect').value;
       const costs = { 'board-glass': 300, 'board-gold': 500, 'board-matrix': 400 };
-      if (method === 'coins') {
+      if (method === 'coins' && skin !== 'board-solid') {
         let c = parseInt(document.getElementById('coinCount').textContent);
-        if (c < costs[pendingBoard]) { alert('Not enough coins! Tap +100🪙 button!'); return; }
-        addCoins(-costs[pendingBoard]);
-        unlockedBoards[pendingBoard] = true;
+        if (c < costs[skin]) { alert('Not enough coins!'); return; }
+        addCoins(-costs[skin]); unlockedBoards[skin] = true;
       }
-      closeModal('vaultModal');
-      currentBoard = pendingBoard;
-      document.body.className = pendingBoard;
-      document.getElementById('themeSelect').value = pendingBoard;
+      closeModal('vaultModal'); currentBoard = skin; document.body.className = skin;
     }
 
-    // 9. ALIEN HOLOGRAM CUTSCENES (JUNGLE, BITE & ESCAPE)
+    // HOLOGRAMS
     let holoTimer = null;
     function showAlienHoloScene(type, p = players[0], head = 88, tail = 36) {
-      const stage = document.getElementById('aiHoloStage'), title = document.getElementById('aiHoloTitle'), sub = document.getElementById('aiHoloSub');
-      clearTimeout(holoTimer);
+      const stage = document.getElementById('aiHoloStage'), title = document.getElementById('aiHoloTitle'), sub = document.getElementById('aiHoloSub'); clearTimeout(holoTimer);
       if (type === 'jungle') {
-        title.style.color = '#00ff66'; title.textContent = '🛸 ALIEN MOTHERSHIP: JUNGLE VIPER DROP!';
-        sub.textContent = 'Abducting wild green vipers from Jungle Sector-9 onto the 1–100 Arena Board...';
-        stage.innerHTML = `<svg viewBox="0 0 400 180" width="100%" height="100%">
-          <polygon points="100,145 300,145 330,175 70,175" fill="rgba(0,243,255,0.2)" stroke="#00f3ff" stroke-width="2"/>
-          <polygon points="165,35 235,35 280,165 120,165" fill="rgba(0,255,102,0.18)"/>
-          <ellipse cx="200" cy="32" rx="48" ry="12" fill="#0d2b45" stroke="#00f3ff" stroke-width="2"/>
-          <path d="M 160,105 C 185,70 215,125 240,85" fill="none" stroke="#00ff66" stroke-width="8" stroke-linecap="round"/>
-          <circle cx="240" cy="85" r="5" fill="#ff1744"/></svg>`;
+        title.style.color = '#00ff66'; title.textContent = '🛸 ALIEN MOTHERSHIP: VIPER DROP!'; sub.textContent = 'Abducting wild green vipers onto the 1–100 Board...';
+        stage.innerHTML = `<svg viewBox="0 0 400 180" width="100%" height="100%"><polygon points="100,145 300,145 330,175 70,175" fill="rgba(0,243,255,0.2)" stroke="#00f3ff" stroke-width="2"/><polygon points="165,35 235,35 280,165 120,165" fill="rgba(0,255,102,0.18)"/><ellipse cx="200" cy="32" rx="48" ry="12" fill="#0d2b45" stroke="#00f3ff" stroke-width="2"/><path d="M 160,105 C 185,70 215,125 240,85" fill="none" stroke="#00ff66" stroke-width="8" stroke-linecap="round"/><circle cx="240" cy="85" r="5" fill="#ff1744"/></svg>`;
       } else if (type === 'bite') {
-        title.style.color = '#ff1744'; title.textContent = `🐍🛸 CYBER-VIPER LASER BITE! (${head} ➔ ${tail})`;
-        sub.textContent = `${p.short} caught in Alien Viper fangs & sliding down to Tile ${tail}!`;
-        stage.innerHTML = `<svg viewBox="0 0 400 180" width="100%" height="100%">
-          <path d="M 340,160 C 370,110 260,105 300,55 C 320,35 250,30 220,55" fill="none" stroke="#00ff66" stroke-width="15" stroke-linecap="round"/>
-          <line x1="210" y1="58" x2="130" y2="95" stroke="#ff1744" stroke-width="6" stroke-dasharray="8 4"/>
-          <circle cx="130" cy="95" r="16" fill="${p.color}" stroke="#fff" stroke-width="3"/></svg>`;
+        title.style.color = '#ff1744'; title.textContent = `🐍🛸 CYBER-VIPER LASER BITE! (${head} ➔ ${tail})`; sub.textContent = `${p.short} sliding down to Tile ${tail}!`;
+        stage.innerHTML = `<svg viewBox="0 0 400 180" width="100%" height="100%"><path d="M 340,160 C 370,110 260,105 300,55 C 320,35 250,30 220,55" fill="none" stroke="#00ff66" stroke-width="15" stroke-linecap="round"/><line x1="210" y1="58" x2="130" y2="95" stroke="#ff1744" stroke-width="6" stroke-dasharray="8 4"/><circle cx="130" cy="95" r="16" fill="${p.color}" stroke="#fff" stroke-width="3"/></svg>`;
       } else {
-        title.style.color = '#00f3ff'; title.textContent = `🛡️🛸 ALIEN PLASMA SHIELD ESCAPE!`;
-        sub.textContent = `${p.short} deflected the Viper at Tile ${head}! (+10 Coins)`;
-        stage.innerHTML = `<svg viewBox="0 0 400 180" width="100%" height="100%">
-          <path d="M 340,150 C 300,110 330,80 260,80" fill="none" stroke="#ff1744" stroke-width="13" stroke-linecap="round"/>
-          <polygon points="180,45 205,65 205,105 180,125 140,125 120,85 140,45" fill="rgba(0,243,255,0.25)" stroke="#00f3ff" stroke-width="3"/>
-          <circle cx="162" cy="85" r="15" fill="${p.color}" stroke="#fff" stroke-width="3"/></svg>`;
+        title.style.color = '#00f3ff'; title.textContent = `🛡️🛸 ALIEN PLASMA SHIELD ESCAPE!`; sub.textContent = `${p.short} deflected Viper at Tile ${head}!`;
+        stage.innerHTML = `<svg viewBox="0 0 400 180" width="100%" height="100%"><path d="M 340,150 C 300,110 330,80 260,80" fill="none" stroke="#ff1744" stroke-width="13" stroke-linecap="round"/><polygon points="180,45 205,65 205,105 180,125 140,125 120,85 140,45" fill="rgba(0,243,255,0.25)" stroke="#00f3ff" stroke-width="3"/><circle cx="162" cy="85" r="15" fill="${p.color}" stroke="#fff" stroke-width="3"/></svg>`;
       }
-      openModal('aiHoloModal');
-      holoTimer = setTimeout(() => closeModal('aiHoloModal'), 1550);
+      openModal('aiHoloModal'); holoTimer = setTimeout(() => closeModal('aiHoloModal'), 1550);
     }
 
-    async function triggerDemoSnake(type) {
-      if (isTurnLocked || !isSnakesMode()) return;
-      isTurnLocked = true;
-      const p = players[currentTurnIdx];
-      if (type === 'bite') {
-        p.pos = 88; placeTokenOnTile(p.id, 88);
-        await sleep(250);
-        await animateRealSnakeSlide(p, 88, 36);
-      } else {
-        p.pos = 87; placeTokenOnTile(p.id, 87);
-        await animateCloseCallDodge(p, 87, 88);
-      }
-      updateTurnHUD();
-      isTurnLocked = false;
-    }
-
-    // 10. MASTER DICE ROLL ENGINE
+    // 10. MAIN DICE ROLL ENGINE
     const dicePips = { 1:[0,0,0,0,1,0,0,0,0], 2:[1,0,0,0,0,0,0,0,1], 3:[1,0,0,0,1,0,0,0,1], 4:[1,0,1,0,0,0,1,0,1], 5:[1,0,1,0,1,0,1,0,1], 6:[1,0,1,1,0,1,1,0,1] };
 
     async function triggerCyberDiceRoll(forcedRoll = null) {
@@ -1217,370 +585,129 @@
 
       const roll = forcedRoll || (Math.floor(Math.random() * 6) + 1);
       document.getElementById('lastRollBadge').textContent = roll;
-      document.querySelectorAll('#diceBtn .pip').forEach((pip, i) => {
-        pip.classList.toggle('show', !!dicePips[roll][i]);
-      });
+      document.querySelectorAll('#diceBtn .pip').forEach((pip, i) => { pip.classList.toggle('show', !!dicePips[roll][i]); });
 
       const p = players[currentTurnIdx];
       let extraTurn = (roll === 6);
 
-      if (roll === 6 && dialogueCooldown === 0 && Math.random() < 0.55) {
-        showBollywoodToast(p.short, pickLine('sixRolled'));
-        dialogueCooldown = 4;
-      } else if (roll !== 6) {
-        addPlayerRage(p.id, 6);
-      }
+      if (roll === 6 && dialogueCooldown === 0 && Math.random() < 0.55) { showBollywoodToast(p.short, pickLine('sixRolled')); dialogueCooldown = 4; } 
+      else if (roll !== 6) { addPlayerRage(p.id, 6); }
 
       if (!isSnakesMode()) {
         if (p.ludoLocked) {
           if (roll === 6) {
-            p.ludoLocked = false;
-            p.ludoStep = 0;
-            noSixStreak[p.id] = 0;
-            placeLudoToken(p.id, true);
-            playCyberSfx('ladder');
-            showBanner(`🔓 GOTI UNLOCKED WITH 6!`, `${p.short} entered the Ludo Track! Roll Again!`, '#00ff66');
-            await sleep(450);
+            p.ludoLocked = false; p.ludoStep = 0; noSixStreak[p.id] = 0; placeLudoToken(p.id, true); playCyberSfx('ladder');
+            showBanner(`🔓 GOTI UNLOCKED WITH 6!`, `${p.short} entered the Ludo Track!`, '#00ff66'); await sleep(450);
           } else {
             noSixStreak[p.id] = (noSixStreak[p.id] || 0) + 1;
-            if (noSixStreak[p.id] >= 2 && dialogueCooldown === 0) {
-              showBollywoodToast(p.short, pickLine('noSix'));
-              dialogueCooldown = 5;
-              noSixStreak[p.id] = 0;
-            }
+            if (noSixStreak[p.id] >= 2 && dialogueCooldown === 0) { showBollywoodToast(p.short, pickLine('noSix')); dialogueCooldown = 5; noSixStreak[p.id] = 0; }
           }
         } else if (p.ludoStep + roll <= 56) {
-          for (let s = 1; s <= roll; s++) {
-            p.ludoStep++;
-            placeLudoToken(p.id, true);
-            playCyberSfx('hop');
-            await sleep(160);
-          }
-
+          for (let s = 1; s <= roll; s++) { p.ludoStep++; placeLudoToken(p.id, true); playCyberSfx('hop'); await sleep(160); }
           if (p.ludoStep <= 50) {
             const myOuter = (LUDO_START_INDEX[p.id] + p.ludoStep) % 52;
             if (LUDO_SAFE_STARS.includes(myOuter)) {
-              showBanner(`★ SAFE STAR ZONE!`, `${p.short} is protected on Safe Star!`, '#00ff66');
-              if (dialogueCooldown === 0 && Math.random() < 0.65) {
-                showBollywoodToast(p.short, pickLine('safeStar'));
-                dialogueCooldown = 4;
-              }
+              showBanner(`★ SAFE STAR ZONE!`, `${p.short} is protected!`, '#00ff66');
+              if (dialogueCooldown === 0 && Math.random() < 0.65) { showBollywoodToast(p.short, pickLine('safeStar')); dialogueCooldown = 4; }
             } else {
               players.forEach(opp => {
                 if (opp.active && opp.id !== p.id && !opp.ludoLocked && opp.ludoStep <= 50) {
                   const oppOuter = (LUDO_START_INDEX[opp.id] + opp.ludoStep) % 52;
-                  if (oppOuter === myOuter) {
-                    opp.ludoLocked = true;
-                    opp.ludoStep = 0;
-                    placeLudoToken(opp.id, true);
-                    extraTurn = true;
-                    triggerBullRevenge(p, opp);
-                  }
+                  if (oppOuter === myOuter) { opp.ludoLocked = true; opp.ludoStep = 0; placeLudoToken(opp.id, true); extraTurn = true; triggerBullRevenge(p, opp); }
                 }
               });
-
               const chased = players.find(op => op.active && op.id !== p.id && !op.ludoLocked && Math.abs(op.ludoStep - p.ludoStep) <= 4);
-              if (chased && dialogueCooldown === 0 && Math.random() < 0.45) {
-                showBollywoodToast(`${p.short} ➔ ${chased.short}`, pickLine('chase'));
-                dialogueCooldown = 4;
-              }
+              if (chased && dialogueCooldown === 0 && Math.random() < 0.45) { showBollywoodToast(`${p.short} ➔ ${chased.short}`, pickLine('chase')); dialogueCooldown = 4; }
             }
           }
-
-          if (p.ludoStep === 56) {
-            triggerVictory(p);
-            isTurnLocked = false;
-            return;
-          }
+          if (p.ludoStep === 56) { triggerVictory(p); isTurnLocked = false; return; }
         }
-      }
-      else {
+      } else {
         if (p.pos + roll <= 100) {
-          for (let s = 1; s <= roll; s++) {
-            p.pos++;
-            placeTokenOnTile(p.id, p.pos);
-            playCyberSfx('hop');
-            await sleep(160);
-          }
-
+          for (let s = 1; s <= roll; s++) { p.pos++; placeTokenOnTile(p.id, p.pos); playCyberSfx('hop'); await sleep(160); }
           if (ladderMap[p.pos]) {
-            const dest = ladderMap[p.pos];
-            playCyberSfx('ladder');
-            addCoins(25);
-            extraTurn = true;
-            showBanner(`⚡ LADDER BOOST (${p.pos} ➔ ${dest})`, `+25 Coins & Immediate Extra Turn!`, '#ffd700');
-            await sleep(500);
-            p.pos = dest;
-            placeTokenOnTile(p.id, p.pos);
-          }
-          else if (snakeMap[p.pos]) {
-            const tail = snakeMap[p.pos];
-            addPlayerRage(p.id, 20);
-            await animateRealSnakeSlide(p, p.pos, tail);
-          }
-          else {
+            const dest = ladderMap[p.pos]; playCyberSfx('ladder'); addCoins(25); extraTurn = true;
+            showBanner(`⚡ LADDER BOOST (${p.pos} ➔ ${dest})`, `+25 Coins & Extra Turn!`, '#ffd700'); await sleep(500); p.pos = dest; placeTokenOnTile(p.id, p.pos);
+          } else if (snakeMap[p.pos]) {
+            const tail = snakeMap[p.pos]; addPlayerRage(p.id, 20); await animateRealSnakeSlide(p, p.pos, tail);
+          } else {
             const near = Object.keys(snakeMap).map(Number).find(h => Math.abs(h - p.pos) === 1);
-            if (near) {
-              await animateCloseCallDodge(p, p.pos, near);
-            }
+            if (near) { await animateCloseCallDodge(p, p.pos, near); }
           }
-
           if (hatcheryTiles.includes(p.pos)) {
-            await sleep(300);
-            const bonus = Math.random() < 0.65 ? 5 : -3;
-            showBanner(
-              bonus > 0 ? `🥚 HATCHERY: +5 ROCKET BOOST!` : `🥚 HATCHERY: -3 SHOCK TRAP!`,
-              bonus > 0 ? `${p.short} jumped +5 tiles ahead!` : `${p.short} pushed 3 tiles back!`,
-              bonus > 0 ? '#00ff66' : '#ff007f'
-            );
-            await sleep(420);
-            p.pos = Math.max(1, Math.min(99, p.pos + bonus));
-            placeTokenOnTile(p.id, p.pos);
+            await sleep(300); const bonus = Math.random() < 0.65 ? 5 : -3;
+            showBanner( bonus > 0 ? `🥚 HATCHERY: +5 ROCKET!` : `🥚 HATCHERY: -3 TRAP!`, bonus > 0 ? `Jumped +5!` : `Pushed 3 back!`, bonus > 0 ? '#00ff66' : '#ff007f' );
+            await sleep(420); p.pos = Math.max(1, Math.min(99, p.pos + bonus)); placeTokenOnTile(p.id, p.pos);
           }
-
           players.forEach(opp => {
-            if (opp.active && opp.id !== p.id && opp.pos === p.pos && p.pos > 1 && p.pos < 100) {
-              opp.pos = 1;
-              placeTokenOnTile(opp.id, 1);
-              extraTurn = true;
-              triggerBullRevenge(p, opp);
-            }
+            if (opp.active && opp.id !== p.id && opp.pos === p.pos && p.pos > 1 && p.pos < 100) { opp.pos = 1; placeTokenOnTile(opp.id, 1); extraTurn = true; triggerBullRevenge(p, opp); }
           });
-
-          if (p.pos === 100) {
-            triggerVictory(p);
-            isTurnLocked = false;
-            return;
-          }
+          if (p.pos === 100) { triggerVictory(p); isTurnLocked = false; return; }
         }
       }
 
       await sleep(220);
-      if (!extraTurn) {
-        const curPos = activePlayerIds.indexOf(currentTurnIdx);
-        currentTurnIdx = activePlayerIds[(curPos + 1) % activePlayerIds.length];
-      }
+      if (!extraTurn) { const curPos = activePlayerIds.indexOf(currentTurnIdx); currentTurnIdx = activePlayerIds[(curPos + 1) % activePlayerIds.length]; }
       updateTurnHUD();
       isTurnLocked = false;
     }
 
-    // 11. HELPERS: HUD, RAGE, LOADED DICE, REVENGE & FIREWORKS
+    // 11. HELPERS: HUD, RAGE, REVENGE
     function updateTurnHUD() {
       const p = players[currentTurnIdx];
-      const ind = document.getElementById('turnIndicator');
-      ind.textContent = `${p.short}${p.isAI?' 🤖':''}`; ind.style.color = p.color;
-
+      const ind = document.getElementById('turnIndicator'); ind.textContent = `${p.short}${p.isAI?' 🤖':''}'s Turn`; ind.style.color = p.color;
       players.forEach((pl, i) => {
         const card = document.getElementById('hudCard-' + i);
-        card.style.display = pl.active ? 'flex' : 'none';
-        card.classList.toggle('active-turn', i === currentTurnIdx);
-        const stat = isSnakesMode()
-          ? `Tile: ${pl.pos}/100`
-          : (pl.ludoLocked ? `🔒 Base` : `Step: ${pl.ludoStep}/56`);
+        card.style.display = pl.active ? 'flex' : 'none'; card.classList.toggle('active-turn', i === currentTurnIdx);
+        const stat = isSnakesMode() ? `Tile: ${pl.pos}/100` : (pl.ludoLocked ? `🔒 Base` : `Step: ${pl.ludoStep}/56`);
         card.innerHTML = `<div><span class="p-badge-dot" style="background:${pl.color};"></span><strong>${pl.short}</strong></div><span style="color:${pl.color};font-weight:800;">${stat}</span>`;
       });
-
       syncRageUI();
-      document.getElementById('ghostStrikeBtn').style.display = (revengeState[p.id]?.ready && !p.isAI) ? 'inline-block' : 'none';
-
       clearTimeout(aiTurnTimeout);
-      if (p.active && p.isAI) {
-        aiTurnTimeout = setTimeout(() => {
-          if (!isTurnLocked && players[currentTurnIdx].isAI) {
-            if (p.rage >= 100 && !p.rageUsed) unleashBullStampede();
-            else triggerCyberDiceRoll();
-          }
-        }, 850);
-      }
+      if (p.active && p.isAI) { aiTurnTimeout = setTimeout(() => { if (!isTurnLocked && players[currentTurnIdx].isAI) { if (p.rage >= 100 && !p.rageUsed) unleashBullStampede(); else triggerCyberDiceRoll(); } }, 850); }
     }
 
     function addPlayerRage(pid, amount) {
-      const p = players[pid];
-      if (!p || p.rageUsed) return;
-      const gain = (isVipActive && pid === 0) ? Math.round(amount * 1.25) : amount;
-      p.rage = Math.min(100, (p.rage || 0) + gain);
-      syncRageUI();
-      if (p.rage >= 100 && !p.isAI && pid === currentTurnIdx) {
-        showBanner(`🔥 100% RAGE READY (${p.short})!`, `1-Time Match Stampede Unlocked!`, '#ff1744');
-      }
+      const p = players[pid]; if (!p || p.rageUsed) return;
+      p.rage = Math.min(100, (p.rage || 0) + amount); syncRageUI();
+      if (p.rage >= 100 && !p.isAI && pid === currentTurnIdx) { showBanner(`🔥 100% RAGE READY (${p.short})!`, `1-Time Stampede Unlocked!`, '#ff1744'); }
     }
 
     function syncRageUI() {
-      const p = players[currentTurnIdx] || players[0];
-      const fill = document.getElementById('rageMeterFill');
-      const txt  = document.getElementById('ragePctText');
-      const btn  = document.getElementById('stampedeBtn');
-      const box  = document.getElementById('rageBarBox');
-
-      if (p.rageUsed) {
-        box.classList.add('rage-exhausted');
-        box.style.display = 'block';
-        btn.style.display = 'none';
-        fill.style.width = '0%';
-        txt.textContent = '🔒 USED (1/1)';
-        return;
-      }
-
-      box.classList.remove('rage-exhausted');
-      fill.style.width = (p.rage || 0) + '%';
-      txt.textContent = (p.rage || 0) + '%';
-
-      if (p.rage >= 100 && !p.isAI) {
-        btn.style.display = 'block';
-        box.style.display = 'none';
-      } else {
-        btn.style.display = 'none';
-        box.style.display = 'block';
-      }
+      const p = players[currentTurnIdx] || players[0], fill = document.getElementById('rageMeterFill'), txt = document.getElementById('ragePctText'), btn = document.getElementById('stampedeBtn'), box = document.getElementById('rageBarBox');
+      if (p.rageUsed) { box.classList.add('rage-exhausted'); box.style.display = 'block'; btn.style.display = 'none'; fill.style.width = '0%'; txt.textContent = '🔒 USED'; return; }
+      box.classList.remove('rage-exhausted'); fill.style.width = (p.rage || 0) + '%'; txt.textContent = (p.rage || 0) + '%';
+      if (p.rage >= 100 && !p.isAI) { btn.style.display = 'block'; box.style.display = 'none'; } else { btn.style.display = 'none'; box.style.display = 'block'; }
     }
 
     function unleashBullStampede() {
-      const p = players[currentTurnIdx];
-      if (isTurnLocked || !p || p.rage < 100 || p.rageUsed) return;
-      p.rage = 0;
-      p.rageUsed = true;
-      syncRageUI();
-      playCyberSfx('bull');
-
-      if (isSnakesMode()) {
-        p.pos = Math.min(100, p.pos + 12);
-        placeTokenOnTile(p.id, p.pos);
-      } else {
-        p.ludoLocked = false;
-        p.ludoStep = Math.min(56, p.ludoStep + 12);
-        placeLudoToken(p.id, true);
-      }
-
-      showBanner(`🐂 1/1 MATCH STAMPEDE USED!`, `${p.short} charged +12 ahead!`, '#ff1744');
+      const p = players[currentTurnIdx]; if (isTurnLocked || !p || p.rage < 100 || p.rageUsed) return;
+      p.rage = 0; p.rageUsed = true; syncRageUI(); playCyberSfx('bull');
+      if (isSnakesMode()) { p.pos = Math.min(100, p.pos + 12); placeTokenOnTile(p.id, p.pos); } 
+      else { p.ludoLocked = false; p.ludoStep = Math.min(56, p.ludoStep + 12); placeLudoToken(p.id, true); }
+      showBanner(`🐂 STAMPEDE USED!`, `${p.short} charged +12 ahead!`, '#ff1744');
       updateTurnHUD();
       if ((isSnakesMode() && p.pos === 100) || (!isSnakesMode() && p.ludoStep === 56)) triggerVictory(p);
     }
 
-    function toggleLoadedDice() {
-      const el = document.getElementById('loadedDicePopover');
-      el.style.display = el.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    function useLoadedDice(num) {
-      toggleLoadedDice();
-      if (!isVipActive) {
-        let c = parseInt(document.getElementById('coinCount').textContent);
-        if (c < 80) { showBanner(`🪙 NEED 80 COINS!`, `Tap +100🪙 or Activate VIP!`, '#ffd700'); return; }
-        addCoins(-80);
-      }
-      triggerCyberDiceRoll(num);
-    }
-
-    function activateVip(method) {
-      if (method === 'coins') {
-        let c = parseInt(document.getElementById('coinCount').textContent);
-        if (c < 600) { alert('Need 600 Coins!'); return; }
-        addCoins(-600);
-      }
-      isVipActive = true; addCoins(500);
-      closeModal('vipModal'); switchBoardTheme('board-gold');
-      document.getElementById('vipTopBtn').textContent = '👑 VIP ON';
-      showBanner(`👑 VIP CYBER PASS ACTIVE!`, `All Boards + Free Loaded Dice Unlocked!`, '#ffd700');
-    }
-
     function triggerBullRevenge(attacker, victim) {
-      playCyberSfx('bull');
-      revengeState[victim.id] = { ready: true, targetId: attacker.id };
-      addPlayerRage(victim.id, 25);
-      document.getElementById('bullTitle').textContent = `🐂 REVENGE: ${victim.short} RAGES!`;
-      document.getElementById('bullSub').textContent = `${attacker.short} cut ${victim.short}! Ghost Warp Ready!`;
-      document.getElementById('bullQuote').textContent = `"${pickLine('cutRevenge')}"`;
-      openModal('bullModal');
-      setTimeout(() => closeModal('bullModal'), 1900);
+      playCyberSfx('bull'); addPlayerRage(victim.id, 25);
+      document.getElementById('bullTitle').textContent = `🐂 REVENGE: ${victim.short} RAGES!`; document.getElementById('bullSub').textContent = `${attacker.short} cut ${victim.short}!`; document.getElementById('bullQuote').textContent = `"${pickLine('cutRevenge')}"`;
+      openModal('bullModal'); setTimeout(() => closeModal('bullModal'), 1900);
     }
 
-    function executeGhostStrike() {
-      const p = players[currentTurnIdx];
-      const rev = revengeState[p.id];
-      if (!rev || !rev.ready) return;
-      rev.ready = false;
-      const target = players[rev.targetId] || players[1];
-      if (isSnakesMode()) {
-        p.pos = Math.max(2, target.pos - 2);
-        placeTokenOnTile(p.id, p.pos);
-      } else {
-        p.ludoLocked = false;
-        p.ludoStep = Math.max(0, target.ludoStep - 2);
-        placeLudoToken(p.id, true);
-      }
-      showBanner(`👻 GHOST WARP AMBUSH!`, `Warped right behind ${target.short}!`, '#d500f9');
-      updateTurnHUD();
-    }
-
-    function pickLine(cat) {
-      const arr = DIALOGUES[cat];
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    function showBanner(t, s, col = '#00f3ff') {
-      const b = document.getElementById('cyberEventBanner');
-      document.getElementById('eventBannerTitle').textContent = t;
-      document.getElementById('eventBannerTitle').style.color = col;
-      document.getElementById('eventBannerSub').textContent = s;
-      b.style.borderColor = col; b.classList.add('show');
-      setTimeout(() => b.classList.remove('show'), 2000);
-    }
-
-    function showBollywoodToast(spk, txt) {
-      const t = document.getElementById('bollywoodToast');
-      document.getElementById('bollywoodSpeaker').textContent = `🎬 ${spk} COMMS`;
-      document.getElementById('bollywoodText').textContent = `"${txt}"`;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2800);
-    }
-
-    function addCoins(n) {
-      const el = document.getElementById('coinCount');
-      el.textContent = Math.max(0, (parseInt(el.textContent) || 0) + n);
-    }
-
-    function triggerSmartRetentionPush() {
-      const b = document.getElementById('mobilePushBanner');
-      b.classList.add('show-push');
-      playCyberSfx('ladder');
-      setTimeout(() => b.classList.remove('show-push'), 5500);
-    }
-
-    function claimPushReward() {
-      document.getElementById('mobilePushBanner').classList.remove('show-push');
-      addCoins(50);
-      showBanner(`🎁 +50 COINS CLAIMED!`, `Retention Vault Bonus Added!`, '#00ff66');
-    }
-
+    function pickLine(cat) { const arr = DIALOGUES[cat]; return arr[Math.floor(Math.random() * arr.length)]; }
+    function showBanner(t, s, col = '#00f3ff') { const b = document.getElementById('cyberEventBanner'); document.getElementById('eventBannerTitle').textContent = t; document.getElementById('eventBannerTitle').style.color = col; document.getElementById('eventBannerSub').textContent = s; b.style.borderColor = col; b.classList.add('show'); setTimeout(() => b.classList.remove('show'), 2000); }
+    function showBollywoodToast(spk, txt) { const t = document.getElementById('bollywoodToast'); document.getElementById('bollywoodSpeaker').textContent = `🎬 ${spk} COMMS`; document.getElementById('bollywoodText').textContent = `"${txt}"`; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); }
+    function addCoins(n) { const el = document.getElementById('coinCount'); el.textContent = Math.max(0, (parseInt(el.textContent) || 0) + n); }
+    
     function triggerVictory(winner) {
-      playCyberSfx('ladder'); addCoins(250);
-      document.getElementById('victoryWinnerText').textContent = `${winner.name} WINS! (+250🪙)`;
-      openModal('victoryModal');
-      const canvas = document.getElementById('fireworksCanvas');
-      canvas.style.display = 'block'; canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-      const ctx = canvas.getContext('2d');
-      let parts = [];
-      for (let i = 0; i < 65; i++) {
-        const a = (Math.PI * 2 * i) / 65, sp = 2 + Math.random() * 5;
-        parts.push({ x: canvas.width/2, y: canvas.height/3, vx: Math.cos(a)*sp, vy: Math.sin(a)*sp, a: 1, c: ['#00f3ff','#00ff66','#ffd700','#ff007f'][i%4] });
-      }
-      function anim() {
-        if (canvas.style.display === 'none') return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        parts.forEach(p => {
-          p.x += p.vx; p.y += p.vy; p.vy += 0.06; p.a -= 0.015;
-          if (p.a > 0) { ctx.globalAlpha = p.a; ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, 3.5, 0, Math.PI*2); ctx.fill(); }
-        });
-        requestAnimationFrame(anim);
-      }
-      anim();
+      playCyberSfx('ladder'); addCoins(250); document.getElementById('victoryWinnerText').textContent = `${winner.name} WINS! (+250🪙)`; openModal('victoryModal');
+      const canvas = document.getElementById('fireworksCanvas'); canvas.style.display = 'block'; canvas.width = window.innerWidth; canvas.height = window.innerHeight; const ctx = canvas.getContext('2d');
+      let parts = []; for (let i = 0; i < 65; i++) { const a = (Math.PI * 2 * i) / 65, sp = 2 + Math.random() * 5; parts.push({ x: canvas.width/2, y: canvas.height/3, vx: Math.cos(a)*sp, vy: Math.sin(a)*sp, a: 1, c: ['#00f3ff','#00ff66','#ffd700','#ff007f'][i%4] }); }
+      function anim() { if (canvas.style.display === 'none') return; ctx.clearRect(0, 0, canvas.width, canvas.height); parts.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.06; p.a -= 0.015; if (p.a > 0) { ctx.globalAlpha = p.a; ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, 3.5, 0, Math.PI*2); ctx.fill(); } }); requestAnimationFrame(anim); } anim();
     }
-
-    function resetMatchAfterVictory() {
-      document.getElementById('fireworksCanvas').style.display = 'none';
-      closeModal('victoryModal');
-      launchConfiguredMatch();
-    }
+    function resetMatchAfterVictory() { document.getElementById('fireworksCanvas').style.display = 'none'; closeModal('victoryModal'); openPreMatchLobby(); }
   </script>
 </body>
 </html>
