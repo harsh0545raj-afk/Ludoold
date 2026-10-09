@@ -2516,5 +2516,120 @@
     }
   }
 </script>
+  <!-- =========================================================
+     VIP OCEAN THEME PATCH (Machliyan + Ad/Coins + 3D Fix)
+     Isko apne 2200-line code mein </body> ke theek upar paste kar
+     ========================================================= -->
+<style>
+  /* 1. NATIVE APP LOCK (Scrolling rokne ke liye) */
+  html, body { width: 100% !important; height: 100dvh !important; overflow: hidden !important; position: fixed !important; }
+  
+  /* 2. VIP OCEAN BACKGROUND */
+  body.ocean-unlocked { background-color: #020914 !important; }
+  body.ocean-unlocked::before, body.ocean-unlocked::after {
+    content: ''; position: fixed; bottom: 0; left: -50vw; width: 200vw; height: 50vh; z-index: -10; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 100%, rgba(0, 243, 255, 0.25) 0%, transparent 70%);
+    border-radius: 50% 50% 0 0; animation: oceanWave 10s infinite alternate ease-in-out;
+  }
+  body.ocean-unlocked::after {
+    height: 35vh; background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 102, 0.15) 0%, transparent 70%);
+    animation: oceanWave2 14s infinite alternate-reverse ease-in-out;
+  }
+  @keyframes oceanWave { 0% { transform: translateY(10px) scaleY(0.9); opacity: 0.6; } 100% { transform: translateY(0px) scaleY(1.1); opacity: 1; } }
+  @keyframes oceanWave2 { 0% { transform: translateX(5vw); opacity: 0.5; } 100% { transform: translateX(-5vw); opacity: 1; } }
+
+  /* 3. SWIMMING FISH */
+  .cyber-fish { position: fixed; font-size: 1.8rem; z-index: -5; opacity: 0; pointer-events: none; display: none; filter: drop-shadow(0 0 10px rgba(0,243,255,0.8)); }
+  body.ocean-unlocked .cyber-fish { display: block; animation: swimFish 18s linear infinite; }
+  .fish1 { top: 65%; left: -10%; animation-delay: 1s; }
+  .fish2 { top: 80%; left: -10%; animation-delay: 8s; font-size: 1.4rem; animation-name: swimFishRev; }
+  @keyframes swimFish { 0% { left: -10%; opacity: 0; transform: translateY(0); } 20% { opacity: 0.9; transform: translateY(-20px); } 80% { opacity: 0.9; transform: translateY(15px); } 100% { left: 110%; opacity: 0; transform: translateY(0); } }
+  @keyframes swimFishRev { 0% { left: 110%; opacity: 0; transform: scaleX(-1) translateY(0); } 20% { opacity: 0.8; transform: scaleX(-1) translateY(-10px); } 80% { opacity: 0.8; transform: scaleX(-1) translateY(20px); } 100% { left: -10%; opacity: 0; transform: scaleX(-1) translateY(0); } }
+
+  /* 4. 3D CLIPPING FIX (Removes Black Screen) */
+  body.ocean-unlocked .hybrid-board-frame,
+  body.ocean-unlocked .square-arena-box {
+    background: rgba(3, 10, 24, 0.3) !important; box-shadow: 0 15px 35px rgba(0, 243, 255, 0.2) !important; overflow: visible !important; transform-style: flat !important;
+  }
+  body.ocean-unlocked.trailer-3d-active .square-arena-box {
+    transform-origin: 50% 85% !important; transform: perspective(850px) rotateX(28deg) translateZ(100px) scale(0.92) !important; z-index: 50 !important;
+  }
+  body.trailer-3d-active .board-live-token, body.trailer-3d-active .ludo-live-token, body.trailer-3d-active .yard-mini-pawn {
+    transform: translateY(-32%) scale(0.95) !important;
+  }
+
+  /* 5. AD MODAL UI */
+  .premium-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; display: flex; justify-content: center; align-items: center; }
+  .hidden-modal { display: none !important; }
+  .premium-card { background: #051024; border: 2px solid #00f3ff; border-radius: 14px; padding: 20px; text-align: center; width: 90%; max-width: 360px; box-shadow: 0 0 35px rgba(0,243,255,0.5); }
+  .premium-btn { display: block; width: 100%; margin: 12px 0; padding: 14px; font-weight: 900; border-radius: 8px; border: none; cursor: pointer; text-transform: uppercase; }
+  .btn-ad { background: linear-gradient(90deg, #ff007f, #7000ff); color: #fff; }
+  .btn-coins { background: linear-gradient(90deg, #ffd700, #ff9100); color: #000; }
+</style>
+
+<!-- HTML FOR FISH & AD MODAL -->
+<div class="cyber-fish fish1">🐟</div>
+<div class="cyber-fish fish2">🐠</div>
+
+<div id="premiumOceanModal" class="premium-modal hidden-modal">
+  <div class="premium-card">
+    <div style="font-size: 1.25rem; font-weight: 900; color: #00f3ff; margin-bottom: 8px;" id="adModalTitle">🌊 VIP OCEAN THEME</div>
+    <p id="adModalDesc" style="font-size:0.8rem; color:#bfefff; margin-bottom:15px;">Unlock glowing 3D ocean & swimming fishes!</p>
+    <div id="adBtnGroup">
+      <button class="premium-btn btn-ad" onclick="watchOceanAd()">📺 Watch Ad (3 Sec)</button>
+      <button class="premium-btn btn-coins" onclick="buyOceanCoins()">🪙 Pay 30 Coins</button>
+      <button style="background:transparent; border:1px solid #ff1744; color:#ff1744; padding:8px 20px; border-radius:6px; cursor:pointer;" onclick="closeOceanModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT FOR VIP BUTTON & LOGIC -->
+<script>
+  // VIP Button HUD mein auto-add karna
+  setTimeout(() => {
+    const hudGroup = document.querySelector('.hud-control-strip .hud-group') || document.querySelector('.top-title-row');
+    if(hudGroup && !document.getElementById('btnOceanUnlock')) {
+      const btn = document.createElement('button');
+      btn.id = 'btnOceanUnlock';
+      btn.className = 'cyber-btn';
+      btn.style.borderColor = '#ffd700';
+      btn.style.color = '#ffd700';
+      btn.innerHTML = '🌊 VIP';
+      btn.onclick = () => document.getElementById('premiumOceanModal').classList.remove('hidden-modal');
+      hudGroup.appendChild(btn);
+    }
+  }, 1000);
+
+  function closeOceanModal() { document.getElementById('premiumOceanModal').classList.add('hidden-modal'); }
+  
+  function unlockOceanTheme() {
+    closeOceanModal();
+    document.body.classList.add('ocean-unlocked');
+    if(!document.body.classList.contains('trailer-3d-active')) { document.body.classList.add('trailer-3d-active'); }
+  }
+  
+  function watchOceanAd() {
+    document.getElementById('adModalTitle').innerHTML = "📺 AD PLAYING...";
+    document.getElementById('adModalDesc').innerHTML = "Wait 3 seconds...";
+    document.getElementById('adBtnGroup').style.display = "none";
+    setTimeout(() => {
+      document.getElementById('adModalTitle').innerHTML = "🌊 VIP OCEAN THEME";
+      document.getElementById('adModalDesc').innerHTML = "Unlocked!";
+      document.getElementById('adBtnGroup').style.display = "block";
+      unlockOceanTheme();
+    }, 3000);
+  }
+  
+  function buyOceanCoins() {
+    const coinEl = document.getElementById('coinCount');
+    if(coinEl) {
+      let currentCoins = parseInt(coinEl.textContent || "0");
+      if(currentCoins >= 30) {
+        coinEl.textContent = currentCoins - 30;
+        unlockOceanTheme();
+      } else { alert("Not enough coins! Watch Ad."); }
+    } else { unlockOceanTheme(); }
+  }
+</script>
 </body>
 </html>
