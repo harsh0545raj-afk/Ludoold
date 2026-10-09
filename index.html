@@ -24,11 +24,13 @@
       font-family: 'Segoe UI', Orbitron, Roboto, sans-serif;
     }
 
+    /* NATIVE APP LOCK (Scrolling rokne ke liye fix kiya) */
     html, body {
-      width: 100%;
-      height: 100dvh;
-      max-height: 100dvh;
-      overflow: hidden;
+      width: 100% !important;
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+      overflow: hidden !important;
+      position: fixed !important;
       background-color: var(--bg-obsidian);
       background-image:
         linear-gradient(var(--bg-grid) 1px, transparent 1px),
@@ -43,929 +45,205 @@
     }
 
     /* =========================================================
+       VIP OCEAN THEME & FISH ANIMATIONS (CLEANED & MERGED)
+       ========================================================= */
+    body.ocean-unlocked { background-color: #020914 !important; background-image: none !important; }
+    body.ocean-unlocked::before, body.ocean-unlocked::after {
+      content: ''; position: fixed; bottom: 0; left: -50vw; width: 200vw; height: 50vh; z-index: -10; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 100%, rgba(0, 243, 255, 0.25) 0%, transparent 70%);
+      border-radius: 50% 50% 0 0; animation: oceanWave 10s infinite alternate ease-in-out;
+    }
+    body.ocean-unlocked::after {
+      height: 35vh; background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 102, 0.15) 0%, transparent 70%);
+      animation: oceanWave2 14s infinite alternate-reverse ease-in-out;
+    }
+    @keyframes oceanWave { 0% { transform: translateY(10px) scaleY(0.9); opacity: 0.6; } 100% { transform: translateY(0px) scaleY(1.1); opacity: 1; } }
+    @keyframes oceanWave2 { 0% { transform: translateX(5vw); opacity: 0.5; } 100% { transform: translateX(-5vw); opacity: 1; } }
+
+    .cyber-fish { position: fixed; font-size: 1.8rem; z-index: -5; opacity: 0; pointer-events: none; display: none; filter: drop-shadow(0 0 10px rgba(0,243,255,0.8)); }
+    body.ocean-unlocked .cyber-fish { display: block; animation: swimFish 18s linear infinite; }
+    .fish1 { top: 65%; left: -10%; animation-delay: 1s; }
+    .fish2 { top: 80%; left: -10%; animation-delay: 8s; font-size: 1.4rem; animation-name: swimFishRev; }
+    @keyframes swimFish { 0% { left: -10%; opacity: 0; transform: translateY(0); } 20% { opacity: 0.9; transform: translateY(-20px); } 80% { opacity: 0.9; transform: translateY(15px); } 100% { left: 110%; opacity: 0; transform: translateY(0); } }
+    @keyframes swimFishRev { 0% { left: 110%; opacity: 0; transform: scaleX(-1) translateY(0); } 20% { opacity: 0.8; transform: scaleX(-1) translateY(-10px); } 80% { opacity: 0.8; transform: scaleX(-1) translateY(20px); } 100% { left: -10%; opacity: 0; transform: scaleX(-1) translateY(0); } }
+
+    /* =========================================================
        1. STARTUP SPLASH SCREENS & PRE-MATCH LOBBY OVERLAYS
        ========================================================= */
-    .overlay-screen {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at center, #0c1b3a 0%, #02040a 95%);
-      z-index: 9900;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 14px;
-      text-align: center;
-      transition: opacity 0.45s ease, visibility 0.45s ease;
-    }
+    .overlay-screen { position: fixed; inset: 0; background: radial-gradient(circle at center, #0c1b3a 0%, #02040a 95%); z-index: 9900; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 14px; text-align: center; transition: opacity 0.45s ease, visibility 0.45s ease; }
+    .overlay-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-    .overlay-hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
+    .studio-logo-box { padding: 28px 38px; border: 2.5px solid var(--neon-cyan); border-radius: 20px; background: rgba(5, 12, 28, 0.92); box-shadow: 0 0 45px rgba(0, 243, 255, 0.65), inset 0 0 22px rgba(0, 243, 255, 0.3); animation: pulseGlow 1.8s infinite alternate; }
+    .studio-title { font-size: clamp(1.6rem, 5vw, 2.8rem); font-weight: 900; letter-spacing: 4px; background: linear-gradient(90deg, #00f3ff, #ffffff, #ff007f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .studio-sub { margin-top: 8px; font-size: 0.82rem; letter-spacing: 6px; color: var(--neon-green); text-transform: uppercase; }
 
-    .studio-logo-box {
-      padding: 28px 38px;
-      border: 2.5px solid var(--neon-cyan);
-      border-radius: 20px;
-      background: rgba(5, 12, 28, 0.92);
-      box-shadow: 0 0 45px rgba(0, 243, 255, 0.65), inset 0 0 22px rgba(0, 243, 255, 0.3);
-      animation: pulseGlow 1.8s infinite alternate;
-    }
+    .modal-card { width: 100%; max-width: 510px; max-height: 92dvh; overflow-y: auto; background: linear-gradient(165deg, rgba(10, 22, 46, 0.98), rgba(4, 8, 18, 0.99)); border: 2px solid var(--neon-cyan); border-radius: 20px; padding: 16px; box-shadow: 0 0 45px rgba(0, 243, 255, 0.5); color: #fff; }
+    .alien-svg-stage { width: 100%; height: 205px; background: radial-gradient(circle at 50% 50%, #10254c 0%, #03060e 100%); border-radius: 14px; border: 1.5px solid rgba(0, 243, 255, 0.45); margin-bottom: 12px; overflow: hidden; position: relative; }
+    .alien-svg-stage::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0, 243, 255, 0.05) 0px, rgba(0, 243, 255, 0.05) 2px, transparent 2px, transparent 6px); pointer-events: none; }
 
-    .studio-title {
-      font-size: clamp(1.6rem, 5vw, 2.8rem);
-      font-weight: 900;
-      letter-spacing: 4px;
-      background: linear-gradient(90deg, #00f3ff, #ffffff, #ff007f);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    .primary-neon-btn { background: linear-gradient(90deg, #00e676, #00b0ff); color: #001824; font-weight: 900; font-size: 0.92rem; padding: 11px 24px; border: 2px solid #ffffff; border-radius: 30px; cursor: pointer; letter-spacing: 1.5px; text-transform: uppercase; box-shadow: 0 0 22px rgba(0, 255, 102, 0.75); transition: transform 0.15s ease; margin-bottom: 8px; }
+    .primary-neon-btn:active { transform: scale(0.95); }
 
-    .studio-sub {
-      margin-top: 8px;
-      font-size: 0.82rem;
-      letter-spacing: 6px;
-      color: var(--neon-green);
-      text-transform: uppercase;
-    }
-
-    .modal-card {
-      width: 100%;
-      max-width: 510px;
-      max-height: 92dvh;
-      overflow-y: auto;
-      background: linear-gradient(165deg, rgba(10, 22, 46, 0.98), rgba(4, 8, 18, 0.99));
-      border: 2px solid var(--neon-cyan);
-      border-radius: 20px;
-      padding: 16px;
-      box-shadow: 0 0 45px rgba(0, 243, 255, 0.5);
-      color: #fff;
-    }
-
-    .alien-svg-stage {
-      width: 100%;
-      height: 205px;
-      background: radial-gradient(circle at 50% 50%, #10254c 0%, #03060e 100%);
-      border-radius: 14px;
-      border: 1.5px solid rgba(0, 243, 255, 0.45);
-      margin-bottom: 12px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .alien-svg-stage::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(0deg, rgba(0, 243, 255, 0.05) 0px, rgba(0, 243, 255, 0.05) 2px, transparent 2px, transparent 6px);
-      pointer-events: none;
-    }
-
-    .primary-neon-btn {
-      background: linear-gradient(90deg, #00e676, #00b0ff);
-      color: #001824;
-      font-weight: 900;
-      font-size: 0.92rem;
-      padding: 11px 24px;
-      border: 2px solid #ffffff;
-      border-radius: 30px;
-      cursor: pointer;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      box-shadow: 0 0 22px rgba(0, 255, 102, 0.75);
-      transition: transform 0.15s ease;
-    }
-
-    .primary-neon-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* PRE-MATCH LOBBY CONTROLS WITH CLEAR SELECTION HIGHLIGHT */
-    .lobby-label {
-      font-size: 0.68rem;
-      font-weight: 900;
-      color: #84ffff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin: 8px 0 4px;
-      display: block;
-      text-align: left;
-    }
-
-    .lobby-pill-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .lobby-pill {
-      background: rgba(6, 18, 38, 0.92);
-      border: 1.5px solid rgba(0, 243, 255, 0.35);
-      color: #bfefff;
-      padding: 8px 6px;
-      border-radius: 10px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .lobby-pill:active {
-      transform: scale(0.92);
-    }
-
-    .lobby-pill.selected {
-      background: linear-gradient(135deg, #00ff66, #00b0ff) !important;
-      color: #001824 !important;
-      border: 2px solid #ffffff !important;
-      font-weight: 900 !important;
-      box-shadow: 0 0 16px rgba(0, 255, 102, 0.8) !important;
-      transform: translateY(-2px) scale(1.03);
-    }
-
-    .lobby-pill.selected::after {
-      content: ' ✓';
-      font-weight: 900;
-    }
-
-    .lobby-player-row {
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 6px;
-      align-items: center;
-      background: rgba(4, 14, 30, 0.92);
-      border: 1px solid rgba(0, 243, 255, 0.3);
-      border-radius: 10px;
-      padding: 5px 8px;
-      margin-bottom: 5px;
-    }
-
-    .lobby-input {
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(0, 243, 255, 0.4);
-      border-radius: 6px;
-      color: #fff;
-      padding: 5px 8px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      width: 100%;
-      outline: none;
-    }
-
-    .color-dot-pick {
-      width: 21px;
-      height: 21px;
-      border-radius: 50%;
-      border: 2px solid transparent;
-      cursor: pointer;
-      opacity: 0.4;
-      display: inline-block;
-      margin: 0 2px;
-      transition: all 0.15s ease;
-    }
-
-    .color-dot-pick.active-color {
-      opacity: 1;
-      border-color: #fff;
-      transform: scale(1.18);
-      box-shadow: 0 0 10px currentColor;
-    }
-
-    .role-btn {
-      background: rgba(0, 243, 255, 0.15);
-      border: 1px solid #00f3ff;
-      color: #00f3ff;
-      padding: 5px 7px;
-      border-radius: 6px;
-      font-size: 0.65rem;
-      font-weight: 900;
-      cursor: pointer;
-      min-width: 68px;
-    }
-
-    .role-btn.is-ai {
-      background: rgba(255, 0, 127, 0.22);
-      border-color: #ff007f;
-      color: #ff80ab;
-    }
+    /* PRE-MATCH LOBBY */
+    .lobby-label { font-size: 0.68rem; font-weight: 900; color: #84ffff; text-transform: uppercase; letter-spacing: 1px; margin: 8px 0 4px; display: block; text-align: left; }
+    .lobby-pill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 6px; margin-bottom: 6px; }
+    .lobby-pill { background: rgba(6, 18, 38, 0.92); border: 1.5px solid rgba(0, 243, 255, 0.35); color: #bfefff; padding: 8px 6px; border-radius: 10px; font-size: 0.72rem; font-weight: 800; cursor: pointer; transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .lobby-pill:active { transform: scale(0.92); }
+    .lobby-pill.selected { background: linear-gradient(135deg, #00ff66, #00b0ff) !important; color: #001824 !important; border: 2px solid #ffffff !important; font-weight: 900 !important; box-shadow: 0 0 16px rgba(0, 255, 102, 0.8) !important; transform: translateY(-2px) scale(1.03); }
+    .lobby-pill.selected::after { content: ' ✓'; font-weight: 900; }
+    .lobby-player-row { display: grid; grid-template-columns: 1fr auto auto; gap: 6px; align-items: center; background: rgba(4, 14, 30, 0.92); border: 1px solid rgba(0, 243, 255, 0.3); border-radius: 10px; padding: 5px 8px; margin-bottom: 5px; }
+    .lobby-input { background: rgba(0, 0, 0, 0.55); border: 1px solid rgba(0, 243, 255, 0.4); border-radius: 6px; color: #fff; padding: 5px 8px; font-size: 0.76rem; font-weight: 700; width: 100%; outline: none; }
+    .color-dot-pick { width: 21px; height: 21px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; opacity: 0.4; display: inline-block; margin: 0 2px; transition: all 0.15s ease; }
+    .color-dot-pick.active-color { opacity: 1; border-color: #fff; transform: scale(1.18); box-shadow: 0 0 10px currentColor; }
+    .role-btn { background: rgba(0, 243, 255, 0.15); border: 1px solid #00f3ff; color: #00f3ff; padding: 5px 7px; border-radius: 6px; font-size: 0.65rem; font-weight: 900; cursor: pointer; min-width: 68px; }
+    .role-btn.is-ai { background: rgba(255, 0, 127, 0.22); border-color: #ff007f; color: #ff80ab; }
 
     /* =========================================================
        2. TOP MOBILE APP HUD & PLAYER STATUS BAR
        ========================================================= */
-    .top-hud-wrapper {
-      width: 100%;
-      max-width: 660px;
-      padding: 4px 8px 2px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      flex: 0 0 auto;
-      z-index: 20;
-    }
+    .top-hud-wrapper { width: 100%; max-width: 660px; padding: 4px 8px 2px; display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 0 0 auto; z-index: 20; }
+    .top-title-row { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+    .ludo-wars-sign { display: flex; align-items: center; gap: 8px; padding: 3px 12px; background: rgba(10, 22, 44, 0.95); border: 1.5px solid var(--neon-cyan); border-radius: 16px; box-shadow: 0 0 12px rgba(0, 243, 255, 0.35); }
+    .mini-ludo-icon { display: grid; grid-template-columns: repeat(2, 10px); grid-template-rows: repeat(2, 10px); gap: 2px; }
+    .mini-q { border-radius: 2px; } .mini-q.green { background: #00e676; } .mini-q.yellow { background: #ffea00; } .mini-q.blue { background: #00b0ff; } .mini-q.red { background: #ff1744; }
+    .sign-main-title { font-size: 0.95rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: 0 0 8px var(--neon-cyan); }
 
-    .top-title-row {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-    }
+    .hud-control-strip { width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px; background: rgba(8, 18, 36, 0.94); border: 1px solid rgba(0, 243, 255, 0.4); border-radius: 12px; padding: 4px 6px; }
+    .hud-group { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    .cyber-select, .cyber-btn { background: rgba(0, 24, 48, 0.92); color: #fff; border: 1px solid var(--neon-cyan); padding: 4px 7px; border-radius: 6px; font-size: 0.66rem; font-weight: 800; cursor: pointer; }
+    .coin-badge { background: rgba(255, 204, 0, 0.16); border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 3px 8px; border-radius: 14px; font-weight: 900; font-size: 0.68rem; }
 
-    .ludo-wars-sign {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 3px 12px;
-      background: rgba(10, 22, 44, 0.95);
-      border: 1.5px solid var(--neon-cyan);
-      border-radius: 16px;
-      box-shadow: 0 0 12px rgba(0, 243, 255, 0.35);
-    }
-
-    .mini-ludo-icon {
-      display: grid;
-      grid-template-columns: repeat(2, 10px);
-      grid-template-rows: repeat(2, 10px);
-      gap: 2px;
-    }
-    .mini-q { border-radius: 2px; }
-    .mini-q.green { background: #00e676; }
-    .mini-q.yellow { background: #ffea00; }
-    .mini-q.blue { background: #00b0ff; }
-    .mini-q.red { background: #ff1744; }
-
-    .sign-main-title {
-      font-size: 0.95rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #fff;
-      text-shadow: 0 0 8px var(--neon-cyan);
-    }
-
-    .hud-control-strip {
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 4px;
-      background: rgba(8, 18, 36, 0.94);
-      border: 1px solid rgba(0, 243, 255, 0.4);
-      border-radius: 12px;
-      padding: 4px 6px;
-    }
-
-    .hud-group {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-
-    .cyber-select, .cyber-btn {
-      background: rgba(0, 24, 48, 0.92);
-      color: #fff;
-      border: 1px solid var(--neon-cyan);
-      padding: 4px 7px;
-      border-radius: 6px;
-      font-size: 0.66rem;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .coin-badge {
-      background: rgba(255, 204, 0, 0.16);
-      border: 1px solid var(--accent-gold);
-      color: var(--accent-gold);
-      padding: 3px 8px;
-      border-radius: 14px;
-      font-weight: 900;
-      font-size: 0.68rem;
-    }
-
-    .live-players-bar {
-      width: 100%;
-      max-width: 660px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
-      padding: 2px 8px;
-      flex: 0 0 auto;
-      z-index: 20;
-    }
-
-    .player-hud-card {
-      background: rgba(8, 18, 36, 0.92);
-      border: 1.5px solid rgba(0, 243, 255, 0.3);
-      border-radius: 8px;
-      padding: 3px 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.6rem;
-    }
-
-    .player-hud-card.active-turn {
-      border-color: #00ff66;
-      background: rgba(0, 42, 22, 0.96);
-      box-shadow: 0 0 10px rgba(0, 255, 102, 0.6);
-    }
-
-    .p-badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 4px;
-    }
+    .live-players-bar { width: 100%; max-width: 660px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 2px 8px; flex: 0 0 auto; z-index: 20; }
+    .player-hud-card { background: rgba(8, 18, 36, 0.92); border: 1.5px solid rgba(0, 243, 255, 0.3); border-radius: 8px; padding: 3px 6px; display: flex; justify-content: space-between; align-items: center; font-size: 0.6rem; }
+    .player-hud-card.active-turn { border-color: #00ff66; background: rgba(0, 42, 22, 0.96); box-shadow: 0 0 10px rgba(0, 255, 102, 0.6); }
+    .p-badge-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
 
     /* =========================================================
        3. 4 MONETIZED BOARD SKINS & FULL-SCREEN 1:1 ARENA STAGE
        ========================================================= */
-    .arena-stage {
-      flex: 1 1 auto;
-      width: 100%;
-      max-width: 660px;
-      min-height: 0;
-      padding: 4px 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-    }
-
+    .arena-stage { flex: 1 1 auto; width: 100%; max-width: 660px; min-height: 0 !important; padding: 4px 8px; display: flex; justify-content: center; align-items: center; overflow: visible; position: relative; }
+    
+    /* FIX FOR BLACK CLIPPING IN 3D MODE & OCEAN TRANSPARENCY */
     .hybrid-board-frame {
-      width: 100%;
-      height: 100%;
-      border-radius: 18px;
-      padding: 6px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-      background: linear-gradient(145deg, #070b16 0%, #020409 100%);
-      border: 2.5px solid #00f3ff;
+      width: 100%; height: 100%; border-radius: 18px; padding: 6px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: relative; background: linear-gradient(145deg, #070b16 0%, #020409 100%); border: 2.5px solid #00f3ff;
       box-shadow: 0 0 28px rgba(0, 243, 255, 0.35), inset 0 0 16px rgba(0, 243, 255, 0.2);
+      transform-style: flat !important; overflow: visible !important;
     }
 
-    /* Skin 2: Transparent Hologram Glass */
-    body.board-glass .hybrid-board-frame {
-      background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(0,243,255,0.1));
-      backdrop-filter: blur(5px);
-      border-color: #b4faff;
-      box-shadow: 0 0 35px rgba(0, 243, 255, 0.65), inset 0 0 25px rgba(255, 255, 255, 0.25);
-    }
-    body.board-glass .ludo-cell-15, body.board-glass .matrix-tile {
-      background: rgba(255, 255, 255, 0.06) !important;
-      border-color: rgba(0, 243, 255, 0.5) !important;
+    body.ocean-unlocked .hybrid-board-frame, body.ocean-unlocked .square-arena-box {
+      background: rgba(3, 10, 24, 0.3) !important; box-shadow: 0 15px 35px rgba(0, 243, 255, 0.2) !important;
     }
 
-    /* Skin 3: 24K Royal Gold VIP */
-    body.board-gold .hybrid-board-frame {
-      background: radial-gradient(circle, #2b1d03 0%, #090600 90%);
-      border-color: #ffd700;
-      box-shadow: 0 0 35px rgba(255, 215, 0, 0.65), inset 0 0 20px rgba(255, 180, 0, 0.35);
-    }
-    body.board-gold .ludo-cell-15, body.board-gold .matrix-tile {
-      background: rgba(255, 200, 0, 0.09) !important;
-      border-color: rgba(255, 215, 0, 0.45) !important;
-      color: #ffe57f !important;
+    /* True 3D Lift */
+    body.trailer-3d-active .square-arena-box {
+      transform-origin: 50% 85% !important;
+      transform: perspective(850px) rotateX(28deg) translateZ(100px) scale(0.92) !important;
+      z-index: 50 !important;
     }
 
-    /* Skin 4: Cyber Matrix Overdrive */
-    body.board-matrix .hybrid-board-frame {
-      background: linear-gradient(180deg, #011405 0%, #000601 100%);
-      border-color: #00ff41;
-      box-shadow: 0 0 35px rgba(0, 255, 65, 0.65);
-    }
-    body.board-matrix .ludo-cell-15, body.board-matrix .matrix-tile {
-      background: rgba(0, 255, 65, 0.08) !important;
-      border-color: rgba(0, 255, 65, 0.45) !important;
-      color: #39ff14 !important;
+    /* Pawns straight in 3D */
+    body.trailer-3d-active .board-live-token, body.trailer-3d-active .ludo-live-token, body.trailer-3d-active .yard-mini-pawn {
+      transform: translateY(-32%) scale(0.95) !important;
     }
 
-    .wing-panel {
-      width: 100%;
-      height: 100%;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 4px;
-    }
+    body.board-glass .hybrid-board-frame { background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(0,243,255,0.1)); backdrop-filter: blur(5px); border-color: #b4faff; box-shadow: 0 0 35px rgba(0, 243, 255, 0.65), inset 0 0 25px rgba(255, 255, 255, 0.25); }
+    body.board-glass .ludo-cell-15, body.board-glass .matrix-tile { background: rgba(255, 255, 255, 0.06) !important; border-color: rgba(0, 243, 255, 0.5) !important; }
+    body.board-gold .hybrid-board-frame { background: radial-gradient(circle, #2b1d03 0%, #090600 90%); border-color: #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.65), inset 0 0 20px rgba(255, 180, 0, 0.35); }
+    body.board-gold .ludo-cell-15, body.board-gold .matrix-tile { background: rgba(255, 200, 0, 0.09) !important; border-color: rgba(255, 215, 0, 0.45) !important; color: #ffe57f !important; }
+    body.board-matrix .hybrid-board-frame { background: linear-gradient(180deg, #011405 0%, #000601 100%); border-color: #00ff41; box-shadow: 0 0 35px rgba(0, 255, 65, 0.65); }
+    body.board-matrix .ludo-cell-15, body.board-matrix .matrix-tile { background: rgba(0, 255, 65, 0.08) !important; border-color: rgba(0, 255, 65, 0.45) !important; color: #39ff14 !important; }
 
-    .wing-header {
-      font-size: 0.68rem;
-      color: #00f3ff;
-      font-weight: 900;
-      display: flex;
-      justify-content: space-between;
-      width: min(88vw, 56dvh);
-      padding: 0 4px;
-      letter-spacing: 0.5px;
-    }
+    .wing-panel { width: 100%; height: 100%; min-height: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+    .wing-header { font-size: 0.68rem; color: #00f3ff; font-weight: 900; display: flex; justify-content: space-between; width: min(88vw, 56dvh); padding: 0 4px; letter-spacing: 0.5px; }
 
-    /* FULL-SCREEN STRICT 1:1 SQUARE ARENA BOX (ZERO OVERFLOW!) */
-    .square-arena-box {
-      position: relative;
-      width: min(88vw, 56dvh);
-      height: min(88vw, 56dvh);
-      aspect-ratio: 1 / 1;
-      border: 2px solid var(--neon-cyan);
-      border-radius: 12px;
-      background: rgba(3, 10, 24, 0.94);
-      box-shadow: inset 0 0 18px rgba(0, 243, 255, 0.25);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
+    .square-arena-box { position: relative; width: min(88vw, 56dvh); height: min(88vw, 56dvh); aspect-ratio: 1 / 1; border: 2px solid var(--neon-cyan); border-radius: 12px; background: rgba(3, 10, 24, 0.94); box-shadow: inset 0 0 18px rgba(0, 243, 255, 0.25); overflow: visible; flex-shrink: 0; }
 
     /* 15x15 CLASSIC LUDO GRID */
-    .real-ludo-15x15 {
-      position: absolute;
-      inset: 4px;
-      display: grid;
-      grid-template-columns: repeat(15, 1fr);
-      grid-template-rows: repeat(15, 1fr);
-      gap: 1.5px;
-    }
-
-    .ludo-corner-base {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      place-items: center;
-      padding: 6px;
-      border-radius: 8px;
-      position: relative;
-    }
+    .real-ludo-15x15 { position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); gap: 1.5px; }
+    .ludo-corner-base { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); place-items: center; padding: 6px; border-radius: 8px; position: relative; }
     .ludo-base-p0 { grid-area: 1/1/7/7; background: rgba(0, 255, 102, 0.14); border: 2px solid #00ff66; box-shadow: inset 0 0 12px rgba(0,255,102,0.3); }
     .ludo-base-p2 { grid-area: 1/10/7/16; background: rgba(255, 230, 0, 0.14); border: 2px solid #ffe600; box-shadow: inset 0 0 12px rgba(255,230,0,0.3); }
     .ludo-base-p1 { grid-area: 10/1/16/7; background: rgba(255, 23, 68, 0.14); border: 2px solid #ff1744; box-shadow: inset 0 0 12px rgba(255,23,68,0.3); }
     .ludo-base-p3 { grid-area: 10/10/16/16; background: rgba(0, 243, 255, 0.14); border: 2px solid #00f3ff; box-shadow: inset 0 0 12px rgba(0,243,255,0.3); }
 
-    .base-yard-slot {
-      width: 68%;
-      height: 68%;
-      border-radius: 50%;
-      border: 1.5px solid rgba(255, 255, 255, 0.55);
-      background: rgba(0, 0, 0, 0.48);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .yard-mini-pawn {
-      width: 56%;
-      height: 56%;
-      border-radius: 50%;
-      border: 1.5px solid #fff;
-    }
-
-    .base-lock-tag {
-      position: absolute;
-      bottom: 3px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.5rem;
-      font-weight: 900;
-      background: rgba(0,0,0,0.85);
-      padding: 1px 5px;
-      border-radius: 4px;
-      white-space: nowrap;
-      letter-spacing: 0.4px;
-    }
-
-    .ludo-center-crown {
-      grid-area: 7/7/10/10;
-      background: conic-gradient(from 45deg, rgba(255,230,0,0.5) 0deg 90deg, rgba(0,243,255,0.5) 90deg 180deg, rgba(255,23,68,0.5) 180deg 270deg, rgba(0,255,102,0.5) 270deg 360deg);
-      border: 2px solid #ffd700;
-      border-radius: 6px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.25rem;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-      position: relative;
-    }
-
-    .ludo-cell-15 {
-      background: rgba(12, 28, 54, 0.88);
-      border: 1px solid rgba(0, 243, 255, 0.25);
-      border-radius: 2px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: clamp(0.5rem, 1.5vw, 0.68rem);
-      font-weight: 900;
-      color: rgba(255,255,255,0.85);
-      position: relative;
-    }
+    .base-yard-slot { width: 68%; height: 68%; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.55); background: rgba(0, 0, 0, 0.48); display: flex; justify-content: center; align-items: center; position: relative; }
+    .yard-mini-pawn { width: 56%; height: 56%; border-radius: 50%; border: 1.5px solid #fff; }
+    .base-lock-tag { position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); font-size: 0.5rem; font-weight: 900; background: rgba(0,0,0,0.85); padding: 1px 5px; border-radius: 4px; white-space: nowrap; letter-spacing: 0.4px; }
+    .ludo-center-crown { grid-area: 7/7/10/10; background: conic-gradient(from 45deg, rgba(255,230,0,0.5) 0deg 90deg, rgba(0,243,255,0.5) 90deg 180deg, rgba(255,23,68,0.5) 180deg 270deg, rgba(0,255,102,0.5) 270deg 360deg); border: 2px solid #ffd700; border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 1.25rem; box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); position: relative; }
+    .ludo-cell-15 { background: rgba(12, 28, 54, 0.88); border: 1px solid rgba(0, 243, 255, 0.25); border-radius: 2px; display: flex; justify-content: center; align-items: center; font-size: clamp(0.5rem, 1.5vw, 0.68rem); font-weight: 900; color: rgba(255,255,255,0.85); position: relative; }
     .ludo-cell-15.home-p0, .ludo-cell-15.start-p0 { background: rgba(0, 255, 102, 0.3) !important; border-color: #00ff66 !important; }
     .ludo-cell-15.home-p1, .ludo-cell-15.start-p1 { background: rgba(255, 23, 68, 0.32) !important; border-color: #ff1744 !important; }
     .ludo-cell-15.home-p2, .ludo-cell-15.start-p2 { background: rgba(255, 230, 0, 0.3) !important; border-color: #ffe600 !important; }
     .ludo-cell-15.home-p3, .ludo-cell-15.start-p3 { background: rgba(0, 243, 255, 0.3) !important; border-color: #00f3ff !important; }
     .ludo-cell-15.ludo-star-tile { border-color: #ff007f !important; box-shadow: inset 0 0 6px rgba(255,0,127,0.55); color: #ffeb3b; }
 
-    /* 1-100 SNAKE MATRIX & EXACT ALIGNED 3D SVG INSIDE SQUARE BOX */
-    .numbered-matrix {
-      position: absolute;
-      inset: 4px;
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      grid-template-rows: repeat(10, 1fr);
-      gap: 2px;
-      z-index: 1;
-    }
-
-    .snakes-ladders-svg {
-      position: absolute;
-      inset: 4px;
-      width: calc(100% - 8px);
-      height: calc(100% - 8px);
-      pointer-events: none;
-      z-index: 3;
-      overflow: hidden;
-    }
-
-    .matrix-tile {
-      background: rgba(10, 24, 48, 0.88);
-      border: 1px solid rgba(0, 243, 255, 0.28);
-      border-radius: 3px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: clamp(0.55rem, 1.8vw, 0.76rem);
-      font-weight: 800;
-      color: rgba(215, 248, 255, 0.92);
-      position: relative;
-    }
-
+    /* 1-100 SNAKE MATRIX */
+    .numbered-matrix { position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); gap: 2px; z-index: 1; }
+    .snakes-ladders-svg { position: absolute; inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); pointer-events: none; z-index: 3; overflow: hidden; }
+    .matrix-tile { background: rgba(10, 24, 48, 0.88); border: 1px solid rgba(0, 243, 255, 0.28); border-radius: 3px; display: flex; justify-content: center; align-items: center; font-size: clamp(0.55rem, 1.8vw, 0.76rem); font-weight: 800; color: rgba(215, 248, 255, 0.92); position: relative; }
     .matrix-tile.tile-start { border: 1.5px solid #00ff66 !important; color: #00ff66 !important; }
     .matrix-tile.hatchery-tile { border-color: #ffe600 !important; color: #ffe600 !important; background: rgba(255,230,0,0.1); }
-    .matrix-tile.tile-100 {
-      z-index: 12 !important;
-      background: linear-gradient(135deg, #ffd700, #ff9100) !important;
-      color: #000 !important;
-      font-weight: 900 !important;
-      border: 2px solid #ffffff !important;
-      box-shadow: 0 0 15px #ffd700 !important;
-    }
-
-    .trailer-snake-3d {
-      filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.92));
-    }
+    .matrix-tile.tile-100 { z-index: 12 !important; background: linear-gradient(135deg, #ffd700, #ff9100) !important; color: #000 !important; font-weight: 900 !important; border: 2px solid #ffffff !important; box-shadow: 0 0 15px #ffd700 !important; }
+    .trailer-snake-3d { filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.92)); }
 
     /* SNAKE BITE JAWS, SLIDING VICTIM TOKEN & DODGE SHIELD FX */
-    .sliding-victim-token {
-      position: absolute;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 2.5px solid #ffffff;
-      z-index: 60;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 0.72rem;
-      font-weight: 900;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 22px #ff1744, 0 0 35px #00ff66;
-      transition: left 0.045s linear, top 0.045s linear;
-    }
-
-    .venom-bite-fx {
-      position: absolute;
-      inset: -12px;
-      border: 3px solid #ff1744;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 23, 68, 0.85) 0%, transparent 70%);
-      z-index: 55;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.3rem;
-      animation: jawSnapAnim 0.45s ease-out forwards;
-      pointer-events: none;
-    }
-
-    .dodge-shield-fx {
-      position: absolute;
-      inset: -10px;
-      border: 2.5px solid #00ff66;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 255, 102, 0.55) 0%, transparent 75%);
-      box-shadow: 0 0 22px #00ff66;
-      z-index: 55;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 0.62rem;
-      font-weight: 900;
-      color: #ffffff;
-      text-shadow: 0 0 6px #000;
-      animation: shieldPopAnim 0.95s ease-out forwards;
-      pointer-events: none;
-    }
-
-    @keyframes jawSnapAnim {
-      0%   { transform: scale(2.2); opacity: 0; }
-      45%  { transform: scale(0.85); opacity: 1; }
-      100% { transform: scale(1.1); opacity: 0; }
-    }
-
-    @keyframes shieldPopAnim {
-      0%   { transform: scale(0.4); opacity: 0; }
-      35%  { transform: scale(1.25); opacity: 1; }
-      100% { transform: scale(1.4); opacity: 0; }
-    }
+    .sliding-victim-token { position: absolute; width: 28px; height: 28px; border-radius: 50%; border: 2.5px solid #ffffff; z-index: 60; display: flex; justify-content: center; align-items: center; font-size: 0.72rem; font-weight: 900; pointer-events: none; transform: translate(-50%, -50%); box-shadow: 0 0 22px #ff1744, 0 0 35px #00ff66; transition: left 0.045s linear, top 0.045s linear; }
+    .venom-bite-fx { position: absolute; inset: -12px; border: 3px solid #ff1744; border-radius: 50%; background: radial-gradient(circle, rgba(255, 23, 68, 0.85) 0%, transparent 70%); z-index: 55; display: flex; justify-content: center; align-items: center; font-size: 1.3rem; animation: jawSnapAnim 0.45s ease-out forwards; pointer-events: none; }
+    .dodge-shield-fx { position: absolute; inset: -10px; border: 2.5px solid #00ff66; border-radius: 50%; background: radial-gradient(circle, rgba(0, 255, 102, 0.55) 0%, transparent 75%); box-shadow: 0 0 22px #00ff66; z-index: 55; display: flex; justify-content: center; align-items: center; font-size: 0.62rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 6px #000; animation: shieldPopAnim 0.95s ease-out forwards; pointer-events: none; }
+    @keyframes jawSnapAnim { 0% { transform: scale(2.2); opacity: 0; } 45% { transform: scale(0.85); opacity: 1; } 100% { transform: scale(1.1); opacity: 0; } }
+    @keyframes shieldPopAnim { 0% { transform: scale(0.4); opacity: 0; } 35% { transform: scale(1.25); opacity: 1; } 100% { transform: scale(1.4); opacity: 0; } }
 
     /* LIVE WALKING TOKENS */
-    .board-live-token, .ludo-live-token {
-      width: 74%;
-      height: 74%;
-      max-width: 24px;
-      max-height: 24px;
-      border-radius: 50%;
-      border: 2px solid #ffffff;
-      position: absolute;
-      z-index: 20;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 0.5rem;
-      font-weight: 900;
-      color: #000;
-      pointer-events: none;
-    }
-    .token-p1 { background: #00ff66; box-shadow: 0 0 10px #00ff66; }
-    .token-p2 { background: #ff1744; box-shadow: 0 0 10px #ff1744; color: #fff; }
-    .token-p3 { background: #ffe600; box-shadow: 0 0 10px #ffe600; }
-    .token-p4 { background: #00f3ff; box-shadow: 0 0 10px #00f3ff; }
-
+    .board-live-token, .ludo-live-token { width: 74%; height: 74%; max-width: 24px; max-height: 24px; border-radius: 50%; border: 2px solid #ffffff; position: absolute; z-index: 20; display: flex; justify-content: center; align-items: center; font-size: 0.5rem; font-weight: 900; color: #000; pointer-events: none; }
+    .token-p1 { background: #00ff66; box-shadow: 0 0 10px #00ff66; } .token-p2 { background: #ff1744; box-shadow: 0 0 10px #ff1744; color: #fff; } .token-p3 { background: #ffe600; box-shadow: 0 0 10px #ffe600; } .token-p4 { background: #00f3ff; box-shadow: 0 0 10px #00f3ff; }
     .hop-anim { animation: tokenHop 0.22s ease; }
 
     /* =========================================================
-       4. BOTTOM MOBILE THUMB DOCK (RAGE, DICE, LOADED)
+       4. BOTTOM MOBILE THUMB DOCK
        ========================================================= */
-    .bottom-mobile-dock {
-      flex: 0 0 auto;
-      width: 96%;
-      max-width: 660px;
-      height: 74px;
-      margin: 2px auto 6px;
-      padding: 6px 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(180deg, rgba(10, 24, 50, 0.98), rgba(4, 10, 24, 0.99));
-      border: 2px solid var(--neon-cyan);
-      border-radius: 20px;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.85), 0 0 18px rgba(0, 243, 255, 0.4);
-      z-index: 8000;
-    }
-
-    .dock-col {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-    }
-
-    .rage-meter-wrap {
-      width: 118px;
-      background: rgba(20, 0, 8, 0.9);
-      border: 1.5px solid #ff1744;
-      border-radius: 8px;
-      padding: 2px 6px;
-    }
-
-    .rage-meter-wrap.rage-exhausted {
-      border-color: #555 !important;
-      opacity: 0.65;
-    }
-
-    .rage-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.56rem;
-      font-weight: 900;
-      color: #ff8a80;
-    }
-
-    .rage-bar-bg {
-      width: 100%;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 3px;
-      margin-top: 2px;
-      overflow: hidden;
-    }
-
-    .rage-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #ff9100, #ff1744);
-      transition: width 0.3s ease;
-    }
-
-    .stampede-btn {
-      background: linear-gradient(90deg, #ff1744, #ff9100);
-      color: #fff;
-      font-size: 0.62rem;
-      font-weight: 900;
-      padding: 5px 8px;
-      border: 1.5px solid #ffff00;
-      border-radius: 8px;
-      cursor: pointer;
-      display: none;
-      animation: pulseGlow 0.7s infinite alternate;
-    }
-
-    .home-vortex-hub {
-      width: 62px;
-      height: 62px;
-      border-radius: 14px;
-      border: 2px solid var(--neon-cyan);
-      background: conic-gradient(from 45deg, rgba(0,255,102,0.3) 0deg 90deg, rgba(255,230,0,0.3) 90deg 180deg, rgba(0,243,255,0.3) 180deg 270deg, rgba(255,0,127,0.3) 270deg 360deg);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .dice-cube-btn {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(145deg, #ffffff, #cfd8dc);
-      border: 2.5px solid var(--neon-cyan);
-      border-radius: 11px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      padding: 6px;
-      cursor: pointer;
-    }
-
+    .bottom-mobile-dock { flex: 0 0 auto; width: 96%; max-width: 660px; height: 74px; margin: 2px auto 6px; padding: 6px 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; background: linear-gradient(180deg, rgba(10, 24, 50, 0.98), rgba(4, 10, 24, 0.99)); border: 2px solid var(--neon-cyan); border-radius: 20px; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.85), 0 0 18px rgba(0, 243, 255, 0.4); z-index: 8000; }
+    .dock-col { display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .rage-meter-wrap { width: 118px; background: rgba(20, 0, 8, 0.9); border: 1.5px solid #ff1744; border-radius: 8px; padding: 2px 6px; }
+    .rage-meter-wrap.rage-exhausted { border-color: #555 !important; opacity: 0.65; }
+    .rage-header { display: flex; justify-content: space-between; font-size: 0.56rem; font-weight: 900; color: #ff8a80; }
+    .rage-bar-bg { width: 100%; height: 5px; background: rgba(255, 255, 255, 0.15); border-radius: 3px; margin-top: 2px; overflow: hidden; }
+    .rage-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff9100, #ff1744); transition: width 0.3s ease; }
+    .stampede-btn { background: linear-gradient(90deg, #ff1744, #ff9100); color: #fff; font-size: 0.62rem; font-weight: 900; padding: 5px 8px; border: 1.5px solid #ffff00; border-radius: 8px; cursor: pointer; display: none; animation: pulseGlow 0.7s infinite alternate; }
+    .home-vortex-hub { width: 62px; height: 62px; border-radius: 14px; border: 2px solid var(--neon-cyan); background: conic-gradient(from 45deg, rgba(0,255,102,0.3) 0deg 90deg, rgba(255,230,0,0.3) 90deg 180deg, rgba(0,243,255,0.3) 180deg 270deg, rgba(255,0,127,0.3) 270deg 360deg); display: flex; justify-content: center; align-items: center; cursor: pointer; flex-shrink: 0; }
+    .dice-cube-btn { width: 48px; height: 48px; background: linear-gradient(145deg, #ffffff, #cfd8dc); border: 2.5px solid var(--neon-cyan); border-radius: 11px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); padding: 6px; cursor: pointer; }
     .dice-cube-btn.rolling { animation: rollSpin 0.4s infinite linear; }
-    .pip { width: 7px; height: 7px; background: #050a14; border-radius: 50%; place-self: center; opacity: 0; }
-    .pip.show { opacity: 1; }
-
-    .digital-score-box {
-      background: rgba(30, 0, 10, 0.9);
-      border: 2px solid #ff1744;
-      color: #ff5252;
-      font-weight: 900;
-      font-size: 1rem;
-      padding: 2px 10px;
-      border-radius: 6px;
-      text-align: center;
-    }
-
-    .reroll-neon-btn {
-      background: linear-gradient(180deg, #00e676, #00b248);
-      color: #001a08;
-      font-weight: 900;
-      font-size: 0.7rem;
-      padding: 8px 10px;
-      border: 1.5px solid #b9f6ca;
-      border-radius: 10px;
-      cursor: pointer;
-    }
+    .pip { width: 7px; height: 7px; background: #050a14; border-radius: 50%; place-self: center; opacity: 0; } .pip.show { opacity: 1; }
+    .digital-score-box { background: rgba(30, 0, 10, 0.9); border: 2px solid #ff1744; color: #ff5252; font-weight: 900; font-size: 1rem; padding: 2px 10px; border-radius: 6px; text-align: center; }
+    .reroll-neon-btn { background: linear-gradient(180deg, #00e676, #00b248); color: #001a08; font-weight: 900; font-size: 0.7rem; padding: 8px 10px; border: 1.5px solid #b9f6ca; border-radius: 10px; cursor: pointer; }
 
     /* =========================================================
        5. POPUPS, TOASTS, PUSH & FIREWORKS
        ========================================================= */
-    .cyber-event-banner {
-      position: fixed;
-      top: 15%;
-      left: 50%;
-      transform: translate(-50%, -15px) scale(0.9);
-      background: rgba(6, 16, 36, 0.96);
-      border: 2px solid var(--neon-cyan);
-      border-radius: 14px;
-      padding: 10px 20px;
-      z-index: 9300;
-      text-align: center;
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.65);
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.28s ease;
-    }
+    .cyber-event-banner { position: fixed; top: 15%; left: 50%; transform: translate(-50%, -15px) scale(0.9); background: rgba(6, 16, 36, 0.96); border: 2px solid var(--neon-cyan); border-radius: 14px; padding: 10px 20px; z-index: 9300; text-align: center; box-shadow: 0 0 30px rgba(0, 243, 255, 0.65); opacity: 0; pointer-events: none; transition: all 0.28s ease; }
     .cyber-event-banner.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
-
-    .bollywood-toast {
-      position: fixed;
-      bottom: 84px;
-      left: 50%;
-      transform: translate(-50%, 30px) scale(0.85);
-      background: linear-gradient(135deg, rgba(255, 0, 127, 0.96), rgba(110, 0, 255, 0.96));
-      border: 2px solid #ffe600;
-      border-radius: 24px;
-      padding: 8px 18px;
-      color: #fff;
-      font-weight: 900;
-      font-size: 0.8rem;
-      z-index: 9400;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s ease;
-      text-align: center;
-      width: max-content;
-      max-width: 92vw;
-    }
+    .bollywood-toast { position: fixed; bottom: 84px; left: 50%; transform: translate(-50%, 30px) scale(0.85); background: linear-gradient(135deg, rgba(255, 0, 127, 0.96), rgba(110, 0, 255, 0.96)); border: 2px solid #ffe600; border-radius: 24px; padding: 8px 18px; color: #fff; font-weight: 900; font-size: 0.8rem; z-index: 9400; opacity: 0; pointer-events: none; transition: all 0.3s ease; text-align: center; width: max-content; max-width: 92vw; }
     .bollywood-toast.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
-
-    .loaded-dice-popover {
-      position: fixed;
-      bottom: 86px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(8, 20, 44, 0.98);
-      border: 2px solid #ffd700;
-      border-radius: 14px;
-      padding: 10px;
-      z-index: 9450;
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      width: 90%;
-      max-width: 340px;
-    }
-
-    .loaded-dice-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 5px;
-    }
-
-    .loaded-num-btn {
-      background: rgba(255, 215, 0, 0.15);
-      border: 1.5px solid #ffd700;
-      color: #fff;
-      font-weight: 900;
-      padding: 7px 0;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .mobile-push-banner {
-      position: fixed;
-      top: -120px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 94%;
-      max-width: 420px;
-      background: linear-gradient(135deg, #0e1c38, #060c1a);
-      border: 2px solid #00ff66;
-      border-radius: 14px;
-      padding: 9px 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 9995;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.9);
-      transition: top 0.4s ease;
-      cursor: pointer;
-    }
+    .loaded-dice-popover { position: fixed; bottom: 86px; left: 50%; transform: translateX(-50%); background: rgba(8, 20, 44, 0.98); border: 2px solid #ffd700; border-radius: 14px; padding: 10px; z-index: 9450; display: none; flex-direction: column; gap: 6px; width: 90%; max-width: 340px; }
+    .loaded-dice-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; }
+    .loaded-num-btn { background: rgba(255, 215, 0, 0.15); border: 1.5px solid #ffd700; color: #fff; font-weight: 900; padding: 7px 0; border-radius: 8px; cursor: pointer; }
+    .mobile-push-banner { position: fixed; top: -120px; left: 50%; transform: translateX(-50%); width: 94%; max-width: 420px; background: linear-gradient(135deg, #0e1c38, #060c1a); border: 2px solid #00ff66; border-radius: 14px; padding: 9px 12px; display: flex; align-items: center; gap: 10px; z-index: 9995; box-shadow: 0 10px 30px rgba(0,0,0,0.9); transition: top 0.4s ease; cursor: pointer; }
     .mobile-push-banner.show-push { top: 10px; }
+    #fireworksCanvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9850; display: none; }
 
-    #fireworksCanvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9850;
-      display: none;
-    }
+    /* AD MODAL STYLES (Cleaned) */
+    .premium-btn { width: 100%; margin-bottom: 8px; padding: 12px; font-weight: 900; border-radius: 8px; border: none; cursor: pointer; text-transform: uppercase; font-size: 0.85rem;}
 
-    @keyframes pulseGlow {
-      0%   { transform: scale(0.98); }
-      100% { transform: scale(1.02); }
-    }
-    @keyframes rollSpin {
-      0%   { transform: rotate(0deg) scale(1.1); }
-      100% { transform: rotate(360deg) scale(1.1); }
-    }
-    @keyframes tokenHop {
-      0%, 100% { transform: scale(1); }
-      50%      { transform: scale(1.45) translateY(-6px); }
-    }
+    @keyframes pulseGlow { 0% { transform: scale(0.98); } 100% { transform: scale(1.02); } }
+    @keyframes rollSpin { 0% { transform: rotate(0deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1.1); } }
+    @keyframes tokenHop { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.45) translateY(-6px); } }
   </style>
 </head>
 <body class="board-solid">
+
+  <!-- VIP OCEAN FISH DIVS -->
+  <div class="cyber-fish fish1">🐟</div>
+  <div class="cyber-fish fish2">🐠</div>
 
   <!-- 1. SPLASH SCREEN 1: AETHERBYTE STUDIOS -->
   <div id="splashStudio" class="overlay-screen">
@@ -998,11 +276,10 @@
     </div>
   </div>
 
-  <!-- 3. PRE-MATCH LOBBY (CLEAN MODES, 2/3/4 PLAYERS, AI, NAMES & COLORS) -->
+  <!-- 3. PRE-MATCH LOBBY -->
   <div id="preMatchLobby" class="overlay-screen overlay-hidden">
     <div class="modal-card">
       <div style="font-size:1.15rem; font-weight:900; color:#00f3ff; margin-bottom:8px;">⚙️ LUDO WARS: MATCH LOBBY</div>
-
       <span class="lobby-label">1. Select Game Mode</span>
       <div class="lobby-pill-grid" id="lobbyModeRow">
         <button class="lobby-pill selected" onclick="selectLobbyMode('classic', this)">🎲 Classic Ludo</button>
@@ -1010,23 +287,19 @@
         <button class="lobby-pill" onclick="selectLobbyMode('blitz-ludo', this)">⏱️ Blitz Ludo (3:00)</button>
         <button class="lobby-pill" onclick="selectLobbyMode('blitz-snakes', this)">⏱️ Blitz Snakes (3:00)</button>
       </div>
-
       <span class="lobby-label">2. Opponent Type</span>
       <div class="lobby-pill-grid" id="lobbyVsGroup">
         <button class="lobby-pill selected" onclick="selectLobbyVs('ai', this)">🤖 Vs Cyber AI</button>
         <button class="lobby-pill" onclick="selectLobbyVs('local', this)">👥 Pass & Play</button>
       </div>
-
       <span class="lobby-label">3. Number of Players</span>
       <div class="lobby-pill-grid" id="lobbyCountGroup">
         <button class="lobby-pill" onclick="selectLobbyCount(2, this)">2 Players (1v1)</button>
         <button class="lobby-pill" onclick="selectLobbyCount(3, this)">3 Players</button>
         <button class="lobby-pill selected" onclick="selectLobbyCount(4, this)">4 Players</button>
       </div>
-
       <span class="lobby-label">4. Customize Names, Colors & AI Roles</span>
       <div id="lobbyPlayersList" style="margin-bottom:12px;"></div>
-
       <button class="primary-neon-btn" style="width:100%;" onclick="launchConfiguredMatch()">🚀 LAUNCH BATTLE ARENA</button>
     </div>
   </div>
@@ -1041,15 +314,15 @@
         </div>
         <span class="sign-main-title">LUDO WARS</span>
       </div>
-
       <div class="hud-group">
         <span id="blitzTimerBadge" class="coin-badge" style="display:none; border-color:#ff1744; color:#ff5252;">⏱️ 03:00</span>
         <span class="coin-badge">🪙 <span id="coinCount">1200</span></span>
         <button class="cyber-btn" style="border-color:#ffd700; color:#ffd700;" onclick="addCoins(100)">📺 +100🪙</button>
-        <button class="cyber-btn" id="vipTopBtn" style="background:linear-gradient(90deg,#ffd700,#ff9100); color:#000;" onclick="openModal('vipModal')">👑 VIP</button>
+        <!-- NEW VIP OCEAN BUTTON -->
+        <button class="cyber-btn" id="btnOceanUnlock" style="border-color:#00f3ff; color:#00f3ff;" onclick="openOceanModal()">🌊 VIP</button>
+        <button class="cyber-btn" id="vipTopBtn" style="background:linear-gradient(90deg,#ffd700,#ff9100); color:#000;" onclick="openModal('vipModal')">👑 Pass</button>
       </div>
     </div>
-
     <div class="hud-control-strip">
       <div class="hud-group">
         <button class="cyber-btn" style="border-color:#ffd700; color:#ffd700;" onclick="openPreMatchLobby()">⚙️ Lobby</button>
@@ -1066,7 +339,6 @@
           <option value="board-matrix">☣️ Matrix (400🪙)</option>
         </select>
       </div>
-
       <div class="hud-group">
         <button class="cyber-btn" id="demoBiteBtn" style="border-color:#ff1744; color:#ff8a80; display:none;" onclick="triggerDemoSnake('bite')">🐍 Demo Bite</button>
         <button class="cyber-btn" id="demoEscBtn" style="border-color:#ffe600; color:#ffe600; display:none;" onclick="triggerDemoSnake('escape')">🛡️ Demo Dodge</button>
@@ -1087,7 +359,6 @@
   <!-- 6. MAIN FULL-SCREEN GAME ARENA -->
   <main class="arena-stage">
     <div class="hybrid-board-frame">
-
       <!-- MODE A: FULL-SCREEN 15x15 CYBER LUDO -->
       <section class="wing-panel" id="ludoWingSection">
         <div class="wing-header">
@@ -1098,8 +369,7 @@
           <div class="real-ludo-15x15" id="realLudoGrid"></div>
         </div>
       </section>
-
-      <!-- MODE B: FULL-SCREEN 1-100 SNAKE MATRIX + 4-LAYER 3D COILED VIPERS -->
+      <!-- MODE B: FULL-SCREEN 1-100 SNAKE MATRIX + VIPERS -->
       <section class="wing-panel" id="snakeWingSection" style="display:none;">
         <div class="wing-header">
           <span>🐍 1–100 CYBER SNAKES & LADDERS</span>
@@ -1110,7 +380,6 @@
           <svg class="snakes-ladders-svg" viewBox="0 0 1000 1000" preserveAspectRatio="none"></svg>
         </div>
       </section>
-
     </div>
   </main>
 
@@ -1124,7 +393,6 @@
       <button class="stampede-btn" id="stampedeBtn" onclick="unleashBullStampede()">🐂 STAMPEDE (+12)</button>
       <button class="cyber-btn" style="border-color:#ffd700; color:#ffd700;" onclick="toggleLoadedDice()">🎯 Loaded Dice</button>
     </div>
-
     <div class="home-vortex-hub" onclick="triggerCyberDiceRoll()">
       <div class="dice-cube-btn" id="diceBtn">
         <span class="pip show"></span><span class="pip"></span><span class="pip show"></span>
@@ -1132,12 +400,10 @@
         <span class="pip show"></span><span class="pip"></span><span class="pip show"></span>
       </div>
     </div>
-
     <div class="dock-col" style="align-items:center;">
       <div class="digital-score-box" id="lastRollBadge">6</div>
       <div id="turnIndicator" style="font-size:0.62rem; font-weight:900; color:#00ff66;">P1 TURN</div>
     </div>
-
     <div class="dock-col">
       <button class="reroll-neon-btn" onclick="triggerCyberDiceRoll()">🔄 RE-ROLL</button>
       <button class="cyber-btn" id="ghostStrikeBtn" style="display:none; background:#d500f9; border-color:#fff;" onclick="executeGhostStrike()">👻 GHOST WARP</button>
@@ -1153,6 +419,19 @@
   <div id="bollywoodToast" class="bollywood-toast">
     <div id="bollywoodSpeaker" style="font-size:0.64rem; color:#ffe600;">🎬 CYBER COMMS</div>
     <div id="bollywoodText">"O Stree kal aana!"</div>
+  </div>
+
+  <!-- NEW VIP OCEAN MODAL (Integrated perfectly) -->
+  <div id="premiumOceanModal" class="overlay-screen hidden-modal">
+    <div class="modal-card">
+      <div style="font-size: 1.25rem; font-weight: 900; color: #00f3ff; margin-bottom: 8px;" id="adModalTitle">🌊 VIP OCEAN THEME</div>
+      <p id="adModalDesc" style="font-size:0.8rem; color:#bfefff; margin-bottom:15px; line-height: 1.4;">Hatao black screen aur unlock karo chamakta hua 3D samundra aur machliyan!</p>
+      <div id="adBtnGroup">
+        <button class="premium-btn btn-ad" onclick="watchOceanAd()">📺 Watch Ad (1 Match)</button>
+        <button class="premium-btn btn-coins" onclick="buyOceanCoins()">🪙 Pay 30 Coins</button>
+        <button style="background:transparent; border:1px solid #ff1744; color:#ff1744; padding:8px 20px; border-radius:6px; margin-top:10px; cursor:pointer;" onclick="closeOceanModal()">Cancel</button>
+      </div>
+    </div>
   </div>
 
   <div id="loadedDicePopover" class="loaded-dice-popover">
@@ -1260,9 +539,8 @@
       <button class="primary-neon-btn" onclick="resetMatchAfterVictory()">🔄 Play Next Match</button>
     </div>
   </div>
-
   <!-- =========================================================
-       MASTER UNIFIED JAVASCRIPT ENGINE (FULL UNCOMPROMISED PRO)
+       MASTER UNIFIED JAVASCRIPT ENGINE
        ========================================================= -->
   <script>
     // 1. WEB AUDIO SYNTHESIZER
@@ -1292,7 +570,7 @@
       } catch (e) {}
     }
 
-    // 2. GAME DATA & MAPS (BOSS SNAKE AT 97 — TILE 100👑 IS 100% CLEAR!)
+    // 2. GAME DATA & MAPS
     const COLOR_PRESETS = [
       { key: 'green',  hex: '#00ff66', cls: 'token-p1', label: 'GREEN' },
       { key: 'red',    hex: '#ff1744', cls: 'token-p2', label: 'RED' },
@@ -1380,7 +658,7 @@
       ]
     };
 
-    let activeMode = 'classic'; // 'classic' | 'snakes' | 'blitz-ludo' | 'blitz-snakes'
+    let activeMode = 'classic';
     let activePlayerIds = [0, 1, 2, 3];
     let currentTurnIdx = 0;
     let isTurnLocked = false;
@@ -1487,7 +765,7 @@
         p.active = (i < lobbyConfig.count);
         p.pos = 1;
         p.ludoStep = 0;
-        p.ludoLocked = true; // Authentic Ludo: Start locked in Base (requires 6 to unlock)
+        p.ludoLocked = true;
         p.rage = 0; p.rageUsed = false;
         noSixStreak[i] = 0;
         if (p.active) activePlayerIds.push(i);
@@ -1499,6 +777,40 @@
       switchGameMode(lobbyConfig.mode);
       updateTurnHUD();
     }
+
+    // NEW VIP OCEAN LOGIC
+    function closeOceanModal() { document.getElementById('premiumOceanModal').classList.add('hidden-modal'); }
+    function unlockOceanTheme() {
+      closeOceanModal();
+      document.body.classList.add('ocean-unlocked');
+      if(!document.body.classList.contains('trailer-3d-active')) { document.body.classList.add('trailer-3d-active'); }
+      if(typeof showBanner === 'function') { showBanner('🌊 VIP UNLOCKED!', 'Ocean Theme Active', '#00f3ff'); }
+    }
+    function watchOceanAd() {
+      document.getElementById('adModalTitle').innerHTML = "📺 AD PLAYING...";
+      document.getElementById('adModalDesc').innerHTML = "Please wait 3 seconds for reward...";
+      document.getElementById('adBtnGroup').style.display = "none";
+      setTimeout(() => {
+        document.getElementById('adModalTitle').innerHTML = "🌊 VIP OCEAN THEME";
+        document.getElementById('adModalDesc').innerHTML = "Hatao black screen...";
+        document.getElementById('adBtnGroup').style.display = "block";
+        unlockOceanTheme();
+      }, 3000);
+    }
+    function buyOceanCoins() {
+      const coinEl = document.getElementById('coinCount');
+      if(coinEl) {
+        let currentCoins = parseInt(coinEl.textContent);
+        if(currentCoins >= 30) {
+          coinEl.textContent = currentCoins - 30;
+          unlockOceanTheme();
+        } else {
+          alert("Not enough coins! Watch Ad instead.");
+        }
+      } else { unlockOceanTheme(); }
+    }
+    function openOceanModal() { document.getElementById('premiumOceanModal').classList.remove('hidden-modal'); }
+
 
     // 5. BUILD 15x15 LUDO & 1-100 SNAKE GRIDS
     function build15x15LudoDOM() {
@@ -1888,7 +1200,7 @@
       isTurnLocked = false;
     }
 
-    // 10. MASTER DICE ROLL ENGINE (CLASSIC LUDO vs SNAKES & LADDERS)
+    // 10. MASTER DICE ROLL ENGINE
     const dicePips = { 1:[0,0,0,0,1,0,0,0,0], 2:[1,0,0,0,0,0,0,0,1], 3:[1,0,0,0,1,0,0,0,1], 4:[1,0,1,0,0,0,1,0,1], 5:[1,0,1,0,1,0,1,0,1], 6:[1,0,1,1,0,1,1,0,1] };
 
     async function triggerCyberDiceRoll(forcedRoll = null) {
@@ -1916,12 +1228,9 @@
         showBollywoodToast(p.short, pickLine('sixRolled'));
         dialogueCooldown = 4;
       } else if (roll !== 6) {
-        addPlayerRage(p.id, 6); // Slow +6% Rage on non-6 roll
+        addPlayerRage(p.id, 6);
       }
 
-      // =======================================================
-      // MODE BRANCH A: 15x15 CLASSIC / BLITZ LUDO
-      // =======================================================
       if (!isSnakesMode()) {
         if (p.ludoLocked) {
           if (roll === 6) {
@@ -1933,7 +1242,6 @@
             showBanner(`🔓 GOTI UNLOCKED WITH 6!`, `${p.short} entered the Ludo Track! Roll Again!`, '#00ff66');
             await sleep(450);
           } else {
-            // ONLY trigger "noSix" dialogue when token is genuinely LOCKED in Base!
             noSixStreak[p.id] = (noSixStreak[p.id] || 0) + 1;
             if (noSixStreak[p.id] >= 2 && dialogueCooldown === 0) {
               showBollywoodToast(p.short, pickLine('noSix'));
@@ -1958,7 +1266,6 @@
                 dialogueCooldown = 4;
               }
             } else {
-              // Check Ludo Opponent Cutting
               players.forEach(opp => {
                 if (opp.active && opp.id !== p.id && !opp.ludoLocked && opp.ludoStep <= 50) {
                   const oppOuter = (LUDO_START_INDEX[opp.id] + opp.ludoStep) % 52;
@@ -1972,7 +1279,6 @@
                 }
               });
 
-              // Check Ludo Chase Dialogue
               const chased = players.find(op => op.active && op.id !== p.id && !op.ludoLocked && Math.abs(op.ludoStep - p.ludoStep) <= 4);
               if (chased && dialogueCooldown === 0 && Math.random() < 0.45) {
                 showBollywoodToast(`${p.short} ➔ ${chased.short}`, pickLine('chase'));
@@ -1988,9 +1294,6 @@
           }
         }
       }
-      // =======================================================
-      // MODE BRANCH B: 1–100 CYBER SNAKES & LADDERS
-      // =======================================================
       else {
         if (p.pos + roll <= 100) {
           for (let s = 1; s <= roll; s++) {
@@ -2000,7 +1303,6 @@
             await sleep(160);
           }
 
-          // 1. Check Golden/Cyan Ladder Boost
           if (ladderMap[p.pos]) {
             const dest = ladderMap[p.pos];
             playCyberSfx('ladder');
@@ -2011,13 +1313,11 @@
             p.pos = dest;
             placeTokenOnTile(p.id, p.pos);
           }
-          // 2. Check 3D Viper Bite (Full Coiled Slide + Alien Hologram)
           else if (snakeMap[p.pos]) {
             const tail = snakeMap[p.pos];
-            addPlayerRage(p.id, 20); // +20% Rage on Snake Bite
+            addPlayerRage(p.id, 20);
             await animateRealSnakeSlide(p, p.pos, tail);
           }
-          // 3. Check Close-Call Snake Dodge (1 tile away from any snake head)
           else {
             const near = Object.keys(snakeMap).map(Number).find(h => Math.abs(h - p.pos) === 1);
             if (near) {
@@ -2025,7 +1325,6 @@
             }
           }
 
-          // 4. Check Mystery Hatchery Eggs (🥚)
           if (hatcheryTiles.includes(p.pos)) {
             await sleep(300);
             const bonus = Math.random() < 0.65 ? 5 : -3;
@@ -2039,7 +1338,6 @@
             placeTokenOnTile(p.id, p.pos);
           }
 
-          // 5. Check Opponent Cutting on 1–100 Board
           players.forEach(opp => {
             if (opp.active && opp.id !== p.id && opp.pos === p.pos && p.pos > 1 && p.pos < 100) {
               opp.pos = 1;
@@ -2066,7 +1364,7 @@
       isTurnLocked = false;
     }
 
-    // 11. HELPERS: HUD, 1/1 BALANCED RAGE, LOADED DICE, REVENGE & FIREWORKS
+    // 11. HELPERS: HUD, RAGE, LOADED DICE, REVENGE & FIREWORKS
     function updateTurnHUD() {
       const p = players[currentTurnIdx];
       const ind = document.getElementById('turnIndicator');
@@ -2140,7 +1438,7 @@
       const p = players[currentTurnIdx];
       if (isTurnLocked || !p || p.rage < 100 || p.rageUsed) return;
       p.rage = 0;
-      p.rageUsed = true; // Strict 1-time limit per match for each player!
+      p.rageUsed = true;
       syncRageUI();
       playCyberSfx('bull');
 
@@ -2188,7 +1486,7 @@
     function triggerBullRevenge(attacker, victim) {
       playCyberSfx('bull');
       revengeState[victim.id] = { ready: true, targetId: attacker.id };
-      addPlayerRage(victim.id, 25); // +25% Rage when cut!
+      addPlayerRage(victim.id, 25);
       document.getElementById('bullTitle').textContent = `🐂 REVENGE: ${victim.short} RAGES!`;
       document.getElementById('bullSub').textContent = `${attacker.short} cut ${victim.short}! Ghost Warp Ready!`;
       document.getElementById('bullQuote').textContent = `"${pickLine('cutRevenge')}"`;
@@ -2284,352 +1582,5 @@
       launchConfiguredMatch();
     }
   </script>
-  <!-- =========================================================
-     1. NEON OCEAN BACKGROUND (SAMUNDRA) 
-     2. NATIVE APP FEEL LOCK 
-     3. 3D BOARD CLIPPING FIX
-     (Paste exactly above </body> in your 2200 line code)
-     ========================================================= -->
-<style>
-  /* 1. NATIVE APP LOCK (Website jaisa scroll aur hilna band) */
-  html, body {
-    width: 100% !important;
-    height: 100dvh !important;
-    max-height: 100dvh !important;
-    overflow: hidden !important;
-    position: fixed !important;
-    background-color: #02050b !important; /* Deep Dark Sea Blue/Black */
-  }
-
-  .arena-stage {
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-  }
-
-  /* 2. THE CYBER OCEAN (Glowing Bioluminescent Waves in Background) */
-  body::before, body::after {
-    content: '';
-    position: fixed;
-    bottom: 0; 
-    left: -50vw;
-    width: 200vw;
-    height: 55vh; /* Samundra board ke piche niche wale hisse mein rahega */
-    z-index: -10;
-    pointer-events: none;
-    /* Cyan color ka glowing paani */
-    background: radial-gradient(ellipse at 50% 100%, rgba(0, 243, 255, 0.25) 0%, transparent 70%);
-    border-radius: 50% 50% 0 0;
-    animation: oceanBreathe 12s infinite alternate ease-in-out;
-  }
-  body::after {
-    height: 40vh;
-    left: -30vw;
-    /* Green color ki doosri wave layer */
-    background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 102, 0.15) 0%, transparent 70%);
-    animation: oceanBreathe2 15s infinite alternate-reverse ease-in-out;
-  }
-
-  /* Samundra ki lehron ka slow-motion movement */
-  @keyframes oceanBreathe {
-    0% { transform: translateX(0) scaleY(0.9); opacity: 0.6; }
-    100% { transform: translateX(8vw) scaleY(1.1); opacity: 1; }
-  }
-  @keyframes oceanBreathe2 {
-    0% { transform: translateX(12vw) scaleY(1.1); opacity: 0.5; }
-    100% { transform: translateX(-4vw) scaleY(0.85); opacity: 1; }
-  }
-
-  /* 3. FIX 3D BOARD CLIPPING (Board ko utha kar background se aage lana) */
-  .hybrid-board-frame {
-    transform-style: flat !important; 
-    overflow: visible !important;
-  }
-
-  body.trailer-3d-active .square-arena-box {
-    transform-origin: 50% 85% !important; 
-    transform: perspective(850px) rotateX(28deg) translateZ(100px) scale(0.92) !important; 
-    z-index: 50 !important;
-  }
-
-  /* Pawns aur Snakes ko seedha khada rakhna */
-  body.trailer-3d-active .board-live-token,
-  body.trailer-3d-active .ludo-live-token,
-  body.trailer-3d-active .yard-mini-pawn {
-    transform: translateY(-32%) scale(0.95) !important;
-  }
-</style>
-  <!-- =========================================================
-     PREMIUM OCEAN AD-WALL + SWIMMING FISH + 3D CLIPPING FIX
-     (Paste exactly above </body> in your master code)
-     ========================================================= -->
-<style>
-  /* App Lock (No scrolling) */
-  html, body { width: 100% !important; height: 100dvh !important; overflow: hidden !important; position: fixed !important; }
-  
-  /* 1. VIP OCEAN BACKGROUND (Only works when unlocked) */
-  body.ocean-unlocked { background-color: #020914 !important; }
-  body.ocean-unlocked::before, body.ocean-unlocked::after {
-    content: ''; position: fixed; bottom: 0; left: -50vw; width: 200vw; height: 50vh; z-index: -10; pointer-events: none;
-    background: radial-gradient(ellipse at 50% 100%, rgba(0, 243, 255, 0.25) 0%, transparent 70%);
-    border-radius: 50% 50% 0 0; animation: oceanWave 10s infinite alternate ease-in-out;
-  }
-  body.ocean-unlocked::after {
-    height: 35vh; background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 102, 0.15) 0%, transparent 70%);
-    animation: oceanWave2 14s infinite alternate-reverse ease-in-out;
-  }
-  @keyframes oceanWave { 0% { transform: translateY(10px) scaleY(0.9); opacity: 0.6; } 100% { transform: translateY(0px) scaleY(1.1); opacity: 1; } }
-  @keyframes oceanWave2 { 0% { transform: translateX(5vw); opacity: 0.5; } 100% { transform: translateX(-5vw); opacity: 1; } }
-
-  /* 2. SWIMMING & FADING FISH */
-  .cyber-fish {
-    position: fixed; font-size: 1.8rem; z-index: -5; opacity: 0; pointer-events: none; display: none; filter: drop-shadow(0 0 10px rgba(0,243,255,0.8));
-  }
-  body.ocean-unlocked .cyber-fish { display: block; animation: swimFish 18s linear infinite; }
-  
-  /* Machli 1 (Left se Right) */
-  .fish1 { top: 65%; left: -10%; animation-delay: 1s !important; }
-  /* Machli 2 (Right se Left, thodi choti) */
-  .fish2 { top: 80%; left: -10%; animation-delay: 8s !important; font-size: 1.4rem; animation-name: swimFishRev !important; }
-  
-  @keyframes swimFish {
-    0% { left: -10%; opacity: 0; transform: translateY(0); }
-    20% { opacity: 0.9; transform: translateY(-20px); }
-    80% { opacity: 0.9; transform: translateY(15px); }
-    100% { left: 110%; opacity: 0; transform: translateY(0); }
-  }
-  @keyframes swimFishRev {
-    0% { left: 110%; opacity: 0; transform: scaleX(-1) translateY(0); }
-    20% { opacity: 0.8; transform: scaleX(-1) translateY(-10px); }
-    80% { opacity: 0.8; transform: scaleX(-1) translateY(20px); }
-    100% { left: -10%; opacity: 0; transform: scaleX(-1) translateY(0); }
-  }
-
-  /* 3. REMOVE BLACK SCREEN & FIX 3D CLIPPING (When Theme is active) */
-  body.ocean-unlocked .hybrid-board-frame,
-  body.ocean-unlocked .square-arena-box {
-    background: rgba(3, 10, 24, 0.3) !important; /* Semi-transparent to see ocean */
-    box-shadow: 0 15px 35px rgba(0, 243, 255, 0.2) !important;
-    overflow: visible !important;
-    transform-style: flat !important;
-  }
-  
-  body.ocean-unlocked.trailer-3d-active .square-arena-box {
-    transform-origin: 50% 85% !important; 
-    transform: perspective(850px) rotateX(28deg) translateZ(100px) scale(0.92) !important; 
-    z-index: 50 !important;
-  }
-  body.ocean-unlocked.trailer-3d-active .board-live-token,
-  body.ocean-unlocked.trailer-3d-active .ludo-live-token,
-  body.ocean-unlocked.trailer-3d-active .yard-mini-pawn {
-    transform: translateY(-32%) scale(0.95) !important;
-  }
-
-  /* 4. AD MODAL STYLES */
-  .premium-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; display: flex; justify-content: center; align-items: center; }
-  .hidden-modal { display: none !important; }
-  .premium-card { background: #051024; border: 2px solid #00f3ff; border-radius: 14px; padding: 20px; text-align: center; width: 90%; max-width: 360px; box-shadow: 0 0 35px rgba(0,243,255,0.5); }
-  .premium-title { font-size: 1.25rem; font-weight: 900; color: #00f3ff; margin-bottom: 8px; }
-  .premium-btn { display: block; width: 100%; margin: 12px 0; padding: 14px; font-weight: 900; border-radius: 8px; border: none; cursor: pointer; text-transform: uppercase; font-size: 0.85rem;}
-  .btn-ad { background: linear-gradient(90deg, #ff007f, #7000ff); color: #fff; box-shadow: 0 0 15px rgba(255,0,127,0.5); }
-  .btn-coins { background: linear-gradient(90deg, #ffd700, #ff9100); color: #000; box-shadow: 0 0 15px rgba(255,215,0,0.5); }
-</style>
-
-<!-- Fish Elements -->
-<div class="cyber-fish fish1">🐟</div>
-<div class="cyber-fish fish2">🐠</div>
-
-<!-- VIP Ocean Ad Modal -->
-<div id="premiumOceanModal" class="premium-modal hidden-modal">
-  <div class="premium-card">
-    <div class="premium-title" id="adModalTitle">🌊 VIP OCEAN THEME</div>
-    <p id="adModalDesc" style="font-size:0.8rem; color:#bfefff; margin-bottom:15px; line-height: 1.4;">Hatao black screen aur unlock karo chamakta hua 3D samundra aur machliyan!</p>
-    
-    <div id="adBtnGroup">
-      <button class="premium-btn btn-ad" onclick="watchOceanAd()">📺 Watch Ad (1 Match)</button>
-      <button class="premium-btn btn-coins" onclick="buyOceanCoins()">🪙 Pay 30 Coins</button>
-      <button style="background:transparent; border:1px solid #ff1744; color:#ff1744; padding:8px 20px; border-radius:6px; margin-top:10px; cursor:pointer;" onclick="closeOceanModal()">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  // Top bar mein "🌊 VIP" button add karna
-  setTimeout(() => {
-    const hudGroup = document.querySelector('.hud-control-strip .hud-group') || document.querySelector('.top-title-row');
-    if(hudGroup && !document.getElementById('btnOceanUnlock')) {
-      const btn = document.createElement('button');
-      btn.id = 'btnOceanUnlock';
-      btn.className = 'cyber-btn';
-      btn.style.borderColor = '#00f3ff';
-      btn.style.color = '#00f3ff';
-      btn.innerHTML = '🌊 VIP';
-      btn.onclick = () => document.getElementById('premiumOceanModal').classList.remove('hidden-modal');
-      hudGroup.appendChild(btn);
-    }
-  }, 1200);
-
-  function closeOceanModal() { 
-    document.getElementById('premiumOceanModal').classList.add('hidden-modal'); 
-  }
-
-  function unlockOceanTheme() {
-    closeOceanModal();
-    document.body.classList.add('ocean-unlocked'); // Ye lagte hi black screen hategi, machliyan aayengi aur 3D fix hoga
-    
-    // Agar 3D tilt on nahi hai toh usko bhi on kar do for best view
-    if(!document.body.classList.contains('trailer-3d-active')) {
-      document.body.classList.add('trailer-3d-active');
-    }
-    
-    // Success Toast
-    if(typeof showBanner === 'function') {
-      showBanner('🌊 VIP UNLOCKED!', 'Ocean Theme Active', '#00f3ff');
-    }
-  }
-
-  function watchOceanAd() {
-    document.getElementById('adModalTitle').innerHTML = "📺 AD PLAYING...";
-    document.getElementById('adModalDesc').innerHTML = "Please wait 3 seconds for reward...";
-    document.getElementById('adBtnGroup').style.display = "none";
-    
-    // 3 Second ka Fake Ad Loading Time
-    setTimeout(() => {
-      document.getElementById('adModalTitle').innerHTML = "🌊 VIP OCEAN THEME";
-      document.getElementById('adModalDesc').innerHTML = "Hatao black screen...";
-      document.getElementById('adBtnGroup').style.display = "block";
-      unlockOceanTheme();
-    }, 3000);
-  }
-
-  function buyOceanCoins() {
-    const coinEl = document.getElementById('coinCount');
-    if(coinEl) {
-      let currentCoins = parseInt(coinEl.textContent);
-      if(currentCoins >= 30) {
-        coinEl.textContent = currentCoins - 30; // 30 Coins cut gaye
-        unlockOceanTheme();
-      } else {
-        alert("Not enough coins! Watch Ad instead.");
-      }
-    } else {
-      unlockOceanTheme();
-    }
-  }
-</script>
-  <!-- =========================================================
-     VIP OCEAN THEME PATCH (Machliyan + Ad/Coins + 3D Fix)
-     Isko apne 2200-line code mein </body> ke theek upar paste kar
-     ========================================================= -->
-<style>
-  /* 1. NATIVE APP LOCK (Scrolling rokne ke liye) */
-  html, body { width: 100% !important; height: 100dvh !important; overflow: hidden !important; position: fixed !important; }
-  
-  /* 2. VIP OCEAN BACKGROUND */
-  body.ocean-unlocked { background-color: #020914 !important; }
-  body.ocean-unlocked::before, body.ocean-unlocked::after {
-    content: ''; position: fixed; bottom: 0; left: -50vw; width: 200vw; height: 50vh; z-index: -10; pointer-events: none;
-    background: radial-gradient(ellipse at 50% 100%, rgba(0, 243, 255, 0.25) 0%, transparent 70%);
-    border-radius: 50% 50% 0 0; animation: oceanWave 10s infinite alternate ease-in-out;
-  }
-  body.ocean-unlocked::after {
-    height: 35vh; background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 102, 0.15) 0%, transparent 70%);
-    animation: oceanWave2 14s infinite alternate-reverse ease-in-out;
-  }
-  @keyframes oceanWave { 0% { transform: translateY(10px) scaleY(0.9); opacity: 0.6; } 100% { transform: translateY(0px) scaleY(1.1); opacity: 1; } }
-  @keyframes oceanWave2 { 0% { transform: translateX(5vw); opacity: 0.5; } 100% { transform: translateX(-5vw); opacity: 1; } }
-
-  /* 3. SWIMMING FISH */
-  .cyber-fish { position: fixed; font-size: 1.8rem; z-index: -5; opacity: 0; pointer-events: none; display: none; filter: drop-shadow(0 0 10px rgba(0,243,255,0.8)); }
-  body.ocean-unlocked .cyber-fish { display: block; animation: swimFish 18s linear infinite; }
-  .fish1 { top: 65%; left: -10%; animation-delay: 1s; }
-  .fish2 { top: 80%; left: -10%; animation-delay: 8s; font-size: 1.4rem; animation-name: swimFishRev; }
-  @keyframes swimFish { 0% { left: -10%; opacity: 0; transform: translateY(0); } 20% { opacity: 0.9; transform: translateY(-20px); } 80% { opacity: 0.9; transform: translateY(15px); } 100% { left: 110%; opacity: 0; transform: translateY(0); } }
-  @keyframes swimFishRev { 0% { left: 110%; opacity: 0; transform: scaleX(-1) translateY(0); } 20% { opacity: 0.8; transform: scaleX(-1) translateY(-10px); } 80% { opacity: 0.8; transform: scaleX(-1) translateY(20px); } 100% { left: -10%; opacity: 0; transform: scaleX(-1) translateY(0); } }
-
-  /* 4. 3D CLIPPING FIX (Removes Black Screen) */
-  body.ocean-unlocked .hybrid-board-frame,
-  body.ocean-unlocked .square-arena-box {
-    background: rgba(3, 10, 24, 0.3) !important; box-shadow: 0 15px 35px rgba(0, 243, 255, 0.2) !important; overflow: visible !important; transform-style: flat !important;
-  }
-  body.ocean-unlocked.trailer-3d-active .square-arena-box {
-    transform-origin: 50% 85% !important; transform: perspective(850px) rotateX(28deg) translateZ(100px) scale(0.92) !important; z-index: 50 !important;
-  }
-  body.trailer-3d-active .board-live-token, body.trailer-3d-active .ludo-live-token, body.trailer-3d-active .yard-mini-pawn {
-    transform: translateY(-32%) scale(0.95) !important;
-  }
-
-  /* 5. AD MODAL UI */
-  .premium-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; display: flex; justify-content: center; align-items: center; }
-  .hidden-modal { display: none !important; }
-  .premium-card { background: #051024; border: 2px solid #00f3ff; border-radius: 14px; padding: 20px; text-align: center; width: 90%; max-width: 360px; box-shadow: 0 0 35px rgba(0,243,255,0.5); }
-  .premium-btn { display: block; width: 100%; margin: 12px 0; padding: 14px; font-weight: 900; border-radius: 8px; border: none; cursor: pointer; text-transform: uppercase; }
-  .btn-ad { background: linear-gradient(90deg, #ff007f, #7000ff); color: #fff; }
-  .btn-coins { background: linear-gradient(90deg, #ffd700, #ff9100); color: #000; }
-</style>
-
-<!-- HTML FOR FISH & AD MODAL -->
-<div class="cyber-fish fish1">🐟</div>
-<div class="cyber-fish fish2">🐠</div>
-
-<div id="premiumOceanModal" class="premium-modal hidden-modal">
-  <div class="premium-card">
-    <div style="font-size: 1.25rem; font-weight: 900; color: #00f3ff; margin-bottom: 8px;" id="adModalTitle">🌊 VIP OCEAN THEME</div>
-    <p id="adModalDesc" style="font-size:0.8rem; color:#bfefff; margin-bottom:15px;">Unlock glowing 3D ocean & swimming fishes!</p>
-    <div id="adBtnGroup">
-      <button class="premium-btn btn-ad" onclick="watchOceanAd()">📺 Watch Ad (3 Sec)</button>
-      <button class="premium-btn btn-coins" onclick="buyOceanCoins()">🪙 Pay 30 Coins</button>
-      <button style="background:transparent; border:1px solid #ff1744; color:#ff1744; padding:8px 20px; border-radius:6px; cursor:pointer;" onclick="closeOceanModal()">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<!-- SCRIPT FOR VIP BUTTON & LOGIC -->
-<script>
-  // VIP Button HUD mein auto-add karna
-  setTimeout(() => {
-    const hudGroup = document.querySelector('.hud-control-strip .hud-group') || document.querySelector('.top-title-row');
-    if(hudGroup && !document.getElementById('btnOceanUnlock')) {
-      const btn = document.createElement('button');
-      btn.id = 'btnOceanUnlock';
-      btn.className = 'cyber-btn';
-      btn.style.borderColor = '#ffd700';
-      btn.style.color = '#ffd700';
-      btn.innerHTML = '🌊 VIP';
-      btn.onclick = () => document.getElementById('premiumOceanModal').classList.remove('hidden-modal');
-      hudGroup.appendChild(btn);
-    }
-  }, 1000);
-
-  function closeOceanModal() { document.getElementById('premiumOceanModal').classList.add('hidden-modal'); }
-  
-  function unlockOceanTheme() {
-    closeOceanModal();
-    document.body.classList.add('ocean-unlocked');
-    if(!document.body.classList.contains('trailer-3d-active')) { document.body.classList.add('trailer-3d-active'); }
-  }
-  
-  function watchOceanAd() {
-    document.getElementById('adModalTitle').innerHTML = "📺 AD PLAYING...";
-    document.getElementById('adModalDesc').innerHTML = "Wait 3 seconds...";
-    document.getElementById('adBtnGroup').style.display = "none";
-    setTimeout(() => {
-      document.getElementById('adModalTitle').innerHTML = "🌊 VIP OCEAN THEME";
-      document.getElementById('adModalDesc').innerHTML = "Unlocked!";
-      document.getElementById('adBtnGroup').style.display = "block";
-      unlockOceanTheme();
-    }, 3000);
-  }
-  
-  function buyOceanCoins() {
-    const coinEl = document.getElementById('coinCount');
-    if(coinEl) {
-      let currentCoins = parseInt(coinEl.textContent || "0");
-      if(currentCoins >= 30) {
-        coinEl.textContent = currentCoins - 30;
-        unlockOceanTheme();
-      } else { alert("Not enough coins! Watch Ad."); }
-    } else { unlockOceanTheme(); }
-  }
-</script>
 </body>
 </html>
