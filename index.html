@@ -11,13 +11,14 @@
     /* NATIVE APP LOCK */
     html, body { width: 100% !important; height: 100dvh !important; max-height: 100dvh !important; overflow: hidden !important; position: fixed !important; background-color: var(--bg-obsidian); color: #fff; display: flex; flex-direction: column; justify-content: space-between; align-items: center; }
 
-    /* VIP OCEAN & 6 INSTA-FISHES */
+    /* ALL THEMES */
     body.ocean-unlocked { background-color: #020914 !important; }
     body.ocean-unlocked::before, body.ocean-unlocked::after { content: ''; position: fixed; bottom: 0; left: -50vw; width: 200vw; height: 50vh; z-index: -10; pointer-events: none; background: radial-gradient(ellipse at 50% 100%, rgba(0, 243, 255, 0.25) 0%, transparent 70%); border-radius: 50% 50% 0 0; animation: oceanWave 10s infinite alternate ease-in-out; }
     body.ocean-unlocked::after { height: 35vh; background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 102, 0.15) 0%, transparent 70%); animation: oceanWave2 14s infinite alternate-reverse ease-in-out; }
     @keyframes oceanWave { 0% { transform: translateY(10px) scaleY(0.9); opacity: 0.6; } 100% { transform: translateY(0px) scaleY(1.1); opacity: 1; } }
     @keyframes oceanWave2 { 0% { transform: translateX(5vw); opacity: 0.5; } 100% { transform: translateX(-5vw); opacity: 1; } }
 
+    /* 6 INSTA-FISHES */
     .cyber-fish { position: fixed; z-index: -5; opacity: 0; pointer-events: none; display: none; filter: drop-shadow(0 0 10px rgba(0,243,255,0.8)); }
     body.ocean-unlocked .cyber-fish { display: block; animation: swimFish linear infinite; }
     .fish1 { top: 65%; left: -10%; animation-duration: 18s; animation-delay: -2s; font-size: 1.8rem; }
@@ -52,12 +53,11 @@
     .lobby-pill.selected { background: linear-gradient(135deg, #00ff66, #00b0ff); color: #001824; border: 2px solid #ffffff; transform: scale(1.02); }
     .lobby-player-row { display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: center; background: rgba(4, 14, 30, 0.92); border: 1px solid rgba(0, 243, 255, 0.3); border-radius: 10px; padding: 5px 8px; margin-bottom: 5px; }
     .role-btn { background: rgba(0, 243, 255, 0.15); border: 1px solid #00f3ff; color: #00f3ff; padding: 5px 7px; border-radius: 6px; font-size: 0.65rem; font-weight: 900; cursor: pointer; min-width: 68px; }
-    .role-btn.is-ai { background: rgba(255, 0, 127, 0.22); border-color: #ff007f; color: #ff80ab; }
 
     /* 3D ARENA & ALL THEMES */
     .arena-stage { flex: 1 1 auto; width: 100%; max-width: 660px; min-height: 0 !important; padding: 10px; display: flex; justify-content: center; align-items: center; position: relative; perspective: 850px; }
     .hybrid-board-frame { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background: transparent !important; border: none !important; box-shadow: none !important; transform-style: flat !important; }
-    .square-arena-box { position: relative; width: min(90vw, 58dvh); height: min(90vw, 58dvh); aspect-ratio: 1/1; border: 2px solid var(--neon-cyan); border-radius: 12px; background: rgba(3, 10, 24, 0.95); overflow: visible; }
+    .square-arena-box { position: relative; width: min(90vw, 58dvh); height: min(90vw, 58dvh); aspect-ratio: 1/1; border: 2px solid var(--neon-cyan); border-radius: 12px; background: rgba(3, 10, 24, 0.95); overflow: visible; transition: transform 0.5s ease; }
     
     /* Themes */
     body.board-glass .square-arena-box { background: rgba(2, 6, 18, 0.35); backdrop-filter: blur(5px); border: 2px solid rgba(0, 243, 255, 0.6); box-shadow: 0 15px 40px rgba(0, 243, 255, 0.2); }
@@ -66,33 +66,34 @@
     body.board-matrix .square-arena-box { background: linear-gradient(180deg, #011405 0%, #000601 100%); border-color: #00ff41; }
     body.trailer-3d-active .square-arena-box { transform-origin: 50% 85%; transform: rotateX(28deg) translateZ(50px) scale(0.92); z-index: 50; box-shadow: 0 25px 35px rgba(0,0,0,0.8); }
 
-    /* CORRECTED LUDO GRID COLORS */
+    /* LUDO GRIDS (Fixed base positions based on image) */
     .real-ludo-15x15 { position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); gap: 1.5px; }
     .ludo-corner-base { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); place-items: center; padding: 6px; border-radius: 8px; position: relative; }
     
-    /* Fixed Mapping: 0=Green(Top-Left), 1=Red(Bottom-Left), 2=Yellow(Top-Right), 3=Cyan(Bottom-Right) */
-    .ludo-base-p0 { grid-area: 1/1/7/7; background: rgba(0, 255, 102, 0.14); border: 2px solid #00ff66; } 
-    .ludo-base-p1 { grid-area: 10/1/16/7; background: rgba(255, 23, 68, 0.14); border: 2px solid #ff1744; } 
-    .ludo-base-p2 { grid-area: 1/10/7/16; background: rgba(255, 230, 0, 0.14); border: 2px solid #ffe600; } 
-    .ludo-base-p3 { grid-area: 10/10/16/16; background: rgba(0, 243, 255, 0.14); border: 2px solid #00f3ff; }
+    .ludo-base-p0 { grid-area: 1/1/7/7; background: rgba(0, 255, 102, 0.14); border: 2px solid #00ff66; } /* Green Top-Left */
+    .ludo-base-p2 { grid-area: 1/10/7/16; background: rgba(255, 230, 0, 0.14); border: 2px solid #ffe600; } /* Yellow Top-Right */
+    .ludo-base-p1 { grid-area: 10/1/16/7; background: rgba(255, 23, 68, 0.14); border: 2px solid #ff1744; } /* Red Bottom-Left */
+    .ludo-base-p3 { grid-area: 10/10/16/16; background: rgba(0, 243, 255, 0.14); border: 2px solid #00f3ff; } /* Cyan Bottom-Right */
 
     .base-yard-slot { width: 68%; height: 68%; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.55); background: rgba(0, 0, 0, 0.48); display: flex; justify-content: center; align-items: center; position: relative; }
     .ludo-center-crown { grid-area: 7/7/10/10; border: 2px solid #ffd700; border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; flex-wrap: wrap; }
     .ludo-cell-15 { background: rgba(12, 28, 54, 0.88); border: 1px solid rgba(0, 243, 255, 0.25); border-radius: 2px; display: flex; justify-content: center; align-items: center; font-size: 0.55rem; font-weight: 900; color: #fff; position: relative; }
     .ludo-cell-15.ludo-star-tile { border-color: #ff007f !important; box-shadow: inset 0 0 6px rgba(255,0,127,0.55); color: #ffeb3b; }
+    
     .numbered-matrix { position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); gap: 2px; z-index: 1; }
     .matrix-tile { background: rgba(10, 24, 48, 0.88); border: 1px solid rgba(0, 243, 255, 0.28); border-radius: 3px; display: flex; justify-content: center; align-items: center; font-size: clamp(0.55rem, 1.8vw, 0.76rem); font-weight: 800; color: rgba(215, 248, 255, 0.92); }
     .snakes-ladders-svg { position: absolute; inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); pointer-events: none; z-index: 3; }
 
-    /* SLOWER TOKENS & SPARKLE FX */
-    .board-live-token, .ludo-live-token { width: 70%; height: 70%; max-width: 26px; max-height: 26px; border-radius: 50%; border: 2px solid #ffffff; position: absolute; z-index: 20; display: flex; justify-content: center; align-items: center; font-size: 0.6rem; font-weight: 900; color: #000; box-shadow: 0 4px 6px rgba(0,0,0,0.6); transition: transform 0.3s ease-out; }
+    /* TOKENS & SPARKLES */
+    .board-live-token, .ludo-live-token { width: 70%; height: 70%; max-width: 26px; max-height: 26px; border-radius: 50%; border: 2px solid #ffffff; position: absolute; z-index: 20; display: flex; justify-content: center; align-items: center; font-size: 0.6rem; font-weight: 900; color: #000; box-shadow: 0 4px 6px rgba(0,0,0,0.6); transition: transform 0.35s ease-out; }
     body.trailer-3d-active .board-live-token, body.trailer-3d-active .ludo-live-token { transform: translateY(-30%) scale(0.95) !important; }
     .token-p1 { background: #00ff66; } .token-p2 { background: #ff1744; color: #fff; } .token-p3 { background: #ffe600; } .token-p4 { background: #00f3ff; }
     .hop-anim { animation: tokenHop 0.35s ease; }
     .highlight-token { box-shadow: 0 0 15px #fff, 0 0 30px var(--neon-cyan) !important; animation: bounceGlow 0.7s infinite alternate; cursor: pointer; z-index: 100 !important; border-width: 3px; }
     @keyframes bounceGlow { 0% { transform: scale(1); } 100% { transform: scale(1.25); } }
     @keyframes tokenHop { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.45) translateY(-8px); } }
-    .sparkle-fx { position: absolute; width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 8px #00f3ff, 0 0 15px #00f3ff; pointer-events: none; animation: sparkRise 0.5s ease-out forwards; z-index: 99; left:50%; top:50%; }
+    
+    .sparkle-fx { position: absolute; width: 8px; height: 8px; background: #fff; border-radius: 50%; box-shadow: 0 0 10px #00f3ff, 0 0 20px #ffd700; pointer-events: none; animation: sparkRise 0.6s ease-out forwards; z-index: 99; left:50%; top:50%; }
     @keyframes sparkRise { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -200%) scale(0); opacity: 0; } }
 
     /* BOTTOM DOCK & AD VIDEO */
@@ -151,7 +152,6 @@
     <div class="dice-cube-btn" id="diceBtn" onclick="triggerCyberDiceRoll()">🎲</div>
     <div style="font-size:1.4rem; font-weight:bold; color:#ff1744; background:#1a0005; padding:5px 15px; border-radius:8px; border:1px solid #ff1744;" id="lastRollBadge">6</div>
   </footer>
-
   <!-- HAMBURGER MENU -->
   <div id="appMenuModal" class="overlay-screen overlay-hidden">
     <div class="modal-card">
@@ -172,7 +172,9 @@
            <button class="cyber-btn" style="margin:0;" onclick="switchBoardTheme('board-matrix')">☣️ Matrix</button>
         </div>
       </div>
+      
       <button class="primary-neon-btn" style="background:linear-gradient(90deg, #ffd700, #ff9100); color:#000;" onclick="document.getElementById('appMenuModal').classList.add('overlay-hidden'); document.getElementById('premiumOceanModal').classList.remove('overlay-hidden');">🌊 VIP Ocean Theme</button>
+      <button class="cyber-btn" onclick="closeModal('appMenuModal'); openModal('rulesModal');">📖 How to Play</button>
     </div>
   </div>
 
@@ -190,7 +192,7 @@
     </div>
   </div>
 
-  <!-- LOBBY (DEFAULT NAME REMOVED) -->
+  <!-- LOBBY (DEFAULT NAME REMOVED, 3 PLAYERS ACTIVE) -->
   <div id="preMatchLobby" class="overlay-screen overlay-hidden">
     <div class="modal-card">
       <div style="font-size:1.15rem; font-weight:900; color:#00f3ff; margin-bottom:8px;">⚙️ MATCH LOBBY</div>
@@ -211,6 +213,19 @@
     </div>
   </div>
 
+  <div id="rulesModal" class="overlay-screen overlay-hidden" style="background:rgba(2,6,18,0.92);">
+    <div class="modal-card" style="text-align:left;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <strong style="color:#00f3ff; font-size:1.05rem;">📖 LUDO WARS RULES</strong>
+        <button class="cyber-btn" style="width:auto; margin:0;" onclick="closeModal('rulesModal')">✖</button>
+      </div>
+      <div style="font-size:0.8rem; color:#d8f4ff; line-height:1.6; display:flex; flex-direction:column; gap:10px;">
+        <div><strong style="color:#00ff66;">🎲 Ludo:</strong> Roll 6 to deploy. 4 tokens must reach 👑 to win. Capturing grants +1 Roll.</div>
+        <div><strong style="color:#ffd700;">🐍 Snakes:</strong> Climb ladders for +25🪙. No cutting allowed. 1 token mode.</div>
+      </div>
+    </div>
+  </div>
+
   <div id="victoryModal" class="overlay-screen overlay-hidden">
     <div class="modal-card" style="border-color:#ffd700;">
       <div style="font-size:3rem;">👑🎆</div>
@@ -220,7 +235,9 @@
     </div>
   </div>
 
-  <!-- TRUE 4-TOKEN & 4-PLAYER JAVASCRIPT ENGINE -->
+  <div id="cyberEventBanner" class="overlay-screen overlay-hidden" style="background:transparent; pointer-events:none;"><div style="background:rgba(6,16,36,0.96); border:2px solid #00f3ff; border-radius:14px; padding:10px 20px; box-shadow:0 0 30px rgba(0,243,255,0.65);"><div id="eventBannerTitle" style="font-size:0.95rem; font-weight:900; color:#00f3ff;"></div><div id="eventBannerSub" style="font-size:0.76rem; color:#d8f8ff; margin-top:3px;"></div></div></div>
+
+  <!-- ======================= TRUE LOGIC ENGINE ======================= -->
   <script>
     let coins = 1200;
     let isTurnLocked = false;
@@ -239,7 +256,7 @@
       document.getElementById('appMenuModal').classList.add('overlay-hidden');
     }
 
-    // BALANCED SNAKES & LADDERS MAP
+    // BALANCED SNAKES & LADDERS MAP (Photo verified)
     const ladderMap = { 4: 25, 13: 46, 21: 82, 33: 74, 50: 69, 62: 99, 71: 92 };
     const snakeMap  = { 98: 28, 94: 54, 88: 36, 81: 41, 67: 24, 48: 15, 32: 6, 17: 4 };
     const SNAKE_GEO_LIST = [
@@ -255,7 +272,7 @@
 
     const LUDO_OUTER_52 = [ [6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7], [0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14], [8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7], [14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0] ];
     
-    // CORRECTED PATH MAPPING TO MATCH CSS IDs
+    // CORRECTED BASE MAPPING (Image verified)
     // ID 0 (Green/Top-Left), ID 1 (Red/Bottom-Left), ID 2 (Yellow/Top-Right), ID 3 (Cyan/Bottom-Right)
     const LUDO_HOME_PATHS = { 
       0: [[7,1],[7,2],[7,3],[7,4],[7,5]], 
@@ -308,7 +325,9 @@
     }
 
     // UI LOBBY & AD
-    function openPreMatchLobby() { renderLobbyRows(); document.getElementById('preMatchLobby').classList.remove('overlay-hidden'); }
+    function openModal(id) { document.getElementById(id).classList.remove('overlay-hidden'); }
+    function closeModal(id) { document.getElementById(id).classList.add('overlay-hidden'); }
+    function openPreMatchLobby() { renderLobbyRows(); openModal('preMatchLobby'); }
     function selectLobbyMode(m, btn) { activeMode = m; document.querySelectorAll('#lobbyModeRow .lobby-pill').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); }
     function setupPlayers(count, btn) { lobbyConfig.count = count; document.querySelectorAll('#lobbyCountGroup .lobby-pill').forEach(b => b.classList.remove('selected')); if(btn) btn.classList.add('selected'); renderLobbyRows(); }
     
@@ -321,8 +340,7 @@
     }
 
     function launchGame() {
-      document.getElementById('preMatchLobby').classList.add('overlay-hidden');
-      
+      closeModal('preMatchLobby');
       if(isSnakesMode()) { 
         document.getElementById('realLudoGrid').style.display = 'none'; 
         document.getElementById('snakeMatrixGrid').style.display = 'grid'; 
@@ -353,20 +371,32 @@
       video.play().catch(e => { setTimeout(finalizeAd, 4000); }); video.onended = finalizeAd;
     }
     function finalizeAd() {
-      document.getElementById('adVideoPlayer').style.display = "none"; document.getElementById('premiumOceanModal').classList.add('overlay-hidden');
+      document.getElementById('adVideoPlayer').style.display = "none"; closeModal('premiumOceanModal');
       document.body.classList.add('ocean-unlocked'); if(!document.body.classList.contains('trailer-3d-active')) document.body.classList.add('trailer-3d-active');
     }
     function buyOceanCoins() { let c = parseInt(document.getElementById('coinCount').textContent); if(c >= 30) { document.getElementById('coinCount').textContent = c - 30; finalizeAd(); } else { alert("Not enough coins!"); } }
 
-    function spawnSparkle(cell) { const spark = document.createElement('div'); spark.className = 'sparkle-fx'; cell.appendChild(spark); setTimeout(() => spark.remove(), 500); }
+    function showBanner(title, sub, color) {
+      const b = document.getElementById('cyberEventBanner');
+      document.getElementById('eventBannerTitle').textContent = title;
+      document.getElementById('eventBannerTitle').style.color = color;
+      document.getElementById('eventBannerSub').textContent = sub;
+      b.classList.remove('overlay-hidden');
+      setTimeout(() => b.classList.add('overlay-hidden'), 2000);
+    }
+
+    // SPARKLE ON LAND
+    function spawnSparkle(cell) { const spark = document.createElement('div'); spark.className = 'sparkle-fx'; cell.appendChild(spark); setTimeout(() => spark.remove(), 600); }
 
     function spawnTokens() {
       document.querySelectorAll('.ludo-live-token, .board-live-token').forEach(e => e.remove());
       players.forEach(p => {
         if(!p.active) return;
         p.tokens.forEach((t, i) => {
+          // Snakes mode needs only 1 token per player
+          if(isSnakesMode() && i > 0) return;
           const tok = document.createElement('div');
-          tok.id = `tok-${p.id}-${i}`; tok.className = (isSnakesMode() ? `board-live-token ` : `ludo-live-token `) + p.cls; tok.textContent = i+1;
+          tok.id = `tok-${p.id}-${i}`; tok.className = (isSnakesMode() ? `board-live-token ` : `ludo-live-token `) + p.cls; tok.textContent = isSnakesMode() ? p.short.substring(0,2) : (i+1);
           tok.onclick = () => handleTokenClick(p.id, i); document.body.appendChild(tok);
           placeToken(p.id, i, false);
         });
@@ -389,7 +419,7 @@
 
     const sleepMS = ms => new Promise(r => setTimeout(r, ms));
 
-    // TRUE 4-TOKEN LOGIC WITH SLOWER MOVEMENT & RAGE
+    // TRUE 4-TOKEN LOGIC WITH SLOWER MOVEMENT & SLOW RAGE (+3)
     async function triggerCyberDiceRoll() {
       if(isTurnLocked || waitingForSelection) return;
       isTurnLocked = true; clearTimeout(aiTimer);
@@ -400,14 +430,14 @@
 
       const p = players[currentTurnIdx]; 
       
-      // SLOWER RAGE (Fills by 3 instead of 6)
+      // SLOWER RAGE (Fills by 3)
       if(currentRoll !== 6 && !p.isAI) { p.rage = Math.min(100, p.rage + 3); }
 
       let validIndices = [];
       p.tokens.forEach((t, i) => {
         if(t.done) return;
-        if(isSnakesMode()) { if(t.snakePos + currentRoll <= 100) validIndices.push(i); }
-        else { if(t.locked && currentRoll === 6) validIndices.push(i); if(!t.locked && t.step + currentRoll <= 56) validIndices.push(i); }
+        if(isSnakesMode() && i===0) { if(t.snakePos + currentRoll <= 100) validIndices.push(i); }
+        else if (!isSnakesMode()) { if(t.locked && currentRoll === 6) validIndices.push(i); if(!t.locked && t.step + currentRoll <= 56) validIndices.push(i); }
       });
 
       if(validIndices.length === 0) { document.getElementById('statusText').textContent = "No valid moves!"; await sleepMS(800); nextTurn(); } 
@@ -426,12 +456,12 @@
       let t = p.tokens[tIdx]; let extraTurn = (roll === 6);
 
       if(!isSnakesMode()) {
-        if(t.locked) { t.locked = false; t.step = 0; placeToken(p.id, tIdx, true); await sleepMS(300); } 
+        if(t.locked) { t.locked = false; t.step = 0; placeToken(p.id, tIdx, true); await sleepMS(350); } 
         else {
           for(let s=1; s<=roll; s++) { t.step++; placeToken(p.id, tIdx, true); await sleepMS(300); } // SLOW MOVEMENT (300ms)
           if(t.step === 56) {
             t.done = true; placeToken(p.id, tIdx, true); extraTurn = true;
-            if(p.tokens.every(tk => tk.done)) { document.getElementById('victoryWinnerText').textContent = p.short + " WINS!"; document.getElementById('victoryModal').classList.remove('overlay-hidden'); return; }
+            if(p.tokens.every(tk => tk.done)) { document.getElementById('victoryWinnerText').textContent = p.short + " WINS!"; openModal('victoryModal'); return; }
           } else if (t.step <= 50) {
             const myOuter = (LUDO_START_INDEX[p.id] + t.step) % 52;
             if(!LUDO_SAFE_STARS.includes(myOuter)) {
@@ -440,13 +470,13 @@
           }
         }
       } else {
-        for(let s=1; s<=roll; s++) { t.snakePos++; placeToken(p.id, tIdx, true); await sleepMS(300); } // SLOW MOVEMENT
+        // SNAKES & LADDERS (No Cutting allowed)
+        for(let s=1; s<=roll; s++) { t.snakePos++; placeToken(p.id, tIdx, true); await sleepMS(300); }
         if(ladderMap[t.snakePos]) { t.snakePos = ladderMap[t.snakePos]; placeToken(p.id, tIdx, true); extraTurn = true; await sleepMS(500); }
         else if (snakeMap[t.snakePos]) { t.snakePos = snakeMap[t.snakePos]; placeToken(p.id, tIdx, true); await sleepMS(500); }
-        // CUTTING REMOVED FROM SNAKES & LADDERS HERE
         if(t.snakePos === 100) {
           t.done = true; placeToken(p.id, tIdx, true);
-          if(p.tokens.every(tk => tk.done)) { document.getElementById('victoryWinnerText').textContent = p.short + " WINS!"; document.getElementById('victoryModal').classList.remove('overlay-hidden'); return; }
+          document.getElementById('victoryWinnerText').textContent = p.short + " WINS!"; openModal('victoryModal'); return;
         }
       }
       await sleepMS(400); if(!extraTurn) nextTurn(); else { isTurnLocked = false; updateHUD(); }
@@ -456,7 +486,7 @@
 
     function updateHUD() {
       const p = players[currentTurnIdx]; document.getElementById('turnIndicator').innerHTML = `<span style="font-size:0.9rem;">${p.short}</span><br>TURN`; document.getElementById('turnIndicator').style.color = p.color;
-      players.forEach(pl => { const card = document.getElementById('hudCard-' + pl.id); card.style.display = pl.active ? 'flex' : 'none'; card.classList.toggle('active-turn', pl.id === currentTurnIdx); card.innerHTML = `<span style="color:${pl.color};">${pl.short}</span> <span style="color:#fff;">${pl.tokens.filter(t=>t.done).length}/4 👑</span>`; });
+      players.forEach(pl => { const card = document.getElementById('hudCard-' + pl.id); card.style.display = pl.active ? 'flex' : 'none'; card.classList.toggle('active-turn', pl.id === currentTurnIdx); card.innerHTML = `<span style="color:${pl.color};">${pl.short}</span> <span style="color:#fff;">${isSnakesMode() ? pl.tokens[0].snakePos+'/100' : pl.tokens.filter(t=>t.done).length+'/4 👑'}</span>`; });
       
       // RAGE UI
       const fill = document.getElementById('rageMeterFill'); const txt = document.getElementById('ragePctText'); const btn = document.getElementById('stampedeBtn'); const box = document.getElementById('rageBarBox');
