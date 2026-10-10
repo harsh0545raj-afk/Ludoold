@@ -190,6 +190,8 @@
       padding: 5px 7px; border-radius: 6px; font-size: 0.65rem; font-weight: 900; 
       cursor: pointer; min-width: 68px; 
     }
+    .role-btn.is-ai { background: rgba(255, 0, 127, 0.22); border-color: #ff007f; color: #ff80ab; }
+
     /* 3D ARENA ENGINE & FIXES */
     .arena-stage { 
       flex: 1 1 auto; width: 100%; max-width: 660px; min-height: 0 !important; 
@@ -220,26 +222,12 @@
       transform: translateY(-32%) scale(0.95) !important; 
     }
 
-    body.board-glass .hybrid-board-frame { 
-      background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(0,243,255,0.1)); 
-      backdrop-filter: blur(5px); border-color: #b4faff; 
-    }
-    body.board-gold .hybrid-board-frame { 
-      background: radial-gradient(circle, #2b1d03 0%, #090600 90%); border-color: #ffd700; 
-    }
-    body.board-matrix .hybrid-board-frame { 
-      background: linear-gradient(180deg, #011405 0%, #000601 100%); border-color: #00ff41; 
-    }
+    body.board-glass .hybrid-board-frame { background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(0,243,255,0.1)); backdrop-filter: blur(5px); border-color: #b4faff; }
+    body.board-gold .hybrid-board-frame { background: radial-gradient(circle, #2b1d03 0%, #090600 90%); border-color: #ffd700; }
+    body.board-matrix .hybrid-board-frame { background: linear-gradient(180deg, #011405 0%, #000601 100%); border-color: #00ff41; }
 
-    .wing-panel { 
-      width: 100%; height: 100%; min-height: 0; display: flex; flex-direction: column; 
-      justify-content: center; align-items: center; gap: 4px; 
-    }
-    
-    .wing-header { 
-      font-size: 0.68rem; color: #00f3ff; font-weight: 900; display: flex; 
-      justify-content: space-between; width: min(88vw, 56dvh); padding: 0 4px; 
-    }
+    .wing-panel { width: 100%; height: 100%; min-height: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+    .wing-header { font-size: 0.68rem; color: #00f3ff; font-weight: 900; display: flex; justify-content: space-between; width: min(88vw, 56dvh); padding: 0 4px; }
     
     .square-arena-box { 
       position: relative; width: min(88vw, 56dvh); height: min(88vw, 56dvh); 
@@ -248,144 +236,56 @@
       overflow: visible; flex-shrink: 0; 
     }
 
-    /* LUDO & SNAKE GRIDS (FIXED COLORS & MAPPING based on user photo) */
-    .real-ludo-15x15 { 
-      position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(15, 1fr); 
-      grid-template-rows: repeat(15, 1fr); gap: 1.5px; 
-    }
+    /* LUDO & SNAKE GRIDS */
+    .real-ludo-15x15 { position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); gap: 1.5px; }
+    .ludo-corner-base { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); place-items: center; padding: 6px; border-radius: 8px; position: relative; }
     
-    .ludo-corner-base { 
-      display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); 
-      place-items: center; padding: 6px; border-radius: 8px; position: relative; 
-    }
-    
-    /* 0=Green (Top-Left), 2=Yellow (Top-Right), 1=Red (Bottom-Left), 3=Cyan (Bottom-Right) */
     .ludo-base-p0 { grid-area: 1/1/7/7; background: rgba(0, 255, 102, 0.14); border: 2px solid #00ff66; } 
     .ludo-base-p2 { grid-area: 1/10/7/16; background: rgba(255, 230, 0, 0.14); border: 2px solid #ffe600; } 
     .ludo-base-p1 { grid-area: 10/1/16/7; background: rgba(255, 23, 68, 0.14); border: 2px solid #ff1744; } 
     .ludo-base-p3 { grid-area: 10/10/16/16; background: rgba(0, 243, 255, 0.14); border: 2px solid #00f3ff; }
 
-    .base-yard-slot { 
-      width: 68%; height: 68%; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.55); 
-      background: rgba(0, 0, 0, 0.48); display: flex; justify-content: center; align-items: center; 
-      position: relative; 
-    }
-    
-    .base-lock-tag { 
-      position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); 
-      font-size: 0.5rem; font-weight: 900; background: rgba(0,0,0,0.85); 
-      padding: 1px 5px; border-radius: 4px; 
-    }
-    
-    .ludo-center-crown { 
-      grid-area: 7/7/10/10; border: 2px solid #ffd700; border-radius: 6px; 
-      display: flex; justify-content: center; align-items: center; font-size: 1.25rem; 
-    }
-    
-    .ludo-cell-15 { 
-      background: rgba(12, 28, 54, 0.88); border: 1px solid rgba(0, 243, 255, 0.25); 
-      border-radius: 2px; display: flex; justify-content: center; align-items: center; 
-      font-size: clamp(0.5rem, 1.5vw, 0.68rem); font-weight: 900; color: rgba(255,255,255,0.85); 
-      position: relative; 
-    }
+    .base-yard-slot { width: 68%; height: 68%; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.55); background: rgba(0, 0, 0, 0.48); display: flex; justify-content: center; align-items: center; position: relative; }
+    .base-lock-tag { position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); font-size: 0.5rem; font-weight: 900; background: rgba(0,0,0,0.85); padding: 1px 5px; border-radius: 4px; }
+    .ludo-center-crown { grid-area: 7/7/10/10; border: 2px solid #ffd700; border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 1.25rem; }
+    .ludo-cell-15 { background: rgba(12, 28, 54, 0.88); border: 1px solid rgba(0, 243, 255, 0.25); border-radius: 2px; display: flex; justify-content: center; align-items: center; font-size: clamp(0.5rem, 1.5vw, 0.68rem); font-weight: 900; color: rgba(255,255,255,0.85); position: relative; }
     .ludo-cell-15.ludo-star-tile { border-color: #ff007f !important; box-shadow: inset 0 0 6px rgba(255,0,127,0.55); color: #ffeb3b; }
-    
-    .numbered-matrix { 
-      position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(10, 1fr); 
-      grid-template-rows: repeat(10, 1fr); gap: 2px; z-index: 1; 
-    }
-    
-    .matrix-tile { 
-      background: rgba(10, 24, 48, 0.88); border: 1px solid rgba(0, 243, 255, 0.28); 
-      border-radius: 3px; display: flex; justify-content: center; align-items: center; 
-      font-size: clamp(0.55rem, 1.8vw, 0.76rem); font-weight: 800; color: rgba(215, 248, 255, 0.92); 
-    }
-    
-    .snakes-ladders-svg { 
-      position: absolute; inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); 
-      pointer-events: none; z-index: 3; 
-    }
+    .numbered-matrix { position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); gap: 2px; z-index: 1; }
+    .matrix-tile { background: rgba(10, 24, 48, 0.88); border: 1px solid rgba(0, 243, 255, 0.28); border-radius: 3px; display: flex; justify-content: center; align-items: center; font-size: clamp(0.55rem, 1.8vw, 0.76rem); font-weight: 800; color: rgba(215, 248, 255, 0.92); }
+    .snakes-ladders-svg { position: absolute; inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); pointer-events: none; z-index: 3; }
 
-    /* TOKENS & ANIMATIONS (Slowed down and Sparkles added) */
-    .sliding-victim-token { 
-      position: absolute; width: 28px; height: 28px; border-radius: 50%; border: 2.5px solid #ffffff; 
-      z-index: 60; display: flex; justify-content: center; align-items: center; font-size: 0.72rem; 
-      font-weight: 900; pointer-events: none; transform: translate(-50%, -50%); 
-      box-shadow: 0 0 22px #ff1744, 0 0 35px #00ff66; transition: left 0.045s linear, top 0.045s linear; 
-    }
-    
-    .venom-bite-fx { 
-      position: absolute; inset: -12px; border: 3px solid #ff1744; border-radius: 50%; 
-      background: radial-gradient(circle, rgba(255, 23, 68, 0.85) 0%, transparent 70%); 
-      z-index: 55; display: flex; justify-content: center; align-items: center; font-size: 1.3rem; 
-      animation: jawSnapAnim 0.45s ease-out forwards; pointer-events: none; 
-    }
-    
-    .dodge-shield-fx { 
-      position: absolute; inset: -10px; border: 2.5px solid #00ff66; border-radius: 50%; 
-      background: radial-gradient(circle, rgba(0, 255, 102, 0.55) 0%, transparent 75%); 
-      box-shadow: 0 0 22px #00ff66; z-index: 55; display: flex; justify-content: center; align-items: center; 
-      font-size: 0.62rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 6px #000; 
-      animation: shieldPopAnim 0.95s ease-out forwards; pointer-events: none; 
-    }
-    
+    /* TOKENS & ANIMATIONS */
+    .sliding-victim-token { position: absolute; width: 28px; height: 28px; border-radius: 50%; border: 2.5px solid #ffffff; z-index: 60; display: flex; justify-content: center; align-items: center; font-size: 0.72rem; font-weight: 900; pointer-events: none; transform: translate(-50%, -50%); box-shadow: 0 0 22px #ff1744, 0 0 35px #00ff66; transition: left 0.045s linear, top 0.045s linear; }
+    .venom-bite-fx { position: absolute; inset: -12px; border: 3px solid #ff1744; border-radius: 50%; background: radial-gradient(circle, rgba(255, 23, 68, 0.85) 0%, transparent 70%); z-index: 55; display: flex; justify-content: center; align-items: center; font-size: 1.3rem; animation: jawSnapAnim 0.45s ease-out forwards; pointer-events: none; }
+    .dodge-shield-fx { position: absolute; inset: -10px; border: 2.5px solid #00ff66; border-radius: 50%; background: radial-gradient(circle, rgba(0, 255, 102, 0.55) 0%, transparent 75%); box-shadow: 0 0 22px #00ff66; z-index: 55; display: flex; justify-content: center; align-items: center; font-size: 0.62rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 6px #000; animation: shieldPopAnim 0.95s ease-out forwards; pointer-events: none; }
     @keyframes jawSnapAnim { 0% { transform: scale(2.2); opacity: 0; } 45% { transform: scale(0.85); opacity: 1; } 100% { transform: scale(1.1); opacity: 0; } }
     @keyframes shieldPopAnim { 0% { transform: scale(0.4); opacity: 0; } 35% { transform: scale(1.25); opacity: 1; } 100% { transform: scale(1.4); opacity: 0; } }
 
     .yard-mini-pawn { width: 56%; height: 56%; border-radius: 50%; border: 1.5px solid #fff; }
-    
-    .board-live-token, .ludo-live-token { 
-      width: 74%; height: 74%; max-width: 24px; max-height: 24px; border-radius: 50%; 
-      border: 2px solid #ffffff; position: absolute; z-index: 20; display: flex; justify-content: center; 
-      align-items: center; font-size: 0.5rem; font-weight: 900; color: #000; 
-      transition: transform 0.3s ease-out; /* Smooth slide */
-    }
-    
+    .board-live-token, .ludo-live-token { width: 74%; height: 74%; max-width: 24px; max-height: 24px; border-radius: 50%; border: 2px solid #ffffff; position: absolute; z-index: 20; display: flex; justify-content: center; align-items: center; font-size: 0.5rem; font-weight: 900; color: #000; transition: transform 0.3s ease-out; }
     .token-p1 { background: #00ff66; box-shadow: 0 0 10px #00ff66; } 
     .token-p2 { background: #ff1744; box-shadow: 0 0 10px #ff1744; color: #fff; } 
     .token-p3 { background: #ffe600; box-shadow: 0 0 10px #ffe600; } 
     .token-p4 { background: #00f3ff; box-shadow: 0 0 10px #00f3ff; }
-    
     .hop-anim { animation: tokenHop 0.3s ease; }
     @keyframes tokenHop { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.45) translateY(-6px); } }
 
-    .highlight-token { 
-      box-shadow: 0 0 15px #fff, 0 0 30px var(--neon-cyan) !important; 
-      animation: bounceGlow 0.7s infinite alternate; cursor: pointer; z-index: 100 !important; border-width: 3px; 
-    }
+    .highlight-token { box-shadow: 0 0 15px #fff, 0 0 30px var(--neon-cyan) !important; animation: bounceGlow 0.7s infinite alternate; cursor: pointer; z-index: 100 !important; border-width: 3px; }
     @keyframes bounceGlow { 0% { transform: scale(1); } 100% { transform: scale(1.25); } }
 
-    .sparkle-fx { 
-      position: absolute; width: 6px; height: 6px; background: #fff; border-radius: 50%; 
-      box-shadow: 0 0 8px #00f3ff, 0 0 15px #00f3ff; pointer-events: none; 
-      animation: sparkRise 0.5s ease-out forwards; z-index: 99; left:50%; top:50%; 
-    }
+    .sparkle-fx { position: absolute; width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 8px #00f3ff, 0 0 15px #00f3ff; pointer-events: none; animation: sparkRise 0.5s ease-out forwards; z-index: 99; left:50%; top:50%; }
     @keyframes sparkRise { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -200%) scale(0); opacity: 0; } }
 
     /* BOTTOM DOCK */
-    .bottom-mobile-dock { 
-      flex: 0 0 auto; width: 96%; max-width: 660px; height: 74px; margin: 2px auto 6px; 
-      padding: 6px 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; 
-      background: linear-gradient(180deg, rgba(10, 24, 50, 0.98), rgba(4, 10, 24, 0.99)); 
-      border: 2px solid var(--neon-cyan); border-radius: 20px; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.85); z-index: 8000; 
-    }
+    .bottom-mobile-dock { flex: 0 0 auto; width: 96%; max-width: 660px; height: 74px; margin: 2px auto 6px; padding: 6px 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; background: linear-gradient(180deg, rgba(10, 24, 50, 0.98), rgba(4, 10, 24, 0.99)); border: 2px solid var(--neon-cyan); border-radius: 20px; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.85); z-index: 8000; }
     .dock-col { display: flex; flex-direction: column; justify-content: center; gap: 4px; }
     .rage-meter-wrap { width: 118px; background: rgba(20, 0, 8, 0.9); border: 1.5px solid #ff1744; border-radius: 8px; padding: 2px 6px; }
     .rage-bar-bg { width: 100%; height: 5px; background: rgba(255, 255, 255, 0.15); border-radius: 3px; margin-top: 2px; overflow: hidden; }
     .rage-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff9100, #ff1744); transition: width 0.3s ease; }
     .stampede-btn { background: linear-gradient(90deg, #ff1744, #ff9100); color: #fff; font-size: 0.62rem; font-weight: 900; padding: 5px 8px; border: 1.5px solid #ffff00; border-radius: 8px; cursor: pointer; display: none; animation: pulseGlow 0.7s infinite alternate; }
     
-    .home-vortex-hub { 
-      width: 62px; height: 62px; border-radius: 14px; border: 2px solid var(--neon-cyan); 
-      background: conic-gradient(from 45deg, rgba(0,255,102,0.3) 0deg 90deg, rgba(255,230,0,0.3) 90deg 180deg, rgba(0,243,255,0.3) 180deg 270deg, rgba(255,0,127,0.3) 270deg 360deg); 
-      display: flex; justify-content: center; align-items: center; cursor: pointer; flex-shrink: 0; 
-    }
-    
-    .dice-cube-btn { 
-      width: 48px; height: 48px; background: linear-gradient(145deg, #ffffff, #cfd8dc); 
-      border: 2.5px solid var(--neon-cyan); border-radius: 11px; display: grid; 
-      grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); padding: 6px; cursor: pointer; 
-    }
+    .home-vortex-hub { width: 62px; height: 62px; border-radius: 14px; border: 2px solid var(--neon-cyan); background: conic-gradient(from 45deg, rgba(0,255,102,0.3) 0deg 90deg, rgba(255,230,0,0.3) 90deg 180deg, rgba(0,243,255,0.3) 180deg 270deg, rgba(255,0,127,0.3) 270deg 360deg); display: flex; justify-content: center; align-items: center; cursor: pointer; flex-shrink: 0; }
+    .dice-cube-btn { width: 48px; height: 48px; background: linear-gradient(145deg, #ffffff, #cfd8dc); border: 2.5px solid var(--neon-cyan); border-radius: 11px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); padding: 6px; cursor: pointer; }
     .dice-cube-btn.rolling { animation: rollSpin 0.4s infinite linear; }
     .pip { width: 7px; height: 7px; background: #050a14; border-radius: 50%; place-self: center; opacity: 0; } .pip.show { opacity: 1; }
     .digital-score-box { background: rgba(30, 0, 10, 0.9); border: 2px solid #ff1744; color: #ff5252; font-weight: 900; font-size: 1rem; padding: 2px 10px; border-radius: 6px; text-align: center; }
@@ -402,46 +302,157 @@
   </style>
 </head>
 <body class="board-solid">
+<!-- =========================================================
+       1. VIP OCEAN FISHES (Visible immediately on Ocean theme)
+       ========================================================= -->
+  <div class="cyber-fish f-1">🐟</div> 
+  <div class="cyber-fish f-2">🐠</div> 
+  <div class="cyber-fish f-3">🐡</div>
+  <div class="cyber-fish f-4">🦈</div> 
+  <div class="cyber-fish f-5">🐟</div> 
+  <div class="cyber-fish f-6">🐠</div>
+  <div class="cyber-fish f-7">🐡</div> 
+  <div class="cyber-fish f-8">🐟</div> 
+  <div class="cyber-fish f-9">🐠</div>
+  <div class="cyber-fish f-10">🦈</div> 
+  <div class="cyber-fish f-11">🐡</div> 
+  <div class="cyber-fish f-12">🐟</div>
 
-  <!-- 12 VIP OCEAN FISH DIVS -->
-  <div class="cyber-fish f-1">🐟</div> <div class="cyber-fish f-2">🐠</div> <div class="cyber-fish f-3">🐡</div>
-  <div class="cyber-fish f-4">🦈</div> <div class="cyber-fish f-5">🐟</div> <div class="cyber-fish f-6">🐠</div>
-  <div class="cyber-fish f-7">🐡</div> <div class="cyber-fish f-8">🐟</div> <div class="cyber-fish f-9">🐠</div>
-  <div class="cyber-fish f-10">🦈</div> <div class="cyber-fish f-11">🐡</div> <div class="cyber-fish f-12">🐟</div>
-
-  <!-- SPLASH SCREEN 1: AETHERBYTE STUDIOS (Added Logo) -->
+  <!-- =========================================================
+       2. AETHERBYTE STUDIO LOGO SPLASH SCREEN
+       ========================================================= -->
   <div id="splashStudio" class="overlay-screen">
     <img src="aetherbyte-logo.jpg" alt="AetherByte Studios" style="width: 240px; height: 240px; border-radius: 50%; border: 3px solid #00f3ff; box-shadow: 0 0 50px rgba(0, 243, 255, 0.7); animation: pulseGlow 1.5s infinite alternate; object-fit: cover;">
     <div style="margin-top: 18px; font-size: 1.4rem; font-weight: 900; letter-spacing: 5px; color: #00f3ff;">AETHERBYTE</div>
   </div>
 
-  <!-- SPLASH SCREEN 2: DEEP SPACE ALIENS INTRO -->
-  <div id="splashAliens" class="overlay-screen overlay-hidden">
-    <div class="modal-card">
-      <div class="alien-svg-stage">
-        <svg viewBox="0 0 400 180" width="100%" height="100%">
-          <circle cx="40" cy="30" r="1.5" fill="#fff"/><circle cx="350" cy="25" r="2" fill="#00f3ff"/>
-          <ellipse cx="75" cy="95" rx="22" ry="30" fill="#002b36" stroke="#00f3ff" stroke-width="2"/>
-          <ellipse cx="70" cy="90" rx="6" ry="3" fill="#00ff66" transform="rotate(-15 70 90)"/>
-          <ellipse cx="84" cy="90" rx="6" ry="3" fill="#00ff66" transform="rotate(15 84 90)"/>
-          <ellipse cx="325" cy="95" rx="22" ry="30" fill="#240036" stroke="#ff007f" stroke-width="2"/>
-          <ellipse cx="316" cy="90" rx="6" ry="3" fill="#00f3ff" transform="rotate(-15 316 90)"/>
-          <ellipse cx="330" cy="90" rx="6" ry="3" fill="#00f3ff" transform="rotate(15 330 90)"/>
-          <polygon points="130,115 270,115 295,155 105,155" fill="rgba(0, 243, 255, 0.18)" stroke="#00f3ff" stroke-width="2"/>
-          <path d="M 215,135 Q 230,95 210,80 T 235,50" fill="none" stroke="#00ff66" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="235" cy="50" r="4" fill="#ff1744"/>
-          <text x="200" y="34" fill="#00f3ff" font-size="12" font-weight="bold" text-anchor="middle" letter-spacing="2">DEEP SPACE ARENA: SECTOR 7</text>
-        </svg>
+  <!-- =========================================================
+       3. TOP APP BAR & PLAYER HUD
+       ========================================================= -->
+  <header class="top-app-bar">
+    <button class="menu-icon-btn" onclick="openModal('appMenuModal')">☰</button>
+    <div class="sign-main-title">
+      <div class="mini-ludo-icon">
+        <div class="mini-q green"></div>
+        <div class="mini-q yellow"></div>
+        <div class="mini-q blue"></div>
+        <div class="mini-q red"></div>
       </div>
-      <p style="font-size:0.88rem; color:#bfefff; margin-bottom:12px;">🌌 Even Across the Galaxy, Aliens Play <strong>LUDO WARS</strong>!</p>
-      <button class="primary-neon-btn" onclick="openPreMatchLobby()">⚡ Configure Battle Lobby</button>
+      LUDO WARS
+    </div>
+    <div class="coin-badge">🪙 <span id="coinCount">1200</span></div>
+  </header>
+
+  <section class="live-players-bar">
+    <div class="player-hud-card active-turn" id="hudCard-0"></div>
+    <div class="player-hud-card" id="hudCard-1"></div>
+    <div class="player-hud-card" id="hudCard-2"></div>
+    <div class="player-hud-card" id="hudCard-3"></div>
+  </section>
+
+  <!-- =========================================================
+       4. MAIN GAME ARENA (LUDO & SNAKES GRIDS)
+       ========================================================= -->
+  <main class="arena-stage">
+    <div class="hybrid-board-frame">
+      
+      <!-- MODE A: LUDO -->
+      <section class="wing-panel" id="ludoWingSection">
+        <div class="wing-header">
+          <span>🎲 15x15 CYBER LUDO</span>
+          <span style="color:#00ff66;">Roll 6 to Unlock</span>
+        </div>
+        <div class="square-arena-box" id="ludoBoardSquare">
+          <div class="real-ludo-15x15" id="realLudoGrid"></div>
+        </div>
+      </section>
+
+      <!-- MODE B: SNAKES -->
+      <section class="wing-panel" id="snakeWingSection" style="display:none;">
+        <div class="wing-header">
+          <span>🐍 CYBER SNAKES & LADDERS</span>
+          <span style="color:#ffd700;">🪜 = +25🪙</span>
+        </div>
+        <div class="square-arena-box" id="snakeBoardSquare">
+          <div class="numbered-matrix" id="snakeMatrixGrid"></div>
+          <svg class="snakes-ladders-svg" viewBox="0 0 1000 1000" preserveAspectRatio="none" id="snakesSvg"></svg>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div style="text-align:center; color:#00ff66; font-size:0.85rem; font-weight:bold; height:20px; margin-top:5px;" id="statusText"></div>
+
+  <!-- =========================================================
+       5. BOTTOM MOBILE DOCK (RAGE, DICE)
+       ========================================================= -->
+  <footer class="bottom-mobile-dock">
+    <div class="dock-col">
+      <div class="rage-meter-wrap" id="rageBarBox">
+        <div style="display:flex; justify-content:space-between; font-size:0.56rem; font-weight:900; color:#ff8a80;">
+          <span>🔥 RAGE</span>
+          <span id="ragePctText">0%</span>
+        </div>
+        <div class="rage-bar-bg">
+          <div class="rage-bar-fill" id="rageMeterFill"></div>
+        </div>
+      </div>
+      <button class="stampede-btn" id="stampedeBtn" onclick="unleashBullStampede()">🐂 STAMPEDE (+12)</button>
+      <button class="cyber-btn" style="border-color:#ffd700; color:#ffd700; padding:4px; margin-top:4px;" onclick="toggleLoadedDice()">🎯 Loaded Dice</button>
+    </div>
+
+    <div class="home-vortex-hub" onclick="triggerCyberDiceRoll()">
+      <div class="dice-cube-btn" id="diceBtn">
+        <span class="pip show"></span><span class="pip"></span><span class="pip show"></span>
+        <span class="pip show"></span><span class="pip"></span><span class="pip show"></span>
+        <span class="pip show"></span><span class="pip"></span><span class="pip show"></span>
+      </div>
+    </div>
+
+    <div class="dock-col" style="align-items:center;">
+      <div class="digital-score-box" id="lastRollBadge">6</div>
+      <div id="turnIndicator" style="font-size:0.62rem; font-weight:900; color:#00ff66;">P1 TURN</div>
+    </div>
+
+    <div class="dock-col">
+      <button class="reroll-neon-btn" onclick="triggerCyberDiceRoll()">🔄 RE-ROLL</button>
+      <button class="cyber-btn" id="ghostStrikeBtn" style="display:none; background:#d500f9; border-color:#fff; margin-top:4px;" onclick="executeGhostStrike()">👻 GHOST WARP</button>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       6. ALL MODALS & OVERLAYS
+       ========================================================= -->
+  <!-- Hamburger Menu -->
+  <div id="appMenuModal" class="overlay-screen overlay-hidden">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #00f3ff; padding-bottom:10px;">
+        <h2 style="color:#00f3ff;">☰ MENU</h2>
+        <button class="cyber-btn" style="width:auto; margin:0;" onclick="closeModal('appMenuModal')">✖</button>
+      </div>
+      <button class="primary-neon-btn" onclick="closeModal('appMenuModal'); openPreMatchLobby();">⚙️ Match Lobby</button>
+      <button class="primary-neon-btn" style="background:linear-gradient(90deg, #ff007f, #7000ff);" onclick="document.body.classList.toggle('trailer-3d-active'); closeModal('appMenuModal');">🎥 Toggle 3D View</button>
+      <button class="primary-neon-btn" style="background:linear-gradient(90deg, #ffd700, #ff9100); color:#000;" onclick="closeModal('appMenuModal'); openModal('premiumOceanModal');">🌊 VIP Ocean Theme</button>
+      
+      <div style="margin-top:10px; margin-bottom:10px; text-align:left;">
+        <span style="color:#00ff66; font-size:0.8rem; font-weight:bold;">🎨 THEMES:</span>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:5px;">
+           <button class="cyber-btn" style="margin:0;" onclick="switchBoardTheme('board-solid')">🌑 Solid</button>
+           <button class="cyber-btn" style="margin:0;" onclick="switchBoardTheme('board-glass')">💎 Glass</button>
+           <button class="cyber-btn" style="margin:0;" onclick="switchBoardTheme('board-gold')">👑 Gold</button>
+           <button class="cyber-btn" style="margin:0;" onclick="switchBoardTheme('board-matrix')">☣️ Matrix</button>
+        </div>
+      </div>
+      
+      <button class="cyber-btn" onclick="closeModal('appMenuModal'); openModal('rulesModal');">📖 How to Play</button>
     </div>
   </div>
 
-  <!-- PRE-MATCH LOBBY -->
+  <!-- Pre-Match Lobby -->
   <div id="preMatchLobby" class="overlay-screen overlay-hidden">
     <div class="modal-card">
-      <div style="font-size:1.15rem; font-weight:900; color:#00f3ff; margin-bottom:8px;">⚙️ LUDO WARS: MATCH LOBBY</div>
+      <div style="font-size:1.15rem; font-weight:900; color:#00f3ff; margin-bottom:8px;">⚙️ MATCH LOBBY</div>
 
       <span class="lobby-label">1. Select Game Mode</span>
       <div class="lobby-pill-grid" id="lobbyModeRow">
@@ -469,169 +480,16 @@
     </div>
   </div>
 
-  <!-- TOP MOBILE APP HUD -->
-  <header class="top-app-bar">
-    <button class="menu-icon-btn" onclick="openModal('appMenuModal')">☰</button>
-    <div class="sign-main-title">
-      <div class="mini-ludo-icon"><div class="mini-q green"></div><div class="mini-q yellow"></div><div class="mini-q blue"></div><div class="mini-q red"></div></div>
-      LUDO WARS
-    </div>
-    <div class="coin-badge">🪙 <span id="coinCount">1200</span></div>
-  </header>
-
-  <!-- LIVE 4-PLAYER STATUS BAR -->
-  <section class="live-players-bar">
-    <div class="player-hud-card active-turn" id="hudCard-0"></div>
-    <div class="player-hud-card" id="hudCard-1"></div>
-    <div class="player-hud-card" id="hudCard-2"></div>
-    <div class="player-hud-card" id="hudCard-3"></div>
-  </section>
-
-  <!-- MAIN FULL-SCREEN GAME ARENA -->
-  <main class="arena-stage">
-    <div class="hybrid-board-frame">
-
-      <!-- MODE A: LUDO -->
-      <section class="wing-panel" id="ludoWingSection">
-        <div class="wing-header">
-          <span>🎲 15x15 CYBER LUDO</span>
-          <span style="color:#00ff66;">Roll 6 to Unlock</span>
-        </div>
-        <div class="square-arena-box" id="ludoBoardSquare">
-          <div class="real-ludo-15x15" id="realLudoGrid"></div>
-        </div>
-      </section>
-
-      <!-- MODE B: SNAKES -->
-      <section class="wing-panel" id="snakeWingSection" style="display:none;">
-        <div class="wing-header">
-          <span>🐍 CYBER SNAKES & LADDERS</span>
-          <span style="color:#ffd700;">🪜 = +25🪙</span>
-        </div>
-        <div class="square-arena-box" id="snakeBoardSquare">
-          <div class="numbered-matrix" id="snakeMatrixGrid"></div>
-          <svg class="snakes-ladders-svg" viewBox="0 0 1000 1000" preserveAspectRatio="none"></svg>
-        </div>
-      </section>
-
-    </div>
-  </main>
-  <!-- 7. BOTTOM MOBILE THUMB DOCK -->
-  <footer class="bottom-mobile-dock">
-    <div class="dock-col">
-      <div class="rage-meter-wrap" id="rageBarBox">
-        <div class="rage-header"><span>🔥 RAGE</span><span id="ragePctText">0%</span></div>
-        <div class="rage-bar-bg"><div class="rage-bar-fill" id="rageMeterFill"></div></div>
-      </div>
-      <button class="stampede-btn" id="stampedeBtn" onclick="unleashBullStampede()">🐂 STAMPEDE (+12)</button>
-      <button class="cyber-btn" style="border-color:#ffd700; color:#ffd700; padding:4px;" onclick="toggleLoadedDice()">🎯 Loaded Dice</button>
-    </div>
-
-    <div class="home-vortex-hub" onclick="triggerCyberDiceRoll()">
-      <div class="dice-cube-btn" id="diceBtn">
-        <span class="pip show"></span><span class="pip"></span><span class="pip show"></span>
-        <span class="pip show"></span><span class="pip"></span><span class="pip show"></span>
-        <span class="pip show"></span><span class="pip"></span><span class="pip show"></span>
-      </div>
-    </div>
-
-    <div class="dock-col" style="align-items:center;">
-      <div class="digital-score-box" id="lastRollBadge">6</div>
-      <div id="turnIndicator" style="font-size:0.62rem; font-weight:900; color:#00ff66;">P1 TURN</div>
-    </div>
-
-    <div class="dock-col">
-      <button class="reroll-neon-btn" onclick="triggerCyberDiceRoll()">🔄 RE-ROLL</button>
-      <button class="cyber-btn" id="ghostStrikeBtn" style="display:none; background:#d500f9; border-color:#fff;" onclick="executeGhostStrike()">👻 GHOST WARP</button>
-    </div>
-  </footer>
-
-  <!-- 8. POPUPS, CUTSCENES & MODALS -->
-  <div id="cyberEventBanner" class="cyber-event-banner">
-    <div id="eventBannerTitle" style="font-size:0.95rem; font-weight:900; color:#00f3ff;">⚡ EVENT</div>
-    <div id="eventBannerSub" style="font-size:0.76rem; color:#d8f8ff; margin-top:3px;">Details</div>
-  </div>
-
-  <div id="bollywoodToast" class="bollywood-toast">
-    <div id="bollywoodSpeaker" style="font-size:0.64rem; color:#ffe600;">🎬 CYBER COMMS</div>
-    <div id="bollywoodText">"O Stree kal aana!"</div>
-  </div>
-
-  <div id="loadedDicePopover" class="loaded-dice-popover">
-    <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#ffd700; font-weight:900;">
-      <span>🎯 PICK EXACT DICE (80🪙 / VIP FREE)</span>
-      <span style="cursor:pointer; color:#ff5252;" onclick="toggleLoadedDice()">✖</span>
-    </div>
-    <div class="loaded-dice-grid">
-      <button class="loaded-num-btn" onclick="useLoadedDice(1)">1</button>
-      <button class="loaded-num-btn" onclick="useLoadedDice(2)">2</button>
-      <button class="loaded-num-btn" onclick="useLoadedDice(3)">3</button>
-      <button class="loaded-num-btn" onclick="useLoadedDice(4)">4</button>
-      <button class="loaded-num-btn" onclick="useLoadedDice(5)">5</button>
-      <button class="loaded-num-btn" onclick="useLoadedDice(6)">6🔥</button>
-    </div>
-  </div>
-
-  <!-- ALIEN HOLOGRAM CUTSCENE MODAL -->
-  <div id="aiHoloModal" class="overlay-screen overlay-hidden" style="background:rgba(2,8,22,0.92);">
-    <div class="modal-card" id="aiHoloCard">
-      <div class="alien-svg-stage" id="aiHoloStage"></div>
-      <div id="aiHoloTitle" style="font-size:1.05rem; font-weight:900; color:#00ff66;">🛸 ALIEN HOLOGRAM</div>
-      <p id="aiHoloSub" style="font-size:0.8rem; color:#bfefff; margin:6px 0 12px;"></p>
-      <button class="primary-neon-btn" style="padding:7px 20px; font-size:0.78rem;" onclick="closeModal('aiHoloModal')">⚡ Continue</button>
-    </div>
-  </div>
-
-  <!-- ANGRY CYBER-BULL REVENGE OVERLAY -->
-  <div id="bullModal" class="overlay-screen overlay-hidden" style="background:rgba(90,0,15,0.88);">
-    <div class="modal-card" style="border-color:#ff1744; background:#1a0005;">
-      <svg viewBox="0 0 200 150" width="130" height="105" style="margin:0 auto;">
-        <path d="M 35,55 C 5,25 12,5 45,18 C 30,30 35,42 55,48 Z" fill="#cfd8dc" stroke="#ff1744" stroke-width="2"/>
-        <path d="M 165,55 C 195,25 188,5 155,18 C 170,30 165,42 145,48 Z" fill="#cfd8dc" stroke="#ff1744" stroke-width="2"/>
-        <polygon points="55,42 145,42 160,85 130,135 70,135 40,85" fill="#2a0008" stroke="#ff1744" stroke-width="3"/>
-        <polygon points="55,72 88,82 62,90" fill="#ff1744"/><polygon points="145,72 112,82 138,90" fill="#ff1744"/>
-        <circle cx="100" cy="130" r="14" fill="none" stroke="#ffd700" stroke-width="4"/>
-      </svg>
-      <div id="bullTitle" style="font-size:1.25rem; font-weight:900; color:#ff1744;">🐂 REVENGE MODE!</div>
-      <div id="bullSub" style="font-size:0.84rem; color:#fff; margin:5px 0;">Goti Cut!</div>
-      <div id="bullQuote" style="font-size:0.82rem; color:#ffe600; font-style:italic;">"Maine sabko bata diya, mai Kolhapur nahi jaa raha hoon!"</div>
-    </div>
-  </div>
-
-  <!-- BOARD SKIN UNLOCK MODAL -->
-  <div id="vaultModal" class="overlay-screen overlay-hidden" style="background:rgba(2,6,18,0.9);">
-    <div class="modal-card">
-      <div id="vaultTitle" style="font-size:1.15rem; font-weight:900; color:#ffd700; margin-bottom:8px;">🔒 PREMIUM BOARD</div>
-      <p style="font-size:0.82rem; color:#bfefff; margin-bottom:14px;">Watch a quick Sponsor Ad for a Free Trial or unlock permanently with Coins!</p>
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <button class="primary-neon-btn" onclick="unlockBoard('ad')">📺 Watch Ad (Free Trial)</button>
-        <button class="primary-neon-btn" style="background:#ffd700;" id="vaultCoinBtn" onclick="unlockBoard('coins')">🪙 Unlock with Coins</button>
-        <button class="cyber-btn" onclick="closeModal('vaultModal')">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- APP MENU MODAL -->
-  <div id="appMenuModal" class="overlay-screen overlay-hidden" style="background:rgba(2,6,18,0.95);">
-    <div class="modal-card">
-      <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #00f3ff; padding-bottom:10px;">
-        <h2 style="color:#00f3ff;">☰ MENU</h2>
-        <button class="cyber-btn" style="width:auto; margin:0;" onclick="closeModal('appMenuModal')">✖</button>
-      </div>
-      <button class="primary-neon-btn" onclick="closeModal('appMenuModal'); openPreMatchLobby();">⚙️ Match Lobby</button>
-      <button class="primary-neon-btn" style="background:linear-gradient(90deg, #ff007f, #7000ff);" onclick="document.body.classList.toggle('trailer-3d-active'); closeModal('appMenuModal');">🎥 Toggle 3D View</button>
-      <button class="primary-neon-btn" style="background:linear-gradient(90deg, #ffd700, #ff9100); color:#000;" onclick="closeModal('appMenuModal'); openModal('premiumOceanModal');">🌊 VIP Ocean Theme</button>
-      <button class="cyber-btn" onclick="closeModal('appMenuModal'); openModal('vaultModal');">🎨 Board Skins</button>
-      <button class="cyber-btn" onclick="closeModal('appMenuModal'); openModal('rulesModal');">📖 How to Play</button>
-    </div>
-  </div>
-
-  <!-- OCEAN THEME VIDEO AD MODAL -->
+  <!-- Video Ad Modal -->
   <div id="premiumOceanModal" class="overlay-screen overlay-hidden">
     <div class="modal-card">
       <div style="font-size: 1.25rem; font-weight: 900; color: #00f3ff; margin-bottom: 8px;" id="adModalTitle">🌊 VIP OCEAN THEME</div>
       <p id="adModalDesc" style="font-size:0.8rem; color:#bfefff; margin-bottom:15px;">Watch Video Ad to unlock transparent board & fishes!</p>
-      <video id="adVideoPlayer" playsinline preload="auto"><source src="your-video-ad.mp4" type="video/mp4"></video>
+      
+      <video id="adVideoPlayer" playsinline preload="auto">
+        <source src="your-video-ad.mp4" type="video/mp4"> 
+      </video>
+      
       <div id="adBtnGroup">
         <button class="primary-neon-btn" onclick="watchOceanAd()">📺 Watch Ad (Unlock)</button>
         <button class="primary-neon-btn" style="background:#ffd700; color:#000;" onclick="buyOceanCoins()">🪙 Pay 30 Coins</button>
@@ -640,37 +498,77 @@
     </div>
   </div>
 
-  <!-- VIP PASS MODAL -->
-  <div id="vipModal" class="overlay-screen overlay-hidden" style="background:rgba(2,6,18,0.9);">
-    <div class="modal-card" style="border-color:#ffd700;">
-      <div style="font-size:1.25rem; font-weight:900; color:#ffd700;">👑 AETHERBYTE VIP CYBER PASS</div>
-      <ul style="text-align:left; font-size:0.8rem; color:#fff8e1; line-height:1.7; margin:12px 0; padding-left:18px;">
-        <li>All 4 Boards Unlocked (Crystal Glass, 24K Gold & Matrix)</li>
-        <li>Unlimited Free Loaded Strategic Dice (Pick 1–6 anytime)</li>
-        <li>1.25x Faster Rage Charge + 500 Bonus Cyber Coins</li>
-      </ul>
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <button class="primary-neon-btn" style="background:#ffd700;" onclick="activateVip('coins')">👑 Activate VIP (600 Coins)</button>
-        <button class="primary-neon-btn" onclick="activateVip('ad')">📺 Watch Ad (Free 1-Match VIP)</button>
-        <button class="cyber-btn" onclick="closeModal('vipModal')">Close</button>
+  <!-- Alien Hologram Cutscene Modal -->
+  <div id="aiHoloModal" class="overlay-screen overlay-hidden" style="background:rgba(2,8,22,0.92);">
+    <div class="modal-card" id="aiHoloCard">
+      <div class="alien-svg-stage" id="aiHoloStage" style="width:100%; height:200px;"></div>
+      <div id="aiHoloTitle" style="font-size:1.05rem; font-weight:900; color:#00ff66;">🛸 ALIEN HOLOGRAM</div>
+      <p id="aiHoloSub" style="font-size:0.8rem; color:#bfefff; margin:6px 0 12px;"></p>
+      <button class="primary-neon-btn" style="padding:7px 20px; font-size:0.78rem;" onclick="closeModal('aiHoloModal')">⚡ Continue</button>
+    </div>
+  </div>
+
+  <!-- Bull Revenge Modal -->
+  <div id="bullModal" class="overlay-screen overlay-hidden" style="background:rgba(90,0,15,0.88);">
+    <div class="modal-card" style="border-color:#ff1744; background:#1a0005;">
+      <div id="bullTitle" style="font-size:1.25rem; font-weight:900; color:#ff1744;">🐂 REVENGE MODE!</div>
+      <div id="bullSub" style="font-size:0.84rem; color:#fff; margin:5px 0;">Goti Cut!</div>
+    </div>
+  </div>
+
+  <!-- Rules Modal -->
+  <div id="rulesModal" class="overlay-screen overlay-hidden" style="background:rgba(2,6,18,0.92);">
+    <div class="modal-card" style="text-align:left;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <strong style="color:#00f3ff; font-size:1.05rem;">📖 LUDO WARS RULES</strong>
+        <button class="cyber-btn" style="width:auto; margin:0;" onclick="closeModal('rulesModal')">✖</button>
+      </div>
+      <div style="font-size:0.8rem; color:#d8f4ff; line-height:1.6; display:flex; flex-direction:column; gap:10px;">
+        <div><strong style="color:#00ff66;">🎲 Ludo:</strong> Roll 6 to deploy. 4 tokens must reach 👑 to win. Capturing grants +1 Roll.</div>
+        <div><strong style="color:#ffd700;">🐍 Snakes:</strong> Climb ladders for +25🪙. No cutting allowed. 1 token mode.</div>
       </div>
     </div>
   </div>
 
-  <!-- PUSH NOTIFICATION BANNER & FIREWORKS -->
-  <div id="mobilePushBanner" class="mobile-push-banner" onclick="claimPushReward()">
-    <div style="font-size:1.5rem;">🎲</div>
-    <div style="text-align:left;">
-      <div style="font-size:0.62rem; color:#00ff66; font-weight:900;">LUDO WARS • NOW (+50🪙)</div>
-      <div id="pushTitle" style="font-size:0.8rem; font-weight:900; color:#fff;">🐂 Cyber-Bull Revenge Alert!</div>
-      <div id="pushBody" style="font-size:0.7rem; color:#bfefff;">Tap to claim +50 Free Cyber Coins!</div>
+  <!-- Victory Modal -->
+  <div id="victoryModal" class="overlay-screen overlay-hidden">
+    <div class="modal-card" style="border-color:#ffd700;">
+      <div style="font-size:3rem;">👑🎆</div>
+      <div style="font-size:1.4rem; font-weight:900; color:#ffd700;">CHAMPION!</div>
+      <div id="victoryWinnerText" style="font-size:1.05rem; color:#00ff66; font-weight:800; margin:8px 0 14px;">PLAYER WINS!</div>
+      <button class="primary-neon-btn" onclick="location.reload()">🔄 Play Again</button>
     </div>
   </div>
 
-  <canvas id="fireworksCanvas"></canvas>
+  <!-- Loaded Dice Popover -->
+  <div id="loadedDicePopover" class="loaded-dice-popover" style="display:none; position:fixed; bottom:90px; left:50%; transform:translateX(-50%); background:rgba(8,20,44,0.98); border:2px solid #ffd700; border-radius:14px; padding:10px; z-index:9450; width:90%; max-width:340px; flex-direction:column; gap:6px;">
+    <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#ffd700; font-weight:900;">
+      <span>🎯 PICK EXACT DICE (80🪙)</span>
+      <span style="cursor:pointer; color:#ff5252;" onclick="toggleLoadedDice()">✖</span>
+    </div>
+    <div class="loaded-dice-grid" style="display:grid; grid-template-columns:repeat(6,1fr); gap:5px;">
+      <button class="loaded-num-btn" style="background:rgba(255,215,0,0.15); border:1px solid #ffd700; color:#fff; font-weight:bold; padding:8px 0; border-radius:6px; cursor:pointer;" onclick="useLoadedDice(1)">1</button>
+      <button class="loaded-num-btn" style="background:rgba(255,215,0,0.15); border:1px solid #ffd700; color:#fff; font-weight:bold; padding:8px 0; border-radius:6px; cursor:pointer;" onclick="useLoadedDice(2)">2</button>
+      <button class="loaded-num-btn" style="background:rgba(255,215,0,0.15); border:1px solid #ffd700; color:#fff; font-weight:bold; padding:8px 0; border-radius:6px; cursor:pointer;" onclick="useLoadedDice(3)">3</button>
+      <button class="loaded-num-btn" style="background:rgba(255,215,0,0.15); border:1px solid #ffd700; color:#fff; font-weight:bold; padding:8px 0; border-radius:6px; cursor:pointer;" onclick="useLoadedDice(4)">4</button>
+      <button class="loaded-num-btn" style="background:rgba(255,215,0,0.15); border:1px solid #ffd700; color:#fff; font-weight:bold; padding:8px 0; border-radius:6px; cursor:pointer;" onclick="useLoadedDice(5)">5</button>
+      <button class="loaded-num-btn" style="background:rgba(255,215,0,0.15); border:1px solid #ffd700; color:#fff; font-weight:bold; padding:8px 0; border-radius:6px; cursor:pointer;" onclick="useLoadedDice(6)">6</button>
+    </div>
+  </div>
 
+  <div id="cyberEventBanner" class="cyber-event-banner" style="position:fixed; top:15%; left:50%; transform:translate(-50%,-15px) scale(0.9); background:rgba(6,16,36,0.96); border:2px solid #00f3ff; border-radius:14px; padding:10px 20px; z-index:9300; opacity:0; pointer-events:none; transition:all 0.3s;">
+    <div id="eventBannerTitle" style="font-weight:900; color:#00f3ff;"></div>
+    <div id="eventBannerSub" style="font-size:0.8rem; color:#fff;"></div>
+  </div>
+  
+  <div id="bollywoodToast" class="bollywood-toast" style="position:fixed; bottom:85px; left:50%; transform:translate(-50%,30px) scale(0.8); background:linear-gradient(135deg, #ff007f, #6e00ff); border:2px solid #ffe600; border-radius:24px; padding:8px 18px; color:#fff; font-weight:900; font-size:0.8rem; z-index:9400; opacity:0; pointer-events:none; transition:all 0.3s;">
+    <div id="bollywoodSpeaker" style="font-size:0.65rem; color:#ffe600;"></div>
+    <div id="bollywoodText"></div>
+  </div>
+  
+  <canvas id="fireworksCanvas"></canvas>
   <!-- =========================================================
-       MASTER UNIFIED JAVASCRIPT ENGINE (PART 1 - SETUP)
+       MASTER UNIFIED JAVASCRIPT ENGINE (PART 3 - LOGIC)
        ========================================================= -->
   <script>
     // 1. WEB AUDIO SYNTHESIZER
@@ -786,6 +684,8 @@
       buildTrue100Grid(); 
       render3DSnakesAndLadders(); 
       renderLobbyRows(); 
+      
+      // FIXED: Logo Screen Transition (No more freezing!)
       setTimeout(() => { 
         document.getElementById('splashStudio').classList.add('overlay-hidden'); 
         openPreMatchLobby(); 
@@ -795,7 +695,7 @@
     function openModal(id) { document.getElementById(id).classList.remove('overlay-hidden'); } 
     function closeModal(id) { document.getElementById(id).classList.add('overlay-hidden'); }
     
-    function openPreMatchLobby() { closeModal('splashAliens'); renderLobbyRows(); openModal('preMatchLobby'); }
+    function openPreMatchLobby() { renderLobbyRows(); openModal('preMatchLobby'); }
     function selectLobbyMode(m, btn) { playCyberSfx('hop'); lobbyConfig.mode = m; document.querySelectorAll('#lobbyModeRow .lobby-pill').forEach(b => b.classList.remove('selected')); if (btn) btn.classList.add('selected'); }
     function selectLobbyVs(vs, btn) { playCyberSfx('hop'); lobbyConfig.vsType = vs; document.querySelectorAll('#lobbyVsGroup .lobby-pill').forEach(b => b.classList.remove('selected')); if (btn) btn.classList.add('selected'); lobbyConfig.slots.forEach((s, i) => { s.isAI = (i === 0) ? false : (vs === 'ai'); s.name = s.isAI ? `Bot-${i}` : (i === 0 ? '' : `P${i+1}`); }); renderLobbyRows(); }
     function selectLobbyCount(cnt, btn) { playCyberSfx('hop'); lobbyConfig.count = cnt; document.querySelectorAll('#lobbyCountGroup .lobby-pill').forEach(b => b.classList.remove('selected')); if (btn) btn.classList.add('selected'); renderLobbyRows(); }
@@ -812,7 +712,12 @@
     function pickColor(slotIdx, cIdx) { playCyberSfx('hop'); const other = lobbyConfig.slots.find((s, i) => i !== slotIdx && s.colorIdx === cIdx); if (other) other.colorIdx = lobbyConfig.slots[slotIdx].colorIdx; lobbyConfig.slots[slotIdx].colorIdx = cIdx; renderLobbyRows(); }
     
     function launchConfiguredMatch() { 
-      closeModal('preMatchLobby'); activePlayerIds = []; 
+      closeModal('preMatchLobby'); 
+      document.getElementById('ludoWingSection').style.display = isSnakesMode() ? 'none' : 'flex';
+      document.getElementById('snakeWingSection').style.display = isSnakesMode() ? 'flex' : 'none';
+      if(isSnakesMode()) { document.getElementById('snakesSvg').style.display = 'block'; } else { document.getElementById('snakesSvg').style.display = 'none'; }
+      
+      players = []; activePlayerIds = []; 
       for (let i = 0; i < 4; i++) { 
         const s = lobbyConfig.slots[i], col = COLOR_PRESETS[s.colorIdx], p = players[i] || {}; 
         p.id = i;
@@ -827,7 +732,7 @@
         if (p.active) activePlayerIds.push(i); 
       } 
       spawnAllTokens(); currentTurnIdx = activePlayerIds[0]; isTurnLocked = false; 
-      document.getElementById('modeSelect').value = lobbyConfig.mode; switchGameMode(lobbyConfig.mode); updateTurnHUD(); 
+      switchGameMode(lobbyConfig.mode); updateTurnHUD(); 
     }
 
     function build15x15LudoDOM() { 
@@ -867,30 +772,55 @@
     // ADS & THEMES LOGIC
     function switchGameMode(mode) { 
       activeMode = mode; const lWing = document.getElementById('ludoWingSection'); const sWing = document.getElementById('snakeWingSection'); const biteBtn = document.getElementById('demoBiteBtn'), escBtn = document.getElementById('demoEscBtn'); 
-      if (isSnakesMode()) { lWing.style.display = 'none'; sWing.style.display = 'flex'; if(biteBtn) biteBtn.style.display = 'inline-block'; if(escBtn) escBtn.style.display = 'inline-block'; showAlienHoloScene('jungle'); } 
+      if (isSnakesMode()) { lWing.style.display = 'none'; sWing.style.display = 'flex'; if(biteBtn) biteBtn.style.display = 'inline-block'; if(escBtn) escBtn.style.display = 'inline-block'; } 
       else { lWing.style.display = 'flex'; sWing.style.display = 'none'; if(biteBtn) biteBtn.style.display = 'none'; if(escBtn) escBtn.style.display = 'none'; } 
-      const bBadge = document.getElementById('blitzTimerBadge'); clearInterval(blitzInterval); 
-      if (isBlitzMode()) { bBadge.style.display = 'inline-block'; blitzSeconds = 180; blitzInterval = setInterval(() => { blitzSeconds--; if (blitzSeconds <= 0) { clearInterval(blitzInterval); const leader = [...players].filter(p => p.active).sort((a, b) => isSnakesMode() ? (b.tokens[0].snakePos - a.tokens[0].snakePos) : (b.tokens.reduce((acc, t)=>acc+t.step,0) - a.tokens.reduce((acc, t)=>acc+t.step,0)))[0]; triggerVictory(leader || players[0]); return; } bBadge.textContent = `⏱️ 0${Math.floor(blitzSeconds/60)}:${String(blitzSeconds%60).padStart(2,'0')}`; }, 1000); } 
-      else { bBadge.style.display = 'none'; } 
+      
+      clearInterval(blitzInterval); 
       updateTurnHUD(); 
     }
 
-    function switchBoardTheme(skin) { if (unlockedBoards[skin] || isVipActive) { currentBoard = skin; document.body.className = skin; } else { pendingBoard = skin; const costs = { 'board-glass': 300, 'board-gold': 500, 'board-matrix': 400 }; document.getElementById('vaultCoinBtn').textContent = `🪙 Unlock Permanently (${costs[skin]} Coins)`; openModal('vaultModal'); document.getElementById('themeSelect').value = currentBoard; } }
-    function unlockBoard(method) { const costs = { 'board-glass': 300, 'board-gold': 500, 'board-matrix': 400 }; if (method === 'coins') { let c = parseInt(document.getElementById('coinCount').textContent); if (c < costs[pendingBoard]) { alert('Not enough coins!'); return; } addCoins(-costs[pendingBoard]); unlockedBoards[pendingBoard] = true; } closeModal('vaultModal'); currentBoard = pendingBoard; document.body.className = pendingBoard; document.getElementById('themeSelect').value = pendingBoard; }
+    function switchBoardTheme(skin) { if (unlockedBoards[skin] || isVipActive) { currentBoard = skin; document.body.className = skin; } else { pendingBoard = skin; const costs = { 'board-glass': 300, 'board-gold': 500, 'board-matrix': 400 }; document.getElementById('vaultCoinBtn').textContent = `🪙 Unlock Permanently (${costs[skin]} Coins)`; openModal('vaultModal'); } }
+    function unlockBoard(method) { const costs = { 'board-glass': 300, 'board-gold': 500, 'board-matrix': 400 }; if (method === 'coins') { let c = parseInt(document.getElementById('coinCount').textContent); if (c < costs[pendingBoard]) { alert('Not enough coins!'); return; } addCoins(-costs[pendingBoard]); unlockedBoards[pendingBoard] = true; } closeModal('vaultModal'); currentBoard = pendingBoard; document.body.className = pendingBoard; }
     
     function watchOceanAd() { document.getElementById('adBtnGroup').style.display = "none"; document.getElementById('adModalTitle').innerHTML = "📺 AD PLAYING..."; const video = document.getElementById('adVideoPlayer'); video.style.display = "block"; video.play().catch(e => { setTimeout(finalizeAd, 4000); }); video.onended = finalizeAd; }
     function finalizeAd() { document.getElementById('adVideoPlayer').style.display = "none"; closeModal('premiumOceanModal'); document.body.classList.add('ocean-unlocked'); if(!document.body.classList.contains('trailer-3d-active')) document.body.classList.add('trailer-3d-active'); showBanner(`🌊 VIP UNLOCKED!`, `Ocean Theme Active!`, '#00f3ff'); }
     function buyOceanCoins() { let c = parseInt(document.getElementById('coinCount').textContent); if(c >= 30) { document.getElementById('coinCount').textContent = c - 30; finalizeAd(); } else { alert("Not enough coins!"); } }
-    .role-btn.is-ai { background: rgba(255, 0, 127, 0.22); border-color: #ff007f; color: #ff80ab; }
-    <!-- =========================================================
-       MASTER UNIFIED JAVASCRIPT ENGINE (PART 2 - GAMEPLAY LOGIC)
-       ========================================================= -->
+
+    function showBanner(t, s, col) { const b = document.getElementById('cyberEventBanner'); document.getElementById('eventBannerTitle').textContent = t; document.getElementById('eventBannerTitle').style.color = col; document.getElementById('eventBannerSub').textContent = s; b.style.borderColor = col; b.classList.add('show'); setTimeout(() => b.classList.remove('show'), 2000); }
+    function showBollywoodToast(spk, txt) { const t = document.getElementById('bollywoodToast'); document.getElementById('bollywoodSpeaker').textContent = `🎬 ${spk} COMMS`; document.getElementById('bollywoodText').textContent = `"${txt}"`; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); }
+    function pickLine(cat) { const arr = DIALOGUES[cat]; return arr[Math.floor(Math.random() * arr.length)]; }
+    function spawnSparkle(cell) { const spark = document.createElement('div'); spark.className = 'sparkle-fx'; cell.appendChild(spark); setTimeout(() => spark.remove(), 600); }
+
+    function spawnAllTokens() {
+      document.querySelectorAll('.board-live-token, .ludo-live-token').forEach(e => e.remove());
+      players.forEach(p => {
+        if(!p.active) return;
+        p.tokens.forEach((t, i) => {
+          if(isSnakesMode() && i > 0) return;
+          const tok = document.createElement('div'); tok.id = `tok-${p.id}-${i}`; tok.className = (isSnakesMode() ? `board-live-token ` : `ludo-live-token `) + p.cls; tok.textContent = isSnakesMode() ? p.short.substring(0,2) : (i+1);
+          tok.onclick = () => handleTokenClick(p.id, i); document.body.appendChild(tok); placeToken(p.id, i, false);
+        });
+      });
+    }
+
+    function placeToken(pId, tIdx, anim=true) {
+      const p = players[pId], t = p.tokens[tIdx], tok = document.getElementById(`tok-${pId}-${tIdx}`); if(!tok) return; let cell = null;
+      if(isSnakesMode()) { if(t.done) cell = document.getElementById('hybrid-tile-100'); else cell = document.getElementById('hybrid-tile-' + t.snakePos); } 
+      else {
+        if (t.done) { cell = document.getElementById('ludoCenterCrown'); tok.style.transform = 'scale(0.5)'; }
+        else if (t.locked) { cell = document.getElementById(`yard-${pId}-${tIdx}`); tok.style.transform = 'scale(1)'; }
+        else if (t.step >= 51) { cell = document.getElementById(`ludo-home-${pId}-${(t.step - 51)}`); tok.style.transform = 'scale(1)'; }
+        else { cell = document.getElementById(`ludo-outer-${(LUDO_START_INDEX[pId] + t.step) % 52}`); tok.style.transform = 'scale(1)'; }
+      }
+      if (cell) { cell.appendChild(tok); if(anim){ tok.classList.remove('hop-anim'); void tok.offsetWidth; tok.classList.add('hop-anim'); spawnSparkle(cell); } }
+    }
+
     // MAIN 4-TOKEN ENGINE (Slow Speed, User Selection on 6)
     const dicePips = { 1:[0,0,0,0,1,0,0,0,0], 2:[1,0,0,0,0,0,0,0,1], 3:[1,0,0,0,1,0,0,0,1], 4:[1,0,1,0,0,0,1,0,1], 5:[1,0,1,0,1,0,1,0,1], 6:[1,0,1,1,0,1,1,0,1] };
 
     async function triggerCyberDiceRoll(forcedRoll = null) {
       if(isTurnLocked || waitingForSelection) return;
-      isTurnLocked = true; clearTimeout(aiTimer);
+      isTurnLocked = true; clearTimeout(aiTurnTimeout);
       
       if (dialogueCooldown > 0) dialogueCooldown--;
       
@@ -912,8 +842,8 @@
         showBollywoodToast(p.short, pickLine('sixRolled')); 
         dialogueCooldown = 4; 
       } else if (currentRoll !== 6 && !p.isAI) { 
-        // Slower Rage (+3%)
         p.rage = Math.min(100, p.rage + 3); 
+        syncRageUI();
       }
 
       let validIndices = [];
@@ -942,7 +872,6 @@
         await executeMove(p, chosen, currentRoll); 
       } 
       else { 
-        // User Selection Logic (GLOWING TOKENS)
         waitingForSelection = true; 
         document.getElementById('statusText').textContent = "TAP A GLOWING TOKEN TO MOVE!"; 
         validIndices.forEach(i => document.getElementById(`tok-${p.id}-${i}`).classList.add('highlight-token')); 
@@ -968,7 +897,6 @@
           await sleep(350); 
         } 
         else {
-          // Slow Token Movement (300ms) + Sparkles
           for(let s=1; s<=roll; s++) { 
             t.step++; 
             placeToken(p.id, tIdx, true); 
@@ -1005,7 +933,7 @@
           }
         }
       } else {
-        // Snakes Mode (No Cutting Rule Applied Here)
+        // Snakes Mode
         for(let s=1; s<=roll; s++) { 
           t.snakePos++; 
           placeToken(p.id, tIdx, true); 
@@ -1120,7 +1048,7 @@
       document.getElementById('ghostStrikeBtn').style.display = (revengeState[p.id]?.ready && !p.isAI) ? 'inline-block' : 'none';
       
       if (p.active && p.isAI) { 
-        aiTimer = setTimeout(() => { 
+        aiTurnTimeout = setTimeout(() => { 
           if (!isTurnLocked && players[currentTurnIdx].isAI) { 
             if (p.rage >= 100 && !p.rageUsed) unleashBullStampede(); else triggerCyberDiceRoll(); 
           } 
