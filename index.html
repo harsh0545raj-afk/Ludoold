@@ -3,46 +3,223 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>LUDO WARS - Ultimate Edition</title>
+  <title>LUDO WARS - Ultimate Premium Edition</title>
   <style>
-    :root { --bg-obsidian: #04070e; --neon-cyan: #00f3ff; --neon-green: #00ff66; --neon-red: #ff1744; --accent-gold: #ffd700; }
-    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; font-family: 'Segoe UI', Orbitron, sans-serif; }
+    /* =========================================================
+       1. GLOBAL VARIABLES & RESET
+       ========================================================= */
+    :root { 
+      --bg-obsidian: #04070e; 
+      --neon-cyan: #00f3ff; 
+      --neon-green: #00ff66; 
+      --neon-red: #ff1744; 
+      --accent-gold: #ffd700; 
+      --bg-grid: rgba(0, 243, 255, 0.07);
+    }
+    
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      user-select: none; 
+      -webkit-tap-highlight-color: transparent; 
+      font-family: 'Segoe UI', Orbitron, sans-serif; 
+    }
 
-    /* APP LOCK & OCEAN BG */
-    html, body { width: 100% !important; height: 100dvh !important; overflow: hidden !important; position: fixed !important; background-color: var(--bg-obsidian); color: #fff; display: flex; flex-direction: column; justify-content: space-between; align-items: center; }
-    body.ocean-unlocked { background-color: #020914 !important; }
-    body.ocean-unlocked::before, body.ocean-unlocked::after { content: ''; position: fixed; bottom: 0; left: -50vw; width: 200vw; height: 50vh; z-index: -10; pointer-events: none; background: radial-gradient(ellipse at 50% 100%, rgba(0, 243, 255, 0.25) 0%, transparent 70%); border-radius: 50% 50% 0 0; animation: oceanWave 10s infinite alternate ease-in-out; }
-    body.ocean-unlocked::after { height: 35vh; background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 102, 0.15) 0%, transparent 70%); animation: oceanWave2 14s infinite alternate-reverse ease-in-out; }
+    /* =========================================================
+       2. NATIVE APP LOCK & BACKGROUND
+       ========================================================= */
+    html, body { 
+      width: 100% !important; 
+      height: 100dvh !important; 
+      max-height: 100dvh !important; 
+      overflow: hidden !important; 
+      position: fixed !important; 
+      background-color: var(--bg-obsidian); 
+      color: #fff; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: space-between; 
+      align-items: center; 
+      background-image: 
+        linear-gradient(var(--bg-grid) 1px, transparent 1px), 
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px), 
+        radial-gradient(circle at 50% 35%, rgba(0, 243, 255, 0.14), transparent 70%);
+      background-size: 28px 28px, 28px 28px, 100% 100%;
+    }
+
+    /* =========================================================
+       3. VIP OCEAN THEME & 6 INSTA-FISHES
+       ========================================================= */
+    body.ocean-unlocked { 
+      background-color: #020914 !important; 
+      background-image: none !important;
+    }
+    body.ocean-unlocked::before, body.ocean-unlocked::after { 
+      content: ''; 
+      position: fixed; 
+      bottom: 0; 
+      left: -50vw; 
+      width: 200vw; 
+      height: 50vh; 
+      z-index: -10; 
+      pointer-events: none; 
+      background: radial-gradient(ellipse at 50% 100%, rgba(0, 243, 255, 0.25) 0%, transparent 70%); 
+      border-radius: 50% 50% 0 0; 
+      animation: oceanWave 10s infinite alternate ease-in-out; 
+    }
+    body.ocean-unlocked::after { 
+      height: 35vh; 
+      background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 102, 0.15) 0%, transparent 70%); 
+      animation: oceanWave2 14s infinite alternate-reverse ease-in-out; 
+    }
+    
     @keyframes oceanWave { 0% { transform: translateY(10px) scaleY(0.9); opacity: 0.6; } 100% { transform: translateY(0px) scaleY(1.1); opacity: 1; } }
     @keyframes oceanWave2 { 0% { transform: translateX(5vw); opacity: 0.5; } 100% { transform: translateX(-5vw); opacity: 1; } }
 
-    /* 6 FISHES (No waiting) */
-    .cyber-fish { position: fixed; z-index: -5; opacity: 0; pointer-events: none; display: none; filter: drop-shadow(0 0 10px rgba(0,243,255,0.8)); }
+    /* 6 Fishes mapped properly to load instantly with negative delays */
+    .cyber-fish { 
+      position: fixed; 
+      z-index: -5; 
+      opacity: 0; 
+      pointer-events: none; 
+      display: none; 
+      filter: drop-shadow(0 0 10px rgba(0,243,255,0.8)); 
+    }
     body.ocean-unlocked .cyber-fish { display: block; animation: swimFish linear infinite; }
+    
     .fish1 { top: 65%; left: -10%; animation-duration: 18s; animation-delay: -2s; font-size: 1.8rem; }
     .fish2 { top: 80%; left: -10%; animation-duration: 22s; animation-delay: -10s; font-size: 1.4rem; animation-name: swimFishRev; }
     .fish3 { top: 25%; left: -10%; animation-duration: 15s; animation-delay: -7s; font-size: 1.2rem; }
     .fish4 { top: 45%; left: -10%; animation-duration: 25s; animation-delay: -15s; font-size: 2.2rem; animation-name: swimFishRev; }
     .fish5 { top: 75%; left: -10%; animation-duration: 20s; animation-delay: -5s; font-size: 1.6rem; }
     .fish6 { top: 15%; left: -10%; animation-duration: 19s; animation-delay: -12s; font-size: 1.1rem; animation-name: swimFishRev; }
-    @keyframes swimFish { 0% { left: -10%; opacity: 0; transform: translateY(0); } 15% { opacity: 0.9; transform: translateY(-20px); } 85% { opacity: 0.9; transform: translateY(15px); } 100% { left: 110%; opacity: 0; transform: translateY(0); } }
-    @keyframes swimFishRev { 0% { left: 110%; opacity: 0; transform: scaleX(-1) translateY(0); } 15% { opacity: 0.8; transform: scaleX(-1) translateY(-10px); } 85% { opacity: 0.8; transform: scaleX(-1) translateY(20px); } 100% { left: -10%; opacity: 0; transform: scaleX(-1) translateY(0); } }
-
-    /* MODALS & UI */
-    .overlay-screen { position: fixed; inset: 0; background: rgba(4,7,14,0.95); z-index: 9900; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 14px; text-align: center; }
-    .overlay-hidden { display: none !important; }
-    .modal-card { width: 100%; max-width: 450px; background: #081226; border: 2px solid var(--neon-cyan); border-radius: 20px; padding: 20px; box-shadow: 0 0 35px rgba(0, 243, 255, 0.4); color: #fff; }
-    .primary-neon-btn { background: linear-gradient(90deg, #00e676, #00b0ff); color: #001824; font-weight: 900; font-size: 0.92rem; padding: 12px 20px; border: 2px solid #ffffff; border-radius: 12px; cursor: pointer; text-transform: uppercase; width: 100%; margin-bottom: 10px; }
-    .cyber-btn { background: rgba(0, 24, 48, 0.92); color: #00f3ff; border: 1px solid var(--neon-cyan); padding: 10px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-bottom: 8px; }
-    .lobby-input { background: rgba(0, 0, 0, 0.55); border: 1px solid rgba(0, 243, 255, 0.4); border-radius: 6px; color: #fff; padding: 5px 8px; font-size: 0.76rem; width: 100%; outline: none; }
     
-    .top-app-bar { width: 100%; max-width: 660px; display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: rgba(5, 12, 28, 0.98); border-bottom: 2px solid var(--neon-cyan); z-index: 50; }
-    .menu-icon-btn { background: transparent; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; }
-    .coin-badge { background: rgba(255, 204, 0, 0.16); border: 1.5px solid var(--accent-gold); color: var(--accent-gold); padding: 5px 12px; border-radius: 14px; font-weight: 900; font-size: 0.85rem; }
+    @keyframes swimFish { 
+      0% { left: -10%; opacity: 0; transform: translateY(0); } 
+      15% { opacity: 0.9; transform: translateY(-20px); } 
+      85% { opacity: 0.9; transform: translateY(15px); } 
+      100% { left: 110%; opacity: 0; transform: translateY(0); } 
+    }
+    @keyframes swimFishRev { 
+      0% { left: 110%; opacity: 0; transform: scaleX(-1) translateY(0); } 
+      15% { opacity: 0.8; transform: scaleX(-1) translateY(-10px); } 
+      85% { opacity: 0.8; transform: scaleX(-1) translateY(20px); } 
+      100% { left: -10%; opacity: 0; transform: scaleX(-1) translateY(0); } 
+    }
 
-    .live-players-bar { width: 100%; max-width: 660px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 6px 10px; z-index: 20; }
-    .player-hud-card { background: rgba(8, 18, 36, 0.92); border: 1.5px solid rgba(0, 243, 255, 0.3); border-radius: 8px; padding: 4px 6px; display: flex; justify-content: space-between; align-items: center; font-size: 0.6rem; font-weight: bold; }
-    .player-hud-card.active-turn { border-color: #00ff66; background: rgba(0, 42, 22, 0.96); box-shadow: 0 0 10px rgba(0, 255, 102, 0.6); }
+    /* =========================================================
+       4. MODALS & OVERLAYS (Rules, Lobby, Ad)
+       ========================================================= */
+    .overlay-screen { 
+      position: fixed; 
+      inset: 0; 
+      background: rgba(4,7,14,0.95); 
+      z-index: 9900; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
+      padding: 14px; 
+      text-align: center; 
+    }
+    .overlay-hidden { display: none !important; }
+    .modal-card { 
+      width: 100%; 
+      max-width: 450px; 
+      background: #081226; 
+      border: 2px solid var(--neon-cyan); 
+      border-radius: 20px; 
+      padding: 20px; 
+      box-shadow: 0 0 35px rgba(0, 243, 255, 0.4); 
+      color: #fff; 
+    }
+    .primary-neon-btn { 
+      background: linear-gradient(90deg, #00e676, #00b0ff); 
+      color: #001824; 
+      font-weight: 900; 
+      font-size: 0.92rem; 
+      padding: 12px 20px; 
+      border: 2px solid #ffffff; 
+      border-radius: 12px; 
+      cursor: pointer; 
+      text-transform: uppercase; 
+      width: 100%; 
+      margin-bottom: 10px; 
+    }
+    .cyber-btn { 
+      background: rgba(0, 24, 48, 0.92); 
+      color: #00f3ff; 
+      border: 1px solid var(--neon-cyan); 
+      padding: 10px; 
+      border-radius: 8px; 
+      font-weight: 800; 
+      cursor: pointer; 
+      width: 100%; 
+      margin-bottom: 8px; 
+    }
+    .lobby-input { 
+      background: rgba(0, 0, 0, 0.55); 
+      border: 1px solid rgba(0, 243, 255, 0.4); 
+      border-radius: 6px; 
+      color: #fff; 
+      padding: 5px 8px; 
+      font-size: 0.76rem; 
+      width: 100%; 
+      outline: none; 
+    }
+
+    /* =========================================================
+       5. TOP APP BAR & LOBBY BARS
+       ========================================================= */
+    .top-app-bar { 
+      width: 100%; 
+      max-width: 660px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      padding: 10px 16px; 
+      background: rgba(5, 12, 28, 0.98); 
+      border-bottom: 2px solid var(--neon-cyan); 
+      z-index: 50; 
+    }
+    .menu-icon-btn { background: transparent; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; }
+    .coin-badge { 
+      background: rgba(255, 204, 0, 0.16); 
+      border: 1.5px solid var(--accent-gold); 
+      color: var(--accent-gold); 
+      padding: 5px 12px; 
+      border-radius: 14px; 
+      font-weight: 900; 
+      font-size: 0.85rem; 
+    }
+
+    .live-players-bar { 
+      width: 100%; 
+      max-width: 660px; 
+      display: grid; 
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 4px; 
+      padding: 6px 10px; 
+      z-index: 20; 
+    }
+    .player-hud-card { 
+      background: rgba(8, 18, 36, 0.92); 
+      border: 1.5px solid rgba(0, 243, 255, 0.3); 
+      border-radius: 8px; 
+      padding: 4px 6px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      font-size: 0.6rem; 
+      font-weight: bold; 
+    }
+    .player-hud-card.active-turn { 
+      border-color: #00ff66; 
+      background: rgba(0, 42, 22, 0.96); 
+      box-shadow: 0 0 10px rgba(0, 255, 102, 0.6); 
+    }
+
     .lobby-label { font-size: 0.7rem; font-weight: 900; color: #84ffff; margin: 8px 0 4px; display: block; text-align: left; }
     .lobby-pill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 6px; }
     .lobby-pill { background: #061226; border: 1.5px solid rgba(0, 243, 255, 0.35); color: #bfefff; padding: 8px 4px; border-radius: 10px; font-size: 0.7rem; font-weight: 800; cursor: pointer; }
@@ -50,18 +227,58 @@
     .lobby-player-row { display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: center; background: rgba(4, 14, 30, 0.92); border: 1px solid rgba(0, 243, 255, 0.3); border-radius: 10px; padding: 5px 8px; margin-bottom: 5px; }
     .role-btn { background: rgba(0, 243, 255, 0.15); border: 1px solid #00f3ff; color: #00f3ff; padding: 5px 7px; border-radius: 6px; font-size: 0.65rem; font-weight: 900; cursor: pointer; min-width: 68px; }
 
-    /* 3D ARENA & THEMES */
-    .arena-stage { flex: 1 1 auto; width: 100%; max-width: 660px; min-height: 0 !important; padding: 10px; display: flex; justify-content: center; align-items: center; position: relative; perspective: 850px; }
-    .hybrid-board-frame { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background: transparent !important; border: none !important; box-shadow: none !important; transform-style: flat !important; }
-    .square-arena-box { position: relative; width: min(90vw, 58dvh); height: min(90vw, 58dvh); aspect-ratio: 1/1; border: 2px solid var(--neon-cyan); border-radius: 12px; background: rgba(3, 10, 24, 0.95); overflow: visible; transition: transform 0.5s ease; }
+    /* =========================================================
+       6. 3D ARENA & THEMES
+       ========================================================= */
+    .arena-stage { 
+      flex: 1 1 auto; 
+      width: 100%; 
+      max-width: 660px; 
+      min-height: 0 !important; 
+      padding: 10px; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      position: relative; 
+      perspective: 850px; 
+    }
     
+    .hybrid-board-frame { 
+      width: 100%; 
+      height: 100%; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      background: transparent !important; 
+      border: none !important; 
+      box-shadow: none !important; 
+      transform-style: flat !important; 
+    }
+    
+    .square-arena-box { 
+      position: relative; 
+      width: min(90vw, 58dvh); 
+      height: min(90vw, 58dvh); 
+      aspect-ratio: 1/1; 
+      border: 2px solid var(--neon-cyan); 
+      border-radius: 12px; 
+      background: rgba(3, 10, 24, 0.95); 
+      overflow: visible; 
+      transition: transform 0.5s ease; 
+    }
+    
+    /* Active Themes Configuration */
     body.board-glass .square-arena-box { background: rgba(2, 6, 18, 0.35); backdrop-filter: blur(5px); border: 2px solid rgba(0, 243, 255, 0.6); box-shadow: 0 15px 40px rgba(0, 243, 255, 0.2); }
     body.ocean-unlocked .square-arena-box { background: rgba(2, 6, 18, 0.35) !important; backdrop-filter: blur(5px); border: 2px solid rgba(0, 243, 255, 0.6); box-shadow: 0 15px 40px rgba(0, 243, 255, 0.2); }
     body.board-gold .square-arena-box { background: radial-gradient(circle, #2b1d03 0%, #090600 90%); border-color: #ffd700; }
     body.board-matrix .square-arena-box { background: linear-gradient(180deg, #011405 0%, #000601 100%); border-color: #00ff41; }
+    
+    /* 3D Perspective Mode */
     body.trailer-3d-active .square-arena-box { transform-origin: 50% 85%; transform: rotateX(28deg) translateZ(50px) scale(0.92); z-index: 50; box-shadow: 0 25px 35px rgba(0,0,0,0.8); }
 
-    /* LUDO GRIDS (Fixed base mapping) */
+    /* =========================================================
+       7. LUDO GRID (Perfect Base Alignments)
+       ========================================================= */
     .real-ludo-15x15 { position: absolute; inset: 4px; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); gap: 1.5px; }
     .ludo-corner-base { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); place-items: center; padding: 6px; border-radius: 8px; position: relative; }
     
@@ -80,51 +297,99 @@
     .matrix-tile { background: rgba(10, 24, 48, 0.88); border: 1px solid rgba(0, 243, 255, 0.28); border-radius: 3px; display: flex; justify-content: center; align-items: center; font-size: clamp(0.55rem, 1.8vw, 0.76rem); font-weight: 800; color: rgba(215, 248, 255, 0.92); }
     .snakes-ladders-svg { position: absolute; inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); pointer-events: none; z-index: 3; }
 
-    /* TOKENS, GLOW & SPARKLES */
-    .board-live-token, .ludo-live-token { width: 70%; height: 70%; max-width: 26px; max-height: 26px; border-radius: 50%; border: 2px solid #ffffff; position: absolute; z-index: 20; display: flex; justify-content: center; align-items: center; font-size: 0.6rem; font-weight: 900; color: #000; box-shadow: 0 4px 6px rgba(0,0,0,0.6); transition: transform 0.3s ease-out; }
+    /* =========================================================
+       8. TOKENS, GLOW & SPARKLE ANIMATIONS (Slow & Smooth)
+       ========================================================= */
+    .board-live-token, .ludo-live-token { 
+      width: 70%; 
+      height: 70%; 
+      max-width: 26px; 
+      max-height: 26px; 
+      border-radius: 50%; 
+      border: 2px solid #ffffff; 
+      position: absolute; 
+      z-index: 20; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      font-size: 0.6rem; 
+      font-weight: 900; 
+      color: #000; 
+      box-shadow: 0 4px 6px rgba(0,0,0,0.6); 
+      transition: transform 0.35s ease-out; 
+    }
     body.trailer-3d-active .board-live-token, body.trailer-3d-active .ludo-live-token { transform: translateY(-30%) scale(0.95) !important; }
+    
     .token-p1 { background: #00ff66; } .token-p2 { background: #ff1744; color: #fff; } .token-p3 { background: #ffe600; } .token-p4 { background: #00f3ff; }
     
-    .hop-anim { animation: tokenHop 0.3s ease; }
+    .hop-anim { animation: tokenHop 0.35s ease; }
     .highlight-token { box-shadow: 0 0 15px #fff, 0 0 30px var(--neon-cyan) !important; animation: bounceGlow 0.7s infinite alternate; cursor: pointer; z-index: 100 !important; border-width: 3px; }
     @keyframes bounceGlow { 0% { transform: scale(1); } 100% { transform: scale(1.25); } }
     @keyframes tokenHop { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.45) translateY(-8px); } }
     
-    .sparkle-fx { position: absolute; width: 8px; height: 8px; background: #fff; border-radius: 50%; box-shadow: 0 0 10px #00f3ff, 0 0 20px #ffd700; pointer-events: none; animation: sparkRise 0.6s ease-out forwards; z-index: 99; left:50%; top:50%; }
+    .sparkle-fx { 
+      position: absolute; 
+      width: 8px; 
+      height: 8px; 
+      background: #fff; 
+      border-radius: 50%; 
+      box-shadow: 0 0 10px #00f3ff, 0 0 20px #ffd700; 
+      pointer-events: none; 
+      animation: sparkRise 0.6s ease-out forwards; 
+      z-index: 99; 
+      left:50%; 
+      top:50%; 
+    }
     @keyframes sparkRise { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -200%) scale(0); opacity: 0; } }
 
-    /* BOTTOM DOCK & AD VIDEO */
+    /* =========================================================
+       9. BOTTOM DOCK & AD VIDEO PLAYER
+       ========================================================= */
     .bottom-mobile-dock { width: 96%; max-width: 660px; height: 75px; margin: 0 auto 10px; padding: 6px 15px; display: flex; justify-content: space-between; align-items: center; background: rgba(5, 12, 28, 0.98); border: 2px solid var(--neon-cyan); border-radius: 20px; box-shadow: 0 -4px 20px rgba(0,0,0,0.6); z-index: 8000; }
     .dice-cube-btn { width: 55px; height: 55px; background: linear-gradient(145deg, #ffffff, #cfd8dc); border: 2.5px solid var(--neon-cyan); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; }
     #adVideoPlayer { width: 100%; border-radius: 8px; margin-bottom: 10px; border: 2px solid #00f3ff; display: none; background: #000; }
+    .dock-col { display: flex; flex-direction: column; justify-content: center; gap: 4px; }
   </style>
 </head>
-<body class="board-solid">
+  <body class="board-solid">
 
-  <!-- 6 VIP FISHES -->
-  <div class="cyber-fish fish1">🐟</div> <div class="cyber-fish fish2">🐠</div> <div class="cyber-fish fish3">🐟</div>
-  <div class="cyber-fish fish4">🐡</div> <div class="cyber-fish fish5">🐠</div> <div class="cyber-fish fish6">🦈</div>
+  <!-- =========================================================
+       1. VIP OCEAN FISHES (Visible immediately on Ocean theme)
+       ========================================================= -->
+  <div class="cyber-fish fish1">🐟</div> 
+  <div class="cyber-fish fish2">🐠</div> 
+  <div class="cyber-fish fish3">🐟</div>
+  <div class="cyber-fish fish4">🐡</div> 
+  <div class="cyber-fish fish5">🐠</div> 
+  <div class="cyber-fish fish6">🦈</div>
 
-  <!-- AETHERBYTE LOGO SPLASH -->
+  <!-- =========================================================
+       2. AETHERBYTE STUDIO LOGO SPLASH SCREEN
+       ========================================================= -->
   <div id="splashStudio" class="overlay-screen">
     <img src="aetherbyte-logo.jpg" alt="AetherByte Studios" style="width: 240px; height: 240px; border-radius: 50%; border: 3px solid #00f3ff; box-shadow: 0 0 50px rgba(0, 243, 255, 0.7); animation: pulseGlow 1.5s infinite alternate; object-fit: cover;">
     <div style="margin-top: 18px; font-size: 1.4rem; font-weight: 900; letter-spacing: 5px; color: #00f3ff;">AETHERBYTE</div>
   </div>
 
-  <!-- TOP BAR -->
+  <!-- =========================================================
+       3. TOP APP BAR & PLAYER HUD
+       ========================================================= -->
   <header class="top-app-bar">
     <button class="menu-icon-btn" onclick="document.getElementById('appMenuModal').classList.remove('overlay-hidden')">☰</button>
     <div class="sign-main-title">LUDO WARS</div>
     <div class="coin-badge">🪙 <span id="coinCount">1200</span></div>
   </header>
 
-  <!-- PLAYER STATUS BAR -->
   <section class="live-players-bar">
-    <div class="player-hud-card active-turn" id="hudCard-0"></div><div class="player-hud-card" id="hudCard-1"></div>
-    <div class="player-hud-card" id="hudCard-2"></div><div class="player-hud-card" id="hudCard-3"></div>
+    <div class="player-hud-card active-turn" id="hudCard-0"></div>
+    <div class="player-hud-card" id="hudCard-1"></div>
+    <div class="player-hud-card" id="hudCard-2"></div>
+    <div class="player-hud-card" id="hudCard-3"></div>
   </section>
 
-  <!-- MAIN ARENA -->
+  <!-- =========================================================
+       4. MAIN GAME ARENA (LUDO & SNAKES GRIDS)
+       ========================================================= -->
   <main class="arena-stage">
     <div class="hybrid-board-frame">
       <div class="square-arena-box" id="ludoBoardSquare">
@@ -137,7 +402,9 @@
 
   <div style="text-align:center; color:#00ff66; font-size:0.85rem; font-weight:bold; height:20px;" id="statusText"></div>
 
-  <!-- BOTTOM DOCK -->
+  <!-- =========================================================
+       5. BOTTOM MOBILE DOCK (RAGE, DICE)
+       ========================================================= -->
   <footer class="bottom-mobile-dock">
     <div class="dock-col">
       <div class="rage-meter-wrap" id="rageBarBox" style="width: 118px; background: rgba(20, 0, 8, 0.9); border: 1.5px solid #ff1744; border-radius: 8px; padding: 2px 6px;">
@@ -150,7 +417,10 @@
     <div style="font-size:1.4rem; font-weight:bold; color:#ff1744; background:#1a0005; padding:5px 15px; border-radius:8px; border:1px solid #ff1744;" id="lastRollBadge">6</div>
   </footer>
 
-  <!-- HAMBURGER MENU -->
+  <!-- =========================================================
+       6. ALL MODALS & OVERLAYS
+       ========================================================= -->
+  <!-- Hamburger Menu -->
   <div id="appMenuModal" class="overlay-screen overlay-hidden">
     <div class="modal-card">
       <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #00f3ff; padding-bottom:10px;">
@@ -160,7 +430,7 @@
       <button class="primary-neon-btn" onclick="document.getElementById('appMenuModal').classList.add('overlay-hidden'); document.getElementById('preMatchLobby').classList.remove('overlay-hidden');">⚙️ Match Lobby</button>
       <button class="primary-neon-btn" style="background:linear-gradient(90deg, #ff007f, #7000ff);" onclick="document.body.classList.toggle('trailer-3d-active'); document.getElementById('appMenuModal').classList.add('overlay-hidden');">🎥 Toggle 3D View</button>
       
-      <!-- ALL THEMES -->
+      <!-- Themes Dropdown restored -->
       <div style="margin-top:10px; margin-bottom:10px; text-align:left;">
         <span style="color:#00ff66; font-size:0.8rem; font-weight:bold;">🎨 THEMES:</span>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:5px;">
@@ -175,12 +445,17 @@
     </div>
   </div>
 
-  <!-- VIDEO AD MODAL -->
+  <!-- Video Ad Modal -->
   <div id="premiumOceanModal" class="overlay-screen overlay-hidden">
     <div class="modal-card">
       <div style="font-size: 1.25rem; font-weight: 900; color: #00f3ff; margin-bottom: 8px;" id="adModalTitle">🌊 VIP OCEAN THEME</div>
       <p id="adModalDesc" style="font-size:0.8rem; color:#bfefff; margin-bottom:15px;">Watch Video Ad to unlock transparent board & fishes!</p>
-      <video id="adVideoPlayer" playsinline preload="auto"><source src="your-video-ad.mp4" type="video/mp4"></video>
+      
+      <!-- Video Element -->
+      <video id="adVideoPlayer" playsinline preload="auto">
+        <source src="your-video-ad.mp4" type="video/mp4"> <!-- TERA ASLI VIDEO YAHAN DALEGA -->
+      </video>
+      
       <div id="adBtnGroup">
         <button class="primary-neon-btn" onclick="watchOceanAd()">📺 Watch Ad (Unlock)</button>
         <button class="primary-neon-btn" style="background:#ffd700; color:#000;" onclick="buyOceanCoins()">🪙 Pay 30 Coins</button>
@@ -189,7 +464,7 @@
     </div>
   </div>
 
-  <!-- LOBBY -->
+  <!-- Pre-Match Lobby (Name default removed, 3 Player added) -->
   <div id="preMatchLobby" class="overlay-screen overlay-hidden">
     <div class="modal-card">
       <div style="font-size:1.15rem; font-weight:900; color:#00f3ff; margin-bottom:8px;">⚙️ MATCH LOBBY</div>
@@ -210,7 +485,7 @@
     </div>
   </div>
 
-  <!-- RULES & VICTORY -->
+  <!-- Rules -->
   <div id="rulesModal" class="overlay-screen overlay-hidden" style="background:rgba(2,6,18,0.92);">
     <div class="modal-card" style="text-align:left;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -224,6 +499,7 @@
     </div>
   </div>
 
+  <!-- Victory -->
   <div id="victoryModal" class="overlay-screen overlay-hidden">
     <div class="modal-card" style="border-color:#ffd700;">
       <div style="font-size:3rem;">👑🎆</div>
@@ -233,9 +509,9 @@
     </div>
   </div>
 
-  <div id="cyberEventBanner" class="overlay-screen overlay-hidden" style="background:transparent; pointer-events:none;"><div style="background:rgba(6,16,36,0.96); border:2px solid #00f3ff; border-radius:14px; padding:10px 20px; box-shadow:0 0 30px rgba(0,243,255,0.65);"><div id="eventBannerTitle" style="font-size:0.95rem; font-weight:900; color:#00f3ff;"></div><div id="eventBannerSub" style="font-size:0.76rem; color:#d8f8ff; margin-top:3px;"></div></div></div>
-
-  <!-- JAVASCRIPT ENGINE (All fixes integrated) -->
+  <!-- =========================================================
+       7. MASTER JAVASCRIPT ENGINE (All fixes integrated)
+       ========================================================= -->
   <script>
     let coins = 1200;
     let isTurnLocked = false;
@@ -247,19 +523,44 @@
     let currentRoll = 0;
     const isSnakesMode = () => (activeMode === 'snakes');
 
-    function switchBoardTheme(themeName) { document.body.className = ''; document.body.classList.add(themeName); document.getElementById('appMenuModal').classList.add('overlay-hidden'); }
+    function switchBoardTheme(themeName) { 
+      document.body.className = ''; 
+      document.body.classList.add(themeName); 
+      document.getElementById('appMenuModal').classList.add('overlay-hidden'); 
+    }
 
-    // BALANCED SNAKES & LADDERS MAP
+    // BALANCED SNAKES & LADDERS MAP (Full board coverage)
     const ladderMap = { 4: 25, 13: 46, 21: 82, 33: 74, 50: 69, 62: 99, 71: 92 };
     const snakeMap  = { 98: 28, 94: 54, 88: 36, 81: 41, 67: 24, 48: 15, 32: 6, 17: 4 };
-    const SNAKE_GEO_LIST = [ { head: 98, tail: 28, theme: 'emerald', coils: 3.5, amp: 65, flip: 1, scale: 1.05 }, { head: 94, tail: 54, theme: 'NeonGreen', coils: 2.0, amp: 55, flip: -1, scale: 0.95 }, { head: 88, tail: 36, theme: 'crimson', coils: 2.5, amp: 64, flip: 1, scale: 1.00 }, { head: 81, tail: 41, theme: 'purple', coils: 2.0, amp: 45, flip: 1, scale: 0.90 }, { head: 67, tail: 24, theme: 'emerald', coils: 2.5, amp: 64, flip: -1, scale: 0.95 }, { head: 48, tail: 15, theme: 'purple', coils: 2.0, amp: 54, flip: 1, scale: 0.90 }, { head: 32, tail: 6, theme: 'gold', coils: 1.5, amp: 45, flip: -1, scale: 0.85 }, { head: 17, tail: 4, theme: 'crimson', coils: 1.4, amp: 38, flip: -1, scale: 0.80 } ];
+    const SNAKE_GEO_LIST = [ 
+      { head: 98, tail: 28, theme: 'emerald', coils: 3.5, amp: 65, flip: 1, scale: 1.05 }, 
+      { head: 94, tail: 54, theme: 'NeonGreen', coils: 2.0, amp: 55, flip: -1, scale: 0.95 }, 
+      { head: 88, tail: 36, theme: 'crimson', coils: 2.5, amp: 64, flip: 1, scale: 1.00 }, 
+      { head: 81, tail: 41, theme: 'purple', coils: 2.0, amp: 45, flip: 1, scale: 0.90 }, 
+      { head: 67, tail: 24, theme: 'emerald', coils: 2.5, amp: 64, flip: -1, scale: 0.95 }, 
+      { head: 48, tail: 15, theme: 'purple', coils: 2.0, amp: 54, flip: 1, scale: 0.90 }, 
+      { head: 32, tail: 6, theme: 'gold', coils: 1.5, amp: 45, flip: -1, scale: 0.85 }, 
+      { head: 17, tail: 4, theme: 'crimson', coils: 1.4, amp: 38, flip: -1, scale: 0.80 } 
+    ];
+    
+    // LUDO OUTER PATH
     const LUDO_OUTER_52 = [ [6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7], [0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14], [8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7], [14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0] ];
     
-    // CORRECT BASE MAPPING
-    const LUDO_HOME_PATHS = { 0: [[7,1],[7,2],[7,3],[7,4],[7,5]], 1: [[13,7],[12,7],[11,7],[10,7],[9,7]], 2: [[1,7],[2,7],[3,7],[4,7],[5,7]], 3: [[7,13],[7,12],[7,11],[7,10],[7,9]] };
+    // CORRECT BASE MAPPING FOR TOKENS (Green=TopLeft(0), Red=BottomLeft(1), Yellow=TopRight(2), Cyan=BottomRight(3))
+    const LUDO_HOME_PATHS = { 
+      0: [[7,1],[7,2],[7,3],[7,4],[7,5]], 
+      1: [[13,7],[12,7],[11,7],[10,7],[9,7]], 
+      2: [[1,7],[2,7],[3,7],[4,7],[5,7]], 
+      3: [[7,13],[7,12],[7,11],[7,10],[7,9]] 
+    };
     const LUDO_START_INDEX = { 0: 1, 1: 40, 2: 14, 3: 27 };
     const LUDO_SAFE_STARS  = [1, 9, 14, 22, 27, 35, 40, 48];
-    const PRESETS = [ {c:'#00ff66', cls:'token-p1'}, {c:'#ff1744', cls:'token-p2'}, {c:'#ffe600', cls:'token-p3'}, {c:'#00f3ff', cls:'token-p4'} ];
+    const PRESETS = [ 
+      {c:'#00ff66', cls:'token-p1'}, 
+      {c:'#ff1744', cls:'token-p2'}, 
+      {c:'#ffe600', cls:'token-p3'}, 
+      {c:'#00f3ff', cls:'token-p4'} 
+    ];
 
     let players = [];
     let lobbyConfig = { mode: 'classic', count: 4, slots: [ { name: '', isAI: false }, { name: '', isAI: true }, { name: '', isAI: true }, { name: '', isAI: true } ] };
@@ -288,6 +589,7 @@
       const matrix = document.getElementById('snakeMatrixGrid'); matrix.innerHTML = '';
       for (let r = 9; r >= 0; r--) { for (let c = 0; c < 10; c++) { const num = r * 10 + (r % 2 === 0 ? (c + 1) : (10 - c)); const cell = document.createElement('div'); cell.className = 'matrix-tile'; cell.id = 'hybrid-tile-' + num; cell.innerHTML = num; matrix.appendChild(cell); } }
     }
+    
     function getTileXY(tileNum) { const z = tileNum - 1, rFromBot = Math.floor(z / 10), rFromTop = 9 - rFromBot; const col = (rFromBot % 2 === 0) ? (z % 10) : (9 - (z % 10)); return { x: col * 100 + 50, y: rFromTop * 100 + 50 }; }
 
     function render3DSnakes() {
@@ -309,20 +611,32 @@
       const box = document.getElementById('lobbyPlayersList'); box.innerHTML = '';
       for (let i = 0; i < lobbyConfig.count; i++) {
         const s = lobbyConfig.slots[i];
+        // Placeholder "Enter your name" used, default name removed
         box.innerHTML += `<div class="lobby-player-row"><input class="lobby-input" placeholder="Enter your name" value="${s.name}" maxlength="10" oninput="lobbyConfig.slots[${i}].name=this.value"/><button class="role-btn ${s.isAI?'is-ai':''}" onclick="lobbyConfig.slots[${i}].isAI=!lobbyConfig.slots[${i}].isAI;renderLobbyRows();">${s.isAI ? '🤖 AI BOT' : '👤 HUMAN'}</button></div>`;
       }
     }
 
     function launchGame() {
       document.getElementById('preMatchLobby').classList.add('overlay-hidden');
-      if(isSnakesMode()) { document.getElementById('realLudoGrid').style.display = 'none'; document.getElementById('snakeMatrixGrid').style.display = 'grid'; document.getElementById('snakesSvg').style.display = 'block'; buildTrue100Grid(); render3DSnakes(); } 
-      else { document.getElementById('realLudoGrid').style.display = 'grid'; document.getElementById('snakeMatrixGrid').style.display = 'none'; document.getElementById('snakesSvg').style.display = 'none'; }
+      
+      if(isSnakesMode()) { 
+        document.getElementById('realLudoGrid').style.display = 'none'; 
+        document.getElementById('snakeMatrixGrid').style.display = 'grid'; 
+        document.getElementById('snakesSvg').style.display = 'block'; 
+        buildTrue100Grid(); render3DSnakes(); 
+      } else { 
+        document.getElementById('realLudoGrid').style.display = 'grid'; 
+        document.getElementById('snakeMatrixGrid').style.display = 'none'; 
+        document.getElementById('snakesSvg').style.display = 'none'; 
+      }
       
       players = []; activePlayerIds = [];
       for(let i=0; i<4; i++) {
-        let nameRaw = lobbyConfig.slots[i].name.trim(); let finalName = nameRaw === '' ? 'P'+(i+1) : nameRaw.substring(0, 5).toUpperCase();
+        let nameRaw = lobbyConfig.slots[i].name.trim(); 
+        let finalName = nameRaw === '' ? 'P'+(i+1) : nameRaw.substring(0, 5).toUpperCase();
         players.push({
           id: i, short: finalName, isAI: lobbyConfig.slots[i].isAI, active: (i < lobbyConfig.count), color: PRESETS[i].c, cls: PRESETS[i].cls, rage: 0, rageUsed: false,
+          // 4 Tokens defined here for Ludo logic
           tokens: [ {step:0, locked:true, done:false, snakePos:1}, {step:0, locked:true, done:false, snakePos:1}, {step:0, locked:true, done:false, snakePos:1}, {step:0, locked:true, done:false, snakePos:1} ]
         });
         if (i < lobbyConfig.count) activePlayerIds.push(i);
@@ -330,6 +644,7 @@
       spawnTokens(); currentTurnIdx = activePlayerIds[0]; isTurnLocked = false; updateHUD();
     }
 
+    // Video Ad & Ocean Unlock logic
     function watchOceanAd() {
       document.getElementById('adBtnGroup').style.display = "none"; document.getElementById('adModalTitle').innerHTML = "📺 AD PLAYING...";
       const video = document.getElementById('adVideoPlayer'); video.style.display = "block";
@@ -341,11 +656,6 @@
     }
     function buyOceanCoins() { let c = parseInt(document.getElementById('coinCount').textContent); if(c >= 30) { document.getElementById('coinCount').textContent = c - 30; finalizeAd(); } else { alert("Not enough coins!"); } }
 
-    function showBanner(title, sub, color) {
-      const b = document.getElementById('cyberEventBanner'); document.getElementById('eventBannerTitle').textContent = title; document.getElementById('eventBannerTitle').style.color = color; document.getElementById('eventBannerSub').textContent = sub;
-      b.classList.remove('overlay-hidden'); setTimeout(() => b.classList.add('overlay-hidden'), 2000);
-    }
-
     function spawnSparkle(cell) { const spark = document.createElement('div'); spark.className = 'sparkle-fx'; cell.appendChild(spark); setTimeout(() => spark.remove(), 600); }
 
     function spawnTokens() {
@@ -353,7 +663,7 @@
       players.forEach(p => {
         if(!p.active) return;
         p.tokens.forEach((t, i) => {
-          if(isSnakesMode() && i > 0) return;
+          if(isSnakesMode() && i > 0) return; // Only 1 token for Snakes
           const tok = document.createElement('div');
           tok.id = `tok-${p.id}-${i}`; tok.className = (isSnakesMode() ? `board-live-token ` : `ludo-live-token `) + p.cls; tok.textContent = isSnakesMode() ? p.short.substring(0,2) : (i+1);
           tok.onclick = () => handleTokenClick(p.id, i); document.body.appendChild(tok); placeToken(p.id, i, false);
@@ -375,27 +685,45 @@
 
     const sleepMS = ms => new Promise(r => setTimeout(r, ms));
 
+    // MAIN 4-TOKEN ENGINE (Slow Speed, User Selection on 6)
     async function triggerCyberDiceRoll() {
       if(isTurnLocked || waitingForSelection) return;
       isTurnLocked = true; clearTimeout(aiTimer);
+      
       const dice = document.getElementById('diceBtn'); dice.innerHTML = "🎲"; await sleepMS(300);
       currentRoll = Math.floor(Math.random() * 6) + 1;
       dice.innerHTML = currentRoll; document.getElementById('lastRollBadge').textContent = currentRoll;
+      
       const p = players[currentTurnIdx]; 
       
-      // Slow Rage (+3%)
+      // Slower Rage (+3%)
       if(currentRoll !== 6 && !p.isAI) { p.rage = Math.min(100, p.rage + 3); }
 
       let validIndices = [];
       p.tokens.forEach((t, i) => {
         if(t.done) return;
-        if(isSnakesMode() && i===0) { if(t.snakePos + currentRoll <= 100) validIndices.push(i); }
-        else if (!isSnakesMode()) { if(t.locked && currentRoll === 6) validIndices.push(i); if(!t.locked && t.step + currentRoll <= 56) validIndices.push(i); }
+        if(isSnakesMode() && i===0) { 
+          if(t.snakePos + currentRoll <= 100) validIndices.push(i); 
+        }
+        else if (!isSnakesMode()) { 
+          if(t.locked && currentRoll === 6) validIndices.push(i); 
+          if(!t.locked && t.step + currentRoll <= 56) validIndices.push(i); 
+        }
       });
 
-      if(validIndices.length === 0) { document.getElementById('statusText').textContent = "No valid moves!"; await sleepMS(800); nextTurn(); } 
-      else if (validIndices.length === 1 || p.isAI) { let chosen = p.isAI ? validIndices[Math.floor(Math.random()*validIndices.length)] : validIndices[0]; await executeMove(p, chosen, currentRoll); } 
-      else { waitingForSelection = true; document.getElementById('statusText').textContent = "TAP A GLOWING TOKEN TO MOVE!"; validIndices.forEach(i => document.getElementById(`tok-${p.id}-${i}`).classList.add('highlight-token')); }
+      if(validIndices.length === 0) { 
+        document.getElementById('statusText').textContent = "No valid moves!"; await sleepMS(800); nextTurn(); 
+      } 
+      else if (validIndices.length === 1 || p.isAI) { 
+        let chosen = p.isAI ? validIndices[Math.floor(Math.random()*validIndices.length)] : validIndices[0]; 
+        await executeMove(p, chosen, currentRoll); 
+      } 
+      else { 
+        // Allows user to click which token to move if multiple are valid (like when rolling a 6)
+        waitingForSelection = true; 
+        document.getElementById('statusText').textContent = "TAP A GLOWING TOKEN TO MOVE!"; 
+        validIndices.forEach(i => document.getElementById(`tok-${p.id}-${i}`).classList.add('highlight-token')); 
+      }
     }
 
     async function handleTokenClick(pId, tIdx) {
@@ -409,24 +737,35 @@
       let t = p.tokens[tIdx]; let extraTurn = (roll === 6);
 
       if(!isSnakesMode()) {
-        if(t.locked) { t.locked = false; t.step = 0; placeToken(p.id, tIdx, true); await sleepMS(300); } 
+        if(t.locked) { t.locked = false; t.step = 0; placeToken(p.id, tIdx, true); await sleepMS(350); } 
         else {
-          for(let s=1; s<=roll; s++) { t.step++; placeToken(p.id, tIdx, true); await sleepMS(300); } // Slower (300ms)
+          // Slow Token Movement (300ms) + Sparkles
+          for(let s=1; s<=roll; s++) { t.step++; placeToken(p.id, tIdx, true); await sleepMS(300); } 
+          
           if(t.step === 56) {
             t.done = true; placeToken(p.id, tIdx, true); extraTurn = true;
             if(p.tokens.every(tk => tk.done)) { document.getElementById('victoryWinnerText').textContent = p.short + " WINS!"; document.getElementById('victoryModal').classList.remove('overlay-hidden'); return; }
           } else if (t.step <= 50) {
             const myOuter = (LUDO_START_INDEX[p.id] + t.step) % 52;
             if(!LUDO_SAFE_STARS.includes(myOuter)) {
-              players.forEach(opp => { if(opp.active && opp.id !== p.id) { opp.tokens.forEach((oppT, oppIdx) => { if(!oppT.locked && !oppT.done && oppT.step <= 50 && ((LUDO_START_INDEX[opp.id] + oppT.step) % 52) === myOuter) { oppT.locked = true; oppT.step = 0; placeToken(opp.id, oppIdx, true); extraTurn = true; document.getElementById('statusText').textContent = "GOTI CUT! +1 Extra Turn!"; } }); } });
+              players.forEach(opp => { 
+                if(opp.active && opp.id !== p.id) { 
+                  opp.tokens.forEach((oppT, oppIdx) => { 
+                    if(!oppT.locked && !oppT.done && oppT.step <= 50 && ((LUDO_START_INDEX[opp.id] + oppT.step) % 52) === myOuter) { 
+                      oppT.locked = true; oppT.step = 0; placeToken(opp.id, oppIdx, true); extraTurn = true; document.getElementById('statusText').textContent = "GOTI CUT! +1 Extra Turn!"; 
+                    } 
+                  }); 
+                } 
+              });
             }
           }
         }
       } else {
-        // Snakes Mode (No Cutting)
+        // Snakes Mode (No Cutting Rule Applied Here)
         for(let s=1; s<=roll; s++) { t.snakePos++; placeToken(p.id, tIdx, true); await sleepMS(300); }
         if(ladderMap[t.snakePos]) { t.snakePos = ladderMap[t.snakePos]; placeToken(p.id, tIdx, true); extraTurn = true; await sleepMS(500); }
         else if (snakeMap[t.snakePos]) { t.snakePos = snakeMap[t.snakePos]; placeToken(p.id, tIdx, true); await sleepMS(500); }
+        
         if(t.snakePos === 100) {
           t.done = true; placeToken(p.id, tIdx, true);
           if(p.tokens.every(tk => tk.done)) { document.getElementById('victoryWinnerText').textContent = p.short + " WINS!"; document.getElementById('victoryModal').classList.remove('overlay-hidden'); return; }
@@ -456,3 +795,5 @@
   </script>
 </body>
 </html>
+  
+</head>
